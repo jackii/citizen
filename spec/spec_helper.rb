@@ -12,9 +12,9 @@ Spork.prefork do
   require File.expand_path("../dummy/config/environment.rb",  __FILE__)
   require 'rspec/rails'
 
-  # Requires supporting ruby files with custom matchers and macros, etc,
-  # in spec/support/ and its subdirectories.
-  Dir[File.expand_path("../support/**/*.rb", __FILE__)].each {|f| require f}
+  Rails.backtrace_cleaner.remove_silencers!
+
+  Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
 
   # Prevent Spork from caching the engine's classes (see above).
   Rails.application.railties.all do |railtie|
