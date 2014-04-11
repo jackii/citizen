@@ -15,15 +15,15 @@
 }%%
 
 module CitizenBudgetModel
-  # Validates the format of simple mathematical formula.
-  class FormulaValidator < ActiveModel::EachValidator
+  # Validates the format of simple mathematical equation.
+  class EquationValidator < ActiveModel::EachValidator
     %% write data;
     #% # fix highlighting
 
-    # Returns whether a formula is valid.
+    # Returns whether an equation is valid.
     #
-    # @param [String] value a formula
-    # @return [Boolean] whether the formula is valid
+    # @param [String] value an equation
+    # @return [Boolean] whether the equation is valid
     # @see http://stackoverflow.com/questions/12015684/simple-ragel-example-that-balances-parentheses
     def self.valid?(value)
       data = value.unpack('c*')

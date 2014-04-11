@@ -1,14 +1,14 @@
 
-# line 1 "app/validators/citizen_budget_model/formula_validator.rl"
+# line 1 "app/validators/citizen_budget_model/equation_validator.rl"
 
-# line 15 "app/validators/citizen_budget_model/formula_validator.rl"
+# line 15 "app/validators/citizen_budget_model/equation_validator.rl"
 
 
 module CitizenBudgetModel
-  # Validates the format of simple mathematical formula.
-  class FormulaValidator < ActiveModel::EachValidator
+  # Validates the format of simple mathematical equation.
+  class EquationValidator < ActiveModel::EachValidator
     
-# line 12 "app/validators/citizen_budget_model/formula_validator.rb"
+# line 12 "app/validators/citizen_budget_model/equation_validator.rb"
 class << self
 	attr_accessor :_validator_actions
 	private :_validator_actions, :_validator_actions=
@@ -143,20 +143,20 @@ end
 self.validator_en_main = 1;
 
 
-# line 21 "app/validators/citizen_budget_model/formula_validator.rl"
+# line 21 "app/validators/citizen_budget_model/equation_validator.rl"
     #% # fix highlighting
 
-    # Returns whether a formula is valid.
+    # Returns whether an equation is valid.
     #
-    # @param [String] value a formula
-    # @return [Boolean] whether the formula is valid
+    # @param [String] value an equation
+    # @return [Boolean] whether the equation is valid
     # @see http://stackoverflow.com/questions/12015684/simple-ragel-example-that-balances-parentheses
     def self.valid?(value)
       data = value.unpack('c*')
       stack = []
 
       
-# line 160 "app/validators/citizen_budget_model/formula_validator.rb"
+# line 160 "app/validators/citizen_budget_model/equation_validator.rb"
 begin
 	p ||= 0
 	pe ||= data.length
@@ -164,9 +164,9 @@ begin
 	top = 0
 end
 
-# line 33 "app/validators/citizen_budget_model/formula_validator.rl"
+# line 33 "app/validators/citizen_budget_model/equation_validator.rl"
       
-# line 170 "app/validators/citizen_budget_model/formula_validator.rb"
+# line 170 "app/validators/citizen_budget_model/equation_validator.rb"
 begin
 	_klen, _trans, _keys, _acts, _nacts = nil
 	_goto_level = 0
@@ -248,7 +248,7 @@ begin
 			_acts += 1
 			case _validator_actions[_acts - 1]
 when 0 then
-# line 8 "app/validators/citizen_budget_model/formula_validator.rl"
+# line 8 "app/validators/citizen_budget_model/equation_validator.rl"
 		begin
  	begin
 		stack[top] = cs
@@ -260,7 +260,7 @@ when 0 then
 	end
  		end
 when 1 then
-# line 12 "app/validators/citizen_budget_model/formula_validator.rl"
+# line 12 "app/validators/citizen_budget_model/equation_validator.rl"
 		begin
  	begin
 		top -= 1
@@ -270,7 +270,7 @@ when 1 then
 		break
 	end
  		end
-# line 274 "app/validators/citizen_budget_model/formula_validator.rb"
+# line 274 "app/validators/citizen_budget_model/equation_validator.rb"
 			end # action switch
 		end
 	end
@@ -297,7 +297,7 @@ when 1 then
 	end
 	end
 
-# line 34 "app/validators/citizen_budget_model/formula_validator.rl"
+# line 34 "app/validators/citizen_budget_model/equation_validator.rl"
 
       # Ensure all parentheses are closed and the state machine is in a final state.
       top.zero? && cs >= validator_first_final

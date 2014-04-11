@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe CitizenBudgetModel::FormulaValidator do
+describe CitizenBudgetModel::EquationValidator do
   describe '.valid?' do
-    it 'should return true if the formula is valid' do
+    it 'should return true if the equation is valid' do
       [ # number
         '1',
         '12',
@@ -34,12 +34,12 @@ describe CitizenBudgetModel::FormulaValidator do
         ' 1 + 1 ',
         # double negative
         '1 - -1',
-      ].each do |formula|
-        CitizenBudgetModel::FormulaValidator.valid?(formula).should == true
+      ].each do |equation|
+        CitizenBudgetModel::EquationValidator.valid?(equation).should == true
       end
     end
 
-    it 'should return false if the formula is invalid' do
+    it 'should return false if the equation is invalid' do
       [ '',
         # number
         '1.',
@@ -75,8 +75,8 @@ describe CitizenBudgetModel::FormulaValidator do
         '*',
         # double negative
         '1--1',
-      ].each do |formula|
-        CitizenBudgetModel::FormulaValidator.valid?(formula).should == false
+      ].each do |equation|
+        CitizenBudgetModel::EquationValidator.valid?(equation).should == false
       end
     end
 
@@ -85,9 +85,9 @@ describe CitizenBudgetModel::FormulaValidator do
         Class.new do
           include ActiveModel::Validations
 
-          attr_accessor :formula
+          attr_accessor :equation
 
-          validates :formula, 'citizen_budget_model/formula' => true
+          validates :equation, 'citizen_budget_model/equation' => true
 
           def self.name
             'Thing'
@@ -99,16 +99,16 @@ describe CitizenBudgetModel::FormulaValidator do
         klass.new
       end
 
-      it 'should not add an error if the formula is valid' do
-        instance.formula = '1+1'
+      it 'should not add an error if the equation is valid' do
+        instance.equation = '1+1'
         instance.valid?.should == true
         instance.errors.should be_empty
       end
 
-      it 'should add an error if the formula is invalid' do
-        instance.formula = ''
+      it 'should add an error if the equation is invalid' do
+        instance.equation = ''
         instance.valid?.should == false
-        instance.errors.full_messages.should == ['Formula is invalid']
+        instance.errors.full_messages.should == ['Equation is invalid']
       end
     end
   end
