@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'fast_gettext'
   s.add_dependency 'gettext'
 
-  s.add_development_dependency 'database_cleaner', '~> 0.9'
+  s.add_development_dependency 'database_cleaner', '~> 1.2'
   s.add_development_dependency 'factory_girl_rails', '~> 4.1'
   s.add_development_dependency 'guard-brakeman', '~> 0.5'
   s.add_development_dependency 'guard-bundler', '~> 2.0'
@@ -30,4 +30,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rb-fsevent', '~> 0.9'
   s.add_development_dependency 'rspec-rails', '~> 2.11'
   s.add_development_dependency 'spork-rails', '~> 4.0'
+  s.add_development_dependency 'shoulda-matchers'
+  s.add_development_dependency 'coveralls'
 end

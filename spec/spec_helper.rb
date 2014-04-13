@@ -3,6 +3,9 @@ require 'spork'
 Spork.prefork do
   ENV["RAILS_ENV"] ||= 'test'
 
+  require 'coveralls'
+  Coveralls.wear!
+
   require 'rails/application'
   # Prevent Spork from caching the routes.
   Spork.trap_method(Rails::Application::RoutesReloader, :reload!)
@@ -15,10 +18,20 @@ Spork.prefork do
   Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
 
   require 'database_cleaner'
+  require 'shoulda-matchers'
   require 'factory_girl_rails'
 
   RSpec.configure do |config|
     config.mock_with :rspec
+
+    config.before(:suite) do
+      DatabaseCleaner.strategy = :transaction
+      DatabaseCleaner.clean_with(:truncation)
+    end
+
+    config.before(:each) do
+      DatabaseCleaner.start
+    end
 
     config.after(:each) do
       DatabaseCleaner.clean

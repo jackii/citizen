@@ -1,0 +1,29 @@
+<%= form_for(@simulator) do |f| %>
+  <% if @simulator.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@simulator.errors.count, "error") %> prohibited this simulator from being saved:</h2>
+
+      <ul>
+      <% @simulator.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :equation %><br>
+    <%= f.text_field :equation %>
+  </div>
+  <div class="field">
+    <%= f.label :distribution %><br>
+    <%= f.text_field :distribution %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
