@@ -4,6 +4,25 @@
 [![Dependency Status](https://gemnasium.com/opennorth/citizen_budget_model.png)](https://gemnasium.com/opennorth/citizen_budget_model)
 [![Code Climate](https://codeclimate.com/github/opennorth/citizen_budget_model.png)](https://codeclimate.com/github/opennorth/citizen_budget_model)
 
+
+## Internationalization
+
+Add a new locale:
+
+    bundle exec rake gettext:po:add[locale]
+
+Update po files:
+
+    bundle exec rake gettext:po:update
+
+Update mo files:
+
+    bundle exec rake gettext:mo:update
+
+Create a pot file:
+
+    bundle exec rake gettext:pot:create
+
 ## Bugs? Questions?
 
 This engine's main repository is on GitHub: [http://github.com/opennorth/citizen_budget_model](http://github.com/opennorth/citizen_budget_model), where your contributions, forks, bug reports, feature requests, and feedback are greatly welcomed.

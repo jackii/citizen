@@ -1,4 +1,5 @@
 require 'citizen_budget_model/engine'
+require 'fast_gettext'
 
 module CitizenBudgetModel
   # The parent controller all Popolo controllers inherit from. Defaults to
