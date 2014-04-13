@@ -1,0 +1,2 @@
+class CitizenBudgetModelController < CitizenBudgetModel.parent_controller.constantize
+end
