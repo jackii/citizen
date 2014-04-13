@@ -1,4 +1,11 @@
 require 'citizen_budget_model/engine'
 
 module CitizenBudgetModel
+  # The parent controller all Popolo controllers inherit from. Defaults to
+  # ApplicationController. This should be set early in the initialization
+  # process and should be set to a string.
+  #
+  # @see https://github.com/plataformatec/devise/blob/master/lib/devise.rb#L196
+  mattr_accessor :parent_controller
+  @@parent_controller = 'ApplicationController'
 end
