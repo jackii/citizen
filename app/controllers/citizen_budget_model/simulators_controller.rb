@@ -50,7 +50,7 @@ module CitizenBudgetModel
     end
 
     def simulator_params
-      params.require(:simulator).permit(:name, :equation)
+      params.require(:simulator).permit(:organization_id, :name, :equation)
     end
   end
 end

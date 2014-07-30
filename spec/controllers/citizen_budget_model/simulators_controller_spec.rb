@@ -126,6 +126,5 @@ module CitizenBudgetModel
         response.should redirect_to(simulators_url)
       end
     end
-
   end
 end

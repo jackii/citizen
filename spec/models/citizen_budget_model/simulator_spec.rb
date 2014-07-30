@@ -2,6 +2,8 @@ require 'spec_helper'
 
 module CitizenBudgetModel
   describe Simulator do
-    it { should validate_presence_of :name }
+    [:organization_id, :name].each do |attribute|
+      it { should validate_presence_of attribute }
+    end
   end
 end

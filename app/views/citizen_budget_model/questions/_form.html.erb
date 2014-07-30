@@ -1,0 +1,105 @@
+<%= form_for(@question) do |f| %>
+  <% if @question.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@question.errors.count, "error") %> prohibited this question from being saved:</h2>
+
+      <ul>
+      <% @question.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :section_id %><br>
+    <%= f.text_field :section_id %>
+  </div>
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :machine_name %><br>
+    <%= f.text_field :machine_name %>
+  </div>
+  <div class="field">
+    <%= f.label :default_value %><br>
+    <%= f.text_field :default_value %>
+  </div>
+  <div class="field">
+    <%= f.label :unit_value %><br>
+    <%= f.text_field :unit_value %>
+  </div>
+  <div class="field">
+    <%= f.label :revenue %><br>
+    <%= f.check_box :revenue %>
+  </div>
+  <div class="field">
+    <%= f.label :group %><br>
+    <%= f.text_field :group %>
+  </div>
+  <div class="field">
+    <%= f.label :widget %><br>
+    <%= f.text_field :widget %>
+  </div>
+  <div class="field">
+    <%= f.label :title %><br>
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br>
+    <%= f.text_field :description %>
+  </div>
+  <div class="field">
+    <%= f.label :modal %><br>
+    <%= f.text_field :modal %>
+  </div>
+  <div class="field">
+    <%= f.label :popover %><br>
+    <%= f.text_field :popover %>
+  </div>
+  <div class="field">
+    <%= f.label :labels %><br>
+    <%= f.text_field :labels %>
+  </div>
+  <div class="field">
+    <%= f.label :options %><br>
+    <%= f.text_field :options %>
+  </div>
+  <div class="field">
+    <%= f.label :unit_name %><br>
+    <%= f.text_field :unit_name %>
+  </div>
+  <div class="field">
+    <%= f.label :maxlength %><br>
+    <%= f.number_field :maxlength %>
+  </div>
+  <div class="field">
+    <%= f.label :placeholder %><br>
+    <%= f.text_field :placeholder %>
+  </div>
+  <div class="field">
+    <%= f.label :required %><br>
+    <%= f.check_box :required %>
+  </div>
+  <div class="field">
+    <%= f.label :rows %><br>
+    <%= f.number_field :rows %>
+  </div>
+  <div class="field">
+    <%= f.label :cols %><br>
+    <%= f.number_field :cols %>
+  </div>
+  <div class="field">
+    <%= f.label :size %><br>
+    <%= f.number_field :size %>
+  </div>
+  <div class="field">
+    <%= f.label :position %><br>
+    <%= f.number_field :position %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

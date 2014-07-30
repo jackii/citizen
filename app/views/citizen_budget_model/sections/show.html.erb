@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Belongs to:</strong>
+  <%= @section.belongs_to %>
+</p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @section.title %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @section.description %>
+</p>
+
+<p>
+  <strong>Popover:</strong>
+  <%= @section.popover %>
+</p>
+
+<p>
+  <strong>Modal:</strong>
+  <%= @section.modal %>
+</p>
+
+<p>
+  <strong>Position:</strong>
+  <%= @section.position %>
+</p>
+
+<%= link_to 'Edit', edit_section_path(@section) %> |
+<%= link_to 'Back', sections_path %>

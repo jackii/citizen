@@ -1,0 +1,35 @@
+<h1>Listing sections</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Belongs to</th>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Popover</th>
+      <th>Modal</th>
+      <th>Position</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sections.each do |section| %>
+      <tr>
+        <td><%= section.belongs_to %></td>
+        <td><%= section.title %></td>
+        <td><%= section.description %></td>
+        <td><%= section.popover %></td>
+        <td><%= section.modal %></td>
+        <td><%= section.position %></td>
+        <td><%= link_to 'Show', section %></td>
+        <td><%= link_to 'Edit', edit_section_path(section) %></td>
+        <td><%= link_to 'Destroy', section, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Section', new_section_path %>
