@@ -3,14 +3,14 @@ class CreateCitizenBudgetModelSimulators < ActiveRecord::Migration
     create_table :citizen_budget_model_simulators do |t|
       t.belongs_to :organization, index: true
 
-      t.string :equation
-      t.string :distribution
+      t.string :equation, null: false, default: ''
+      t.string :distribution, null: false, default: ''
 
       t.datetime :deleted_at, index: true
       t.timestamps
     end
     CitizenBudgetModel::Simulator.create_translation_table!({
-      name: :string,
+      name: {type: :string, null: false, default: ''},
     })
   end
 

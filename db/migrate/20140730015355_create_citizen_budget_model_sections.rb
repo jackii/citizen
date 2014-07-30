@@ -7,10 +7,10 @@ class CreateCitizenBudgetModelSections < ActiveRecord::Migration
       t.timestamps
     end
     CitizenBudgetModel::Section.create_translation_table!({
-      title: :string,
-      description: :text,
-      popover: :text,
-      modal: :text,
+      title: {type: :string, null: false, default: ''},
+      description: {type: :text, null: false, default: ''},
+      popover: {type: :text, null: false, default: ''},
+      modal: {type: :text, null: false, default: ''},
     })
   end
 

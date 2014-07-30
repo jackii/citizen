@@ -4,21 +4,21 @@ class CreateCitizenBudgetModelQuestions < ActiveRecord::Migration
       t.belongs_to :section, index: true
 
       # Simulation
-      t.string :machine_name
+      t.string :machine_name, null: false, default: ''
       t.float :default_value
       t.float :unit_value
-      t.string :account
+      t.string :account, null: false, default: ''
 
       # Widget
-      t.string :widget
+      t.string :widget, null: false, default: ''
       t.float_array :options
 
       # Widget text
-      t.boolean :revenue
+      t.boolean :revenue, default: false
 
       # HTML attributes
       t.integer :maxlength
-      t.boolean :required
+      t.boolean :required, default: false
       t.integer :rows
       t.integer :cols
       t.integer :size
@@ -28,22 +28,22 @@ class CreateCitizenBudgetModelQuestions < ActiveRecord::Migration
     end
     CitizenBudgetModel::Organization.create_translation_table!({
       # Simulation
-      name: :string,
+      name: {type: :string, null: false, default: ''},
 
       # Question text
-      title: :text,
-      description: :text,
-      modal: :text,
-      popover: :text,
+      title: {type: :text, null: false, default: ''},
+      description: {type: :text, null: false, default: ''},
+      modal: {type: :text, null: false, default: ''},
+      popover: {type: :text, null: false, default: ''},
 
       # Widget
       labels: :string_array,
 
       # Widget text
-      unit_name: :string,
+      unit_name: {type: :string, null: false, default: ''},
 
       # HTML attributes
-      placeholder: :string,
+      placeholder: {type: :string, null: false, default: ''},
     })
   end
 

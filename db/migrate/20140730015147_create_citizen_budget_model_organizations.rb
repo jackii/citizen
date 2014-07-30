@@ -5,7 +5,7 @@ class CreateCitizenBudgetModelOrganizations < ActiveRecord::Migration
       t.timestamps
     end
     CitizenBudgetModel::Organization.create_translation_table!({
-      name: :string,
+      name: {type: :string, null: false, default: ''},
     })
   end
 
