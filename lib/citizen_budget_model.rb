@@ -1,3 +1,4 @@
+require 'devise'
 require 'citizen_budget_model/engine'
 require 'fast_gettext'
 

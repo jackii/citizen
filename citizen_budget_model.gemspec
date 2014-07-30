@@ -18,8 +18,9 @@ Gem::Specification.new do |s|
   s.add_dependency 'rails', '~> 4.1.0'
   s.add_dependency 'acts_as_list', '~> 0.4.0'
   s.add_dependency 'globalize', '~> 4.0.2'
-  s.add_dependency 'paranoia', '~> 2.0'
+  s.add_dependency 'paranoia', '~> 2.0.2'
   s.add_dependency 'pg'
+  s.add_dependency 'devise', '~> 3.2.4'
   s.add_dependency 'fast_gettext'
   s.add_dependency 'gettext'
 
