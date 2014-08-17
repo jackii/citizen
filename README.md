@@ -28,6 +28,7 @@ Create a pot file:
     bundle exec RAILS_ENV=test rake db:create
     bundle exec RAILS_ENV=test rake db:migrate
     bundle exec rake
+    bundle exec guard
 
 ## Bugs? Questions?
 
