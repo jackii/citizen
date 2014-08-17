@@ -5,6 +5,6 @@ module CitizenBudgetModel
 
     belongs_to :section
 
-    validates_presence_of :question_id
+    validates_presence_of :section_id
   end
 end
