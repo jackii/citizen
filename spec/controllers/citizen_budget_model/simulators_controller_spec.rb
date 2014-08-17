@@ -5,7 +5,10 @@ module CitizenBudgetModel
     routes { CitizenBudgetModel::Engine.routes }
 
     let(:valid_attributes) do
-      { 'name' => 'Simulator' }
+      {
+        organization_id: 1,
+        name: 'Simulator',
+      }
     end
 
     let(:valid_session) do
