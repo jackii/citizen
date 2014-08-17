@@ -1,6 +1,9 @@
-require 'devise'
+require 'devise' # @see https://github.com/plataformatec/devise/wiki/How-To:-Use-devise-inside-a-mountable-engine#configuration
 require 'citizen_budget_model/engine'
+require 'acts_as_list'
+require 'globalize'
 require 'fast_gettext'
+require 'paranoia'
 
 module CitizenBudgetModel
   # The parent controller all Popolo controllers inherit from. Defaults to
