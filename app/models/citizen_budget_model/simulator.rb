@@ -7,5 +7,6 @@ module CitizenBudgetModel
     has_many :sections, dependent: :destroy
 
     validates_presence_of :organization_id, :name
+    validates :equation, equation: true, allow_blank: true
   end
 end
