@@ -22,6 +22,10 @@ Spork.prefork do
   require 'factory_girl_rails'
 
   RSpec.configure do |config|
+    # @see https://github.com/plataformatec/devise/wiki/How-To:-Test-controllers-with-Rails-3-and-4-%28and-RSpec%29
+    config.include Devise::TestHelpers, type: :controller
+    config.extend DeviseHelper, type: :controller
+
     config.mock_with :rspec
 
     config.before(:suite) do

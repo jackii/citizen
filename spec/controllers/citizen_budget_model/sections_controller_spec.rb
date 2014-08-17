@@ -2,6 +2,8 @@ require 'spec_helper'
 
 module CitizenBudgetModel
   describe SectionsController do
+    login
+
     routes { CitizenBudgetModel::Engine.routes }
 
     let(:valid_attributes) do
@@ -126,6 +128,20 @@ module CitizenBudgetModel
         section = Section.create! valid_attributes
         delete :destroy, {:id => section.to_param}, valid_session
         response.should redirect_to(sections_url)
+      end
+    end
+
+    describe 'POST sort' do
+      it 'sorts the questions in the section' do
+        section = Section.create! valid_attributes
+        questions = 3.times.map do
+          Question.create!(section_id: section.to_param)
+        end
+        order = questions.map(&:id)
+
+        expect(section.questions.map(&:id)).to eq(order)
+        post :sort, {:id => section.to_param, :question => order.reverse!}, valid_session
+        expect(section.questions.reload.map(&:id)).to eq(order)
       end
     end
   end

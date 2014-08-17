@@ -2,10 +2,14 @@ require 'spec_helper'
 
 module CitizenBudgetModel
   describe OrganizationsController do
+    login
+
     routes { CitizenBudgetModel::Engine.routes }
 
     let(:valid_attributes) do
-      { 'name' => 'Organization' }
+      {
+        name: 'Organization',
+      }
     end
 
     let(:valid_session) do

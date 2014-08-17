@@ -1,6 +1,7 @@
 module CitizenBudgetModel
   class SectionsController < CitizenBudgetModelController
-    before_action :set_section, only: [:show, :edit, :update, :destroy]
+    before_action :authenticate_user!
+    before_action :set_section, only: [:show, :edit, :update, :destroy, :sort]
 
     def index
       @sections = Section.all
@@ -40,7 +41,10 @@ module CitizenBudgetModel
     end
 
     def sort
-      
+      @section.questions.each do |question|
+        question.update_attributes position: params[:question].index(question.id.to_s)
+      end
+      render nothing: true, status: 204
     end
 
   private

@@ -2,6 +2,8 @@ require 'spec_helper'
 
 module CitizenBudgetModel
   describe QuestionsController do
+    login
+
     routes { CitizenBudgetModel::Engine.routes }
 
     let(:valid_attributes) do

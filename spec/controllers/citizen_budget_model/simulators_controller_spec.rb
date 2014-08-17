@@ -2,6 +2,8 @@ require 'spec_helper'
 
 module CitizenBudgetModel
   describe SimulatorsController do
+    login
+
     routes { CitizenBudgetModel::Engine.routes }
 
     let(:valid_attributes) do
@@ -127,6 +129,20 @@ module CitizenBudgetModel
         simulator = Simulator.create! valid_attributes
         delete :destroy, {:id => simulator.to_param}, valid_session
         response.should redirect_to(simulators_url)
+      end
+    end
+
+    describe 'POST sort' do
+      it 'sorts the sections in the simulator' do
+        simulator = Simulator.create! valid_attributes
+        sections = 3.times.map do
+          Section.create!(simulator_id: simulator.to_param)
+        end
+        order = sections.map(&:id)
+
+        expect(simulator.sections.map(&:id)).to eq(order)
+        post :sort, {:id => simulator.to_param, :section => order.reverse!}, valid_session
+        expect(simulator.sections.reload.map(&:id)).to eq(order)
       end
     end
   end

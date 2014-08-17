@@ -1,5 +1,6 @@
 module CitizenBudgetModel
   class OrganizationsController < CitizenBudgetModelController
+    before_action :authenticate_user!
     before_action :set_organization, only: [:show, :edit, :update, :destroy]
 
     def index

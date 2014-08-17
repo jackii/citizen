@@ -1,6 +1,7 @@
 module CitizenBudgetModel
   class SimulatorsController < CitizenBudgetModelController
-    before_action :set_simulator, only: [:show, :edit, :update, :destroy, :solution]
+    before_action :authenticate_user!, except: [:solution]
+    before_action :set_simulator, only: [:show, :edit, :update, :destroy, :sort, :solution]
 
     def index
       @simulators = Simulator.all
@@ -40,7 +41,10 @@ module CitizenBudgetModel
     end
 
     def sort
-      
+      @simulator.sections.each do |section|
+        section.update_attributes position: params[:section].index(section.id.to_s)
+      end
+      render nothing: true, status: 204
     end
 
     def solution
