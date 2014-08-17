@@ -7,8 +7,7 @@ module CitizenBudgetModel
     end
 
     it 'should validate the equation' do
-      simulator = Simulator.new(organization_id: 1, name: 'Simulator', equation: 'INVALID')
-      simulator.valid?.should == false
+      expect(Simulator.new(organization_id: 1, name: 'Simulator', equation: 'INVALID')).to_not be_valid
     end
   end
 end

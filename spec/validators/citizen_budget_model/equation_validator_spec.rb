@@ -36,7 +36,7 @@ module CitizenBudgetModel
           # double negative
           '1 - -1',
         ].each do |equation|
-          EquationValidator.valid?(equation).should == true
+          expect(EquationValidator.valid?(equation)).to eq(true)
         end
       end
 
@@ -77,7 +77,7 @@ module CitizenBudgetModel
           # double negative
           '1--1',
         ].each do |equation|
-          EquationValidator.valid?(equation).should == false
+          expect(EquationValidator.valid?(equation)).to eq(false)
         end
       end
 
@@ -102,14 +102,14 @@ module CitizenBudgetModel
 
         it 'should not add an error if the equation is valid' do
           instance.equation = '1+1'
-          instance.valid?.should == true
-          instance.errors.should be_empty
+          expect(instance).to be_valid
+          expect(instance.errors).to be_empty
         end
 
         it 'should add an error if the equation is invalid' do
           instance.equation = ''
-          instance.valid?.should == false
-          instance.errors.full_messages.should == ['Equation is invalid']
+          expect(instance).to_not be_valid
+          expect(instance.errors.full_messages).to eq(['Equation is invalid'])
         end
       end
     end
