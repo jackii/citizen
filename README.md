@@ -22,6 +22,13 @@ Create a pot file:
 
     bundle exec rake gettext:pot:create
 
+## Testing
+
+    bundle exec RAILS_ENV=test rake db:drop
+    bundle exec RAILS_ENV=test rake db:create
+    bundle exec RAILS_ENV=test rake db:migrate
+    bundle exec rake
+
 ## Bugs? Questions?
 
 This engine's main repository is on GitHub: [http://github.com/opennorth/citizen_budget_model](http://github.com/opennorth/citizen_budget_model), where your contributions, forks, bug reports, feature requests, and feedback are greatly welcomed.
