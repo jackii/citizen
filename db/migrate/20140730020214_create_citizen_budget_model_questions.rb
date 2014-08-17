@@ -11,7 +11,7 @@ class CreateCitizenBudgetModelQuestions < ActiveRecord::Migration
 
       # Widget
       t.string :widget, null: false, default: ''
-      t.float_array :options
+      t.float :options, null: false, default: [], array: true
 
       # Widget text
       t.boolean :revenue, default: false
@@ -26,7 +26,7 @@ class CreateCitizenBudgetModelQuestions < ActiveRecord::Migration
       t.integer :position
       t.timestamps
     end
-    CitizenBudgetModel::Organization.create_translation_table!({
+    CitizenBudgetModel::Question.create_translation_table!({
       # Simulation
       name: {type: :string, null: false, default: ''},
 
@@ -37,7 +37,7 @@ class CreateCitizenBudgetModelQuestions < ActiveRecord::Migration
       popover: {type: :text, null: false, default: ''},
 
       # Widget
-      labels: :string_array,
+      labels: {type: :string, null: false, default: [], array: true},
 
       # Widget text
       unit_name: {type: :string, null: false, default: ''},
@@ -48,7 +48,7 @@ class CreateCitizenBudgetModelQuestions < ActiveRecord::Migration
   end
 
   def down
-    drop_table :citizen_budget_model_organizations
-    CitizenBudgetModel::Organization.drop_translation_table!
+    drop_table :citizen_budget_model_questions
+    CitizenBudgetModel::Question.drop_translation_table!
   end
 end
