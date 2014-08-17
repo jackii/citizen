@@ -5,6 +5,6 @@ class CitizenBudgetModelController < CitizenBudgetModel.parent_controller.consta
   before_filter :set_locale
 
   def set_locale
-    session[:locale] = I18n.locale = FastGettext.set_locale(params[:locale] || session[:locale] ||  request.env['HTTP_ACCEPT_LANGUAGE'] || 'en-CA')
+    session[:locale] = FastGettext.set_locale(params[:locale] || session[:locale] ||  request.env['HTTP_ACCEPT_LANGUAGE'] || 'en-CA')
   end
 end
