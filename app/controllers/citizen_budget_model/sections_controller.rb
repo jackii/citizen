@@ -39,13 +39,18 @@ module CitizenBudgetModel
       redirect_to sections_url, notice: _('Section was destroyed.')
     end
 
-    private
-      def set_section
-        @section = Section.find(params[:id])
-      end
+    def sort
+      
+    end
 
-      def section_params
-        params.require(:section).permit(:simulator_id, :title, :description, :popover, :modal, :position)
-      end
+  private
+
+    def set_section
+      @section = Section.find(params[:id])
+    end
+
+    def section_params
+      params.require(:section).permit(:simulator_id, :title, :description, :popover, :modal)
+    end
   end
 end

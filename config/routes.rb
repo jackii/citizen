@@ -5,21 +5,18 @@ CitizenBudgetModel::Engine.routes.draw do
 
   resources :simulators do
     member do
+      post :sort
       get :solution
     end
   end
 
   resources :sections do
-    collection do
+    member do
       post :sort
     end
   end
 
-  resources :questions do
-    collection do
-      post :sort
-    end
-  end
+  resources :questions
 
   root to: 'simulators#index'
 end

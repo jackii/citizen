@@ -39,6 +39,10 @@ module CitizenBudgetModel
       redirect_to simulators_url, notice: _('Simulator was deleted.')
     end
 
+    def sort
+      
+    end
+
     def solution
       # @todo
     end

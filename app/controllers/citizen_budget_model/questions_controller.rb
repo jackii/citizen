@@ -39,13 +39,14 @@ module CitizenBudgetModel
       redirect_to questions_url, notice: _('Question was destroyed.')
     end
 
-    private
-      def set_question
-        @question = Question.find(params[:id])
-      end
+  private
 
-      def question_params
-        params.require(:question).permit(:section_id, :name, :machine_name, :default_value, :unit_value, :revenue, :group, :widget, :title, :description, :modal, :popover, :labels, :options, :unit_name, :maxlength, :placeholder, :required, :rows, :cols, :size, :position)
-      end
+    def set_question
+      @question = Question.find(params[:id])
+    end
+
+    def question_params
+      params.require(:question).permit(:section_id, :machine_name, :default_value, :unit_value, :account, :widget, :options, :revenue, :maxlength, :required, :rows, :cols, :size, :name, :title, :description, :modal, :popover, :labels, :unit_name, :placeholder)
+    end
   end
 end

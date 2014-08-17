@@ -33,6 +33,10 @@ module CitizenBudgetModel
         delete('/simulators/1').should route_to('citizen_budget_model/simulators#destroy', :id => '1')
       end
 
+      it 'routes to #sort' do
+        post('/simulators/1/sort').should route_to('citizen_budget_model/simulators#sort', :id => '1')
+      end
+
       it 'routes to #solution' do
         get('/simulators/1/solution').should route_to('citizen_budget_model/simulators#solution', :id => '1')
       end

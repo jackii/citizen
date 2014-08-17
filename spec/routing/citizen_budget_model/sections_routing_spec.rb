@@ -34,7 +34,7 @@ module CitizenBudgetModel
       end
 
       it 'routes to #sort' do
-        post('/sections/sort').should route_to('citizen_budget_model/sections#sort')
+        post('/sections/1/sort').should route_to('citizen_budget_model/sections#sort', :id => '1')
       end
     end
   end
