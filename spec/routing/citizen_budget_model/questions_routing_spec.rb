@@ -32,6 +32,10 @@ module CitizenBudgetModel
       it 'routes to #destroy' do
         delete('/questions/1').should route_to('citizen_budget_model/questions#destroy', :id => '1')
       end
+
+      it 'routes to #sort' do
+        post('/questions/sort').should route_to('citizen_budget_model/questions#sort')
+      end
     end
   end
 end
