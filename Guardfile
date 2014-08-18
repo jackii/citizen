@@ -28,6 +28,7 @@ guard 'rspec', cli: '--drb', all_on_start: false, all_after_pass: false do
   watch(%r{^app/(.*)(\.erb|\.haml)$})              { |m| "spec/#{m[1]}#{m[2]}_spec.rb" }
   watch(%r{^app/controllers/(.+)_controller\.rb$}) { |m| "spec/routing/#{m[1]}_routing_spec.rb" }
   watch(%r{^spec/support/(.+)\.rb$})               { "spec" }
+  watch(%r{^config/initializers/.+\.rb$})          { "spec" }
   watch('config/routes.rb')                        { "spec/routing" }
   watch('app/controllers/citizen_budget_model_controller.rb') { "spec/controllers" }
 end
