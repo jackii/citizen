@@ -18,5 +18,9 @@ CitizenBudgetModel::Engine.routes.draw do
 
   resources :questions
 
-  root to: 'simulators#index'
+  namespace :citizen_budget_model do
+    get 'pages/home'
+  end
+
+  root to: 'pages#home'
 end
