@@ -4,6 +4,11 @@
 [![Dependency Status](https://gemnasium.com/opennorth/citizen_budget_model.png)](https://gemnasium.com/opennorth/citizen_budget_model)
 [![Code Climate](https://codeclimate.com/github/opennorth/citizen_budget_model.png)](https://codeclimate.com/github/opennorth/citizen_budget_model)
 
+## Installation
+
+    gem 'fast_gettext', :git => 'https://github.com/jpmckinney/fast_gettext.git', :branch => 'rails4'
+    gem 'citizen_budget_model'
+
 ## Internationalization
 
 Add a new locale:

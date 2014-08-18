@@ -12,3 +12,6 @@ gemspec
 
 # To use debugger
 # gem 'debugger'
+
+# This fork excludes protected_attributes, which causes trouble.
+gem 'fast_gettext', :git => 'https://github.com/jpmckinney/fast_gettext.git', :branch => 'rails4'
