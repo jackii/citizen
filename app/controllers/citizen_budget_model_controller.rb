@@ -1,6 +1,7 @@
 # @see https://github.com/grosser/fast_gettext#rails
 class CitizenBudgetModelController < CitizenBudgetModel.parent_controller.constantize
   include FastGettext::Translation
+  helper_method :_
 
   layout 'citizen_budget_model/admin'
 
