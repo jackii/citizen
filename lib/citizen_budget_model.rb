@@ -3,6 +3,7 @@ require 'citizen_budget_model/engine'
 require 'acts_as_list'
 require 'globalize'
 require 'fast_gettext'
+require 'protected_attributes' # needed by fast_gettext
 require 'paranoia'
 
 module CitizenBudgetModel
