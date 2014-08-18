@@ -2,6 +2,8 @@
 class CitizenBudgetModelController < CitizenBudgetModel.parent_controller.constantize
   include FastGettext::Translation
 
+  layout 'citizen_budget_model/admin'
+
   before_filter :set_locale
 
   def set_locale
