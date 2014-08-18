@@ -9,6 +9,10 @@
     gem 'fast_gettext', :git => 'https://github.com/jpmckinney/fast_gettext.git', :branch => 'rails4'
     gem 'citizen_budget_model'
 
+In `app/assets/application.css`:
+
+    *= require citizen_budget_model/application
+
 ## Internationalization
 
 Add a new locale:
