@@ -1,7 +1,7 @@
-require 'spec_helper'
+require 'rails_helper'
 
 module CitizenBudgetModel
-  describe LocaleValidator do
+  RSpec.describe LocaleValidator do
     describe '#validate_each' do
       let :instance do
         Thing.new

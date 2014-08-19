@@ -1,7 +1,7 @@
-require 'spec_helper'
+require 'rails_helper'
 
 module CitizenBudgetModel
-  describe Simulator do
+  RSpec.describe Simulator, type: :model do
     [:organization_id, :name].each do |attribute|
       it { should validate_presence_of attribute }
     end

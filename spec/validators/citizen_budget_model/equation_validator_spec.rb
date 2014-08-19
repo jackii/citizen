@@ -1,7 +1,7 @@
-require 'spec_helper'
+require 'rails_helper'
 
 module CitizenBudgetModel
-  describe EquationValidator do
+  RSpec.describe EquationValidator do
     describe '.valid?' do
       it 'should return true if the equation is valid' do
         [ # number

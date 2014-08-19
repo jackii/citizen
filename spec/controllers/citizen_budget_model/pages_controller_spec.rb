@@ -1,13 +1,13 @@
-require 'spec_helper'
+require 'rails_helper'
 
 module CitizenBudgetModel
-  describe PagesController do
+  RSpec.describe PagesController, type: :controller do
     routes { CitizenBudgetModel::Engine.routes }
 
     describe 'GET home' do
       it 'returns http success' do
         get 'home'
-        response.should be_success
+        expect(response).to be_success
       end
     end
   end
