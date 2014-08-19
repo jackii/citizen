@@ -10,4 +10,9 @@ class CitizenBudgetModelController < CitizenBudgetModel.parent_controller.consta
   def set_locale
     session[:locale] = FastGettext.set_locale(params[:locale] || session[:locale] ||  request.env['HTTP_ACCEPT_LANGUAGE'] || 'en_CA')
   end
+
+  def admin?
+    user_signed_in? && current_user.organization_id.nil?
+  end
+  helper_method :admin?
 end
