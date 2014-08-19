@@ -58,7 +58,8 @@ module CitizenBudgetModel
     end
 
     def simulator_params
-      params.require(:simulator).permit(:organization_id, :name, :equation)
+      attribute_names = Simulator.globalize_attribute_names + [:organization_id, :equation]
+      params.require(:simulator).permit(attribute_names)
     end
   end
 end

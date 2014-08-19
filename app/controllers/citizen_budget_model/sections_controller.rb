@@ -54,7 +54,8 @@ module CitizenBudgetModel
     end
 
     def section_params
-      params.require(:section).permit(:simulator_id, :title, :description, :popover, :modal)
+      attribute_names = Section.globalize_attribute_names + [:simulator_id]
+      params.require(:section).permit(attribute_names)
     end
   end
 end

@@ -9,7 +9,7 @@ module CitizenBudgetModel
     let(:valid_attributes) do
       {
         organization_id: 1,
-        name: 'Simulator',
+        name_en_ca: 'Simulator',
       }
     end
 
@@ -70,12 +70,12 @@ module CitizenBudgetModel
 
       describe 'with invalid params' do
         it 'assigns a newly created but unsaved simulator as @simulator' do
-          post :create, {:simulator => { 'name' => '' }}, valid_session
+          post :create, {:simulator => { 'name_en_ca' => '' }}, valid_session
           assigns(:simulator).should be_a_new(Simulator)
         end
 
         it 're-renders the "new" template' do
-          post :create, {:simulator => { 'name' => '' }}, valid_session
+          post :create, {:simulator => { 'name_en_ca' => '' }}, valid_session
           response.should render_template('new')
         end
       end
@@ -85,8 +85,8 @@ module CitizenBudgetModel
       describe 'with valid params' do
         it 'updates the requested simulator' do
           simulator = Simulator.create! valid_attributes
-          Simulator.any_instance.should_receive(:update).with({ 'name' => 'Simulator' })
-          put :update, {:id => simulator.to_param, :simulator => { 'name' => 'Simulator' }}, valid_session
+          Simulator.any_instance.should_receive(:update).with({ 'name_en_ca' => 'Update' })
+          put :update, {:id => simulator.to_param, :simulator => { 'name_en_ca' => 'Update' }}, valid_session
         end
 
         it 'assigns the requested simulator as @simulator' do
@@ -105,13 +105,13 @@ module CitizenBudgetModel
       describe 'with invalid params' do
         it 'assigns the simulator as @simulator' do
           simulator = Simulator.create! valid_attributes
-          put :update, {:id => simulator.to_param, :simulator => { 'name' => '' }}, valid_session
+          put :update, {:id => simulator.to_param, :simulator => { 'name_en_ca' => '' }}, valid_session
           assigns(:simulator).should eq(simulator)
         end
 
         it 're-renders the "edit" template' do
           simulator = Simulator.create! valid_attributes
-          put :update, {:id => simulator.to_param, :simulator => { 'name' => '' }}, valid_session
+          put :update, {:id => simulator.to_param, :simulator => { 'name_en_ca' => '' }}, valid_session
           response.should render_template('edit')
         end
       end

@@ -8,7 +8,7 @@ module CitizenBudgetModel
 
     let(:valid_attributes) do
       {
-        name: 'Organization',
+        name_en_ca: 'Organization',
       }
     end
 
@@ -69,12 +69,12 @@ module CitizenBudgetModel
 
       describe 'with invalid params' do
         it 'assigns a newly created but unsaved organization as @organization' do
-          post :create, {:organization => { 'name' => '' }}, valid_session
+          post :create, {:organization => { 'name_en_ca' => '' }}, valid_session
           assigns(:organization).should be_a_new(Organization)
         end
 
         it 're-renders the "new" template' do
-          post :create, {:organization => { 'name' => '' }}, valid_session
+          post :create, {:organization => { 'name_en_ca' => '' }}, valid_session
           response.should render_template('new')
         end
       end
@@ -84,8 +84,8 @@ module CitizenBudgetModel
       describe 'with valid params' do
         it 'updates the requested organization' do
           organization = Organization.create! valid_attributes
-          Organization.any_instance.should_receive(:update).with({ 'name' => 'Organization' })
-          put :update, {:id => organization.to_param, :organization => { 'name' => 'Organization' }}, valid_session
+          Organization.any_instance.should_receive(:update).with({ 'name_en_ca' => 'Update' })
+          put :update, {:id => organization.to_param, :organization => { 'name_en_ca' => 'Update' }}, valid_session
         end
 
         it 'assigns the requested organization as @organization' do
@@ -104,13 +104,13 @@ module CitizenBudgetModel
       describe 'with invalid params' do
         it 'assigns the organization as @organization' do
           organization = Organization.create! valid_attributes
-          put :update, {:id => organization.to_param, :organization => { 'name' => '' }}, valid_session
+          put :update, {:id => organization.to_param, :organization => { 'name_en_ca' => '' }}, valid_session
           assigns(:organization).should eq(organization)
         end
 
         it 're-renders the "edit" template' do
           organization = Organization.create! valid_attributes
-          put :update, {:id => organization.to_param, :organization => { 'name' => '' }}, valid_session
+          put :update, {:id => organization.to_param, :organization => { 'name_en_ca' => '' }}, valid_session
           response.should render_template('edit')
         end
       end

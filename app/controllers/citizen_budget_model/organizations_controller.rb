@@ -47,7 +47,7 @@ module CitizenBudgetModel
     end
 
     def organization_params
-      params.require(:organization).permit(:name)
+      params.require(:organization).permit(*Organization.globalize_attribute_names)
     end
   end
 end
