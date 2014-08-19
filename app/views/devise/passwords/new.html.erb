@@ -14,10 +14,10 @@
   </div>
 <% end %>
 
-  <div class="form-group<% if resource.errors[:email] %> has-error has-feedback<% end %>">
+  <div class="form-group<% if resource.errors[:email].any? %> has-error has-feedback<% end %>">
     <%= f.label :email %>
     <%= f.email_field :email, autofocus: true, class: 'form-control' %>
-  <% if resource.errors[:email] %>
+  <% if resource.errors[:email].any? %>
     <span class="glyphicon glyphicon-remove form-control-feedback"></span>
   <% end %>
   </div>
