@@ -12,6 +12,11 @@ In `app/assets/application.css`:
 
     *= require citizen_budget_model/application
 
+In `app/assets/application.js`:
+
+    //= require jquery
+    //= require jquery_ujs
+
 In `config/application.rb`:
 
     config.i18n.available_locales = ['fr-CA', :fr, 'en-CA', :en]

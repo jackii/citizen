@@ -4,6 +4,7 @@ require 'acts_as_list'
 require 'globalize'
 require 'globalize-accessors'
 require 'http_accept_language'
+require 'jquery/rails'
 require 'paranoia'
 
 module CitizenBudgetModel
