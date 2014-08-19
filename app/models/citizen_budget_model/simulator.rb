@@ -1,4 +1,3 @@
-# @see https://github.com/swanandp/acts_as_list/blob/ac4f602d20b679370ed4bb9702ccc3fa61af1be8/README.md#example
 module CitizenBudgetModel
   class Simulator < ActiveRecord::Base
     acts_as_paranoid
@@ -8,7 +7,8 @@ module CitizenBudgetModel
     belongs_to :organization
     has_many :sections, -> { order(:position) }, dependent: :destroy
 
-    validates_presence_of :organization_id, :name
-    validates :equation, equation: true, allow_blank: true
+    validates_presence_of :organization_id
+    validates :name, 'citizen_budget_model/locale' => true
+    validates :equation, 'citizen_budget_model/equation' => true, allow_blank: true
   end
 end

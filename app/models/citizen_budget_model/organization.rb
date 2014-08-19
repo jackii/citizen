@@ -7,6 +7,6 @@ module CitizenBudgetModel
     has_many :simulators, dependent: :destroy
     has_many :users
 
-    validates_presence_of :name
+    validates :name, 'citizen_budget_model/locale' => true
   end
 end
