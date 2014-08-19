@@ -1,7 +1,7 @@
 module CitizenBudgetModel
   class Simulator < ActiveRecord::Base
     acts_as_paranoid
-    translates :name
+    translates :name, fallbacks_for_empty_translations: true
     globalize_accessors
 
     belongs_to :organization
