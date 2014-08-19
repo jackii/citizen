@@ -2,7 +2,6 @@ require 'devise' # @see https://github.com/plataformatec/devise/wiki/How-To:-Use
 require 'citizen_budget_model/engine'
 require 'acts_as_list'
 require 'globalize'
-require 'fast_gettext'
 require 'paranoia'
 
 module CitizenBudgetModel

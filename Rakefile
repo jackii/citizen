@@ -23,12 +23,3 @@ rescue LoadError
     abort 'YARD is not available. In order to run yard, you must: gem install yard'
   end
 end
-
-# @see https://github.com/ruby-gettext/gettext/blob/master/Rakefile#L85
-# @see https://github.com/grosser/gettext_i18n_rails/blob/master/lib/gettext_i18n_rails/tasks.rb#L22
-# @see http://lslezak.blogspot.ca/2012/01/switching-from-gettext-to-fastgettext.html
-require 'gettext/tools/task'
-GetText::Tools::Task.define do |task|
-  task.spec = helper.gemspec
-  task.xgettext_options.concat(['--add-comments=TRANSLATORS:', '--sort-output', '--no-wrap'])
-end

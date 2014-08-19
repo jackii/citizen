@@ -6,30 +6,21 @@
 
 ## Installation
 
-    gem 'fast_gettext', :git => 'https://github.com/jpmckinney/fast_gettext.git', :branch => 'rails4'
     gem 'citizen_budget_model'
 
 In `app/assets/application.css`:
 
     *= require citizen_budget_model/application
 
-## Internationalization
+In `config/application.rb`:
 
-Add a new locale:
+    config.i18n.available_locales = ['fr-CA', :fr, 'en-CA', :en]
+    config.i18n.default_locale = :'en-CA'
+    config.i18n.fallbacks = true
 
-    bundle exec rake gettext:po:add[locale]
+In `config/routes.rb`:
 
-Update po files:
-
-    bundle exec rake gettext:po:update
-
-Update mo files:
-
-    bundle exec rake gettext:mo:update
-
-Create a pot file:
-
-    bundle exec rake gettext:pot:create
+    mount CitizenBudgetModel::Engine => '/'
 
 ## Testing
 

@@ -28,6 +28,7 @@ Gem::Specification.new do |s|
   # Internationalization
   s.add_dependency 'globalize', '~> 4.0.2'
   s.add_dependency 'rails-i18n', '~> 4.0.0'
+  s.add_dependency 'devise-i18n', '~> 0.10.4'
 
   s.add_development_dependency 'database_cleaner', '~> 1.2'
   s.add_development_dependency 'factory_girl_rails', '~> 4.1'
