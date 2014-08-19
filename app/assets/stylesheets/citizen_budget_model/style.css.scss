@@ -55,3 +55,22 @@
     display: block;
   }
 }
+
+.list-unstyled {
+  margin-bottom: 1em;
+}
+
+.action-edit,
+.action-delete {
+  padding-right: 1em;
+}
+.action-delete {
+  color: #D9534F;
+}
+.action-show {
+  font-weight: bold;
+}
+
+.actions {
+  margin-top: 40px;
+}

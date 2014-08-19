@@ -1,25 +1,25 @@
-<h1>Listing organizations</h1>
+<% content_for :breadcrumb do %>
+<ol class="breadcrumb">
+  <li class="active"><%= _('Organizations') %></li>
+</ol>
+<% end %>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @organizations.each do |organization| %>
-      <tr>
-        <td><%= organization.name %></td>
-        <td><%= link_to 'Show', organization %></td>
-        <td><%= link_to 'Edit', edit_organization_path(organization) %></td>
-        <td><%= link_to 'Destroy', organization, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+<ul class="list-unstyled">
+<% @organizations.each do |organization| %>
+  <li>
+    <%= link_to edit_organization_path(organization), class: 'action-edit' do %>
+      <span class="glyphicon glyphicon-pencil"></span>
+      <%= _('Edit') %>
     <% end %>
-  </tbody>
-</table>
+    <%= link_to organization, class: 'action-delete', method: :delete, data: { confirm: _('Are you sure?') } do %>
+      <span class="glyphicon glyphicon-trash"></span>
+      <%= _('Delete') %>
+    <% end %>
+    <%= link_to organization.name, organization, class: 'action-show' %>
+  </li>
+<% end %>
+</ul>
 
-<br>
-
-<%= link_to 'New Organization', new_organization_path %>
+<div class="actions">
+  <%= link_to 'Add an organization', new_organization_path, class: 'btn btn-primary' %>
+</div>

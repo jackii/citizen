@@ -1,21 +1,19 @@
-<%= form_for(@organization) do |f| %>
-  <% if @organization.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@organization.errors.count, "error") %> prohibited this organization from being saved:</h2>
-
-      <ul>
-      <% @organization.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
+<%= form_for(@organization, html: {role: 'form'}) do |f| %>
+<% if @organization.errors.any? %>
+  <div class="alert alert-danger">
+  <% @organization.errors.full_messages.each do |message| %>
+    <p><%= message %></p>
   <% end %>
+  </div>
+<% end %>
 
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
+  <div class="form-group<% if @organization.errors[:name].any? %> has-error has-feedback<% end %>">
+    <%= f.label :name %>
+    <%= f.text_field :name, class: 'form-control' %>
+  <% if @organization.errors[:name].any? %>
+    <span class="glyphicon glyphicon-remove form-control-feedback"></span>
+  <% end %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+
+  <%= f.button _('Save'), class: 'btn btn-primary' %>
 <% end %>

@@ -1,5 +1,8 @@
-<h1>New organization</h1>
+<% content_for :breadcrumb do %>
+<ol class="breadcrumb">
+  <li><%= link_to _('Organizations'), organizations_path %></li>
+  <li class="active"><%= _('Add') %></li>
+</ol>
+<% end %>
 
 <%= render 'form' %>
-
-<%= link_to 'Back', organizations_path %>
