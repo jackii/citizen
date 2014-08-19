@@ -256,5 +256,5 @@ Devise.setup do |config|
 
   config.router_name = :citizen_budget_model
 
-  config.parent_controller = 'CitizenBudgetDeviseController'
+  config.parent_controller = 'CitizenBudgetModel::DeviseController'
 end
