@@ -2,7 +2,7 @@ module CitizenBudgetModel
   class Simulator < ActiveRecord::Base
     acts_as_paranoid
     translates :name
-    globalize_accessors locales: ['en-CA', 'fr-CA']
+    globalize_accessors
 
     belongs_to :organization
     has_many :sections, -> { order(:position) }, dependent: :destroy

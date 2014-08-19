@@ -19,8 +19,8 @@ In `app/assets/application.js`:
 
 In `config/application.rb`:
 
-    config.i18n.available_locales = ['fr-CA', :fr, 'en-CA', :en]
-    config.i18n.default_locale = :'en-CA'
+    config.i18n.available_locales = ['fr-CA', 'en-CA']
+    config.i18n.default_locale = 'en-CA'
     config.i18n.fallbacks = true
 
 In `config/routes.rb`:
