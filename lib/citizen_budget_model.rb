@@ -3,6 +3,7 @@ require 'citizen_budget_model/engine'
 require 'acts_as_list'
 require 'globalize'
 require 'globalize-accessors'
+require 'http_accept_language'
 require 'paranoia'
 
 module CitizenBudgetModel

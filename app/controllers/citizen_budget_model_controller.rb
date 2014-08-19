@@ -4,7 +4,7 @@ class CitizenBudgetModelController < CitizenBudgetModel.parent_controller.consta
   before_filter :set_locale
 
   def set_locale
-    session[:locale] = I18n.locale = params[:locale] || session[:locale] ||  request.env['HTTP_ACCEPT_LANGUAGE'] || I18n.default_locale
+    session[:locale] = I18n.locale = params[:locale] || session[:locale] || http_accept_language.compatible_language_from(I18n.available_locales) || I18n.default_locale
   end
 
   def admin?
