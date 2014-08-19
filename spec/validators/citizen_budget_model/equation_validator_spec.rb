@@ -80,37 +80,37 @@ module CitizenBudgetModel
           expect(EquationValidator.valid?(equation)).to eq(false)
         end
       end
+    end
 
-      describe '#validate_each' do
-        let :klass do
-          Class.new do
-            include ActiveModel::Validations
+    describe '#validate_each' do
+      let :klass do
+        Class.new do
+          include ActiveModel::Validations
 
-            attr_accessor :equation
+          attr_accessor :equation
 
-            validates :equation, 'citizen_budget_model/equation' => true
+          validates :equation, 'citizen_budget_model/equation' => true
 
-            def self.name
-              'Thing'
-            end
+          def self.name
+            'Thing'
           end
         end
+      end
 
-        let :instance do
-          klass.new
-        end
+      let :instance do
+        klass.new
+      end
 
-        it 'should not add an error if the equation is valid' do
-          instance.equation = '1+1'
-          expect(instance).to be_valid
-          expect(instance.errors).to be_empty
-        end
+      it 'should not add an error if the equation is valid' do
+        instance.equation = '1+1'
+        expect(instance).to be_valid
+        expect(instance.errors).to be_empty
+      end
 
-        it 'should add an error if the equation is invalid' do
-          instance.equation = ''
-          expect(instance).to_not be_valid
-          expect(instance.errors.full_messages).to eq(['Equation is invalid'])
-        end
+      it 'should add an error if the equation is invalid' do
+        instance.equation = ''
+        expect(instance).to_not be_valid
+        expect(instance.errors.full_messages).to eq(['Equation is invalid'])
       end
     end
   end
