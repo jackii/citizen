@@ -1,19 +1,5 @@
-<%= form_for(@organization, html: {role: 'form'}) do |f| %>
-<% if @organization.errors.any? %>
-  <div class="alert alert-danger">
-  <% @organization.errors.full_messages.each do |message| %>
-    <p><%= message %></p>
-  <% end %>
-  </div>
-<% end %>
-
-  <div class="form-group<% if @organization.errors[:name].any? %> has-error has-feedback<% end %>">
-    <%= f.label :name %>
-    <%= f.text_field :name, class: 'form-control' %>
-  <% if @organization.errors[:name].any? %>
-    <span class="glyphicon glyphicon-remove form-control-feedback"></span>
-  <% end %>
-  </div>
-
-  <%= f.button _('Save'), class: 'btn btn-primary' %>
+<%= form_for(@organization, html: {role: 'form'}, builder: CitizenBudgetModel::CitizenBudgetFormBuilder) do |f| %>
+  <%= f.errors %>
+  <%= f.translated_text_field :name %>
+  <%= f.save %>
 <% end %>

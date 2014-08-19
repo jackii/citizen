@@ -1,19 +1,6 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Name:</strong>
-  <%= @simulator.name %>
-</p>
-
-<p>
-  <strong>Equation:</strong>
-  <%= @simulator.equation %>
-</p>
-
-<p>
-  <strong>Distribution:</strong>
-  <%= @simulator.distribution %>
-</p>
-
-<%= link_to 'Edit', edit_simulator_path(@simulator) %> |
-<%= link_to 'Back', simulators_path %>
+<% content_for :breadcrumb do %>
+<ol class="breadcrumb">
+  <li><%= link_to _('Simulators'), simulators_path %></li>
+  <li class="active"><%= @simulator.name %></li>
+</ol>
+<% end %>
