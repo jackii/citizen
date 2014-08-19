@@ -1,11 +1,25 @@
-<h2><%= _('Password reset') %></h2>
+<% content_for :breadcrumb do %>
+<ol class="breadcrumb">
+  <li><%= link_to _('Sign in'), new_session_path(resource_name) %></li>
+  <li class="active"><%= _('Password reset') %></li>
+</ol>
+<% end %>
 
 <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: {method: :post, role: 'form'}) do |f| %>
-  <%= devise_error_messages! %>
+<% if resource.errors.any? %>
+  <div class="alert alert-danger">
+  <% resource.errors.full_messages.each do |message| %>
+    <p><%= message %></p>
+  <% end %>
+  </div>
+<% end %>
 
-  <div class="form-group">
+  <div class="form-group<% if resource.errors[:email] %> has-error has-feedback<% end %>">
     <%= f.label :email %>
     <%= f.email_field :email, autofocus: true, class: 'form-control' %>
+  <% if resource.errors[:email] %>
+    <span class="glyphicon glyphicon-remove form-control-feedback"></span>
+  <% end %>
   </div>
 
   <%= f.button _('Email a link to reset password'), class: 'btn btn-primary' %>

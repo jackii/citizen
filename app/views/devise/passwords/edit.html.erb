@@ -1,17 +1,35 @@
-<h2><%= _('Set your password') %></h2>
+<% content_for :breadcrumb do %>
+<ol class="breadcrumb">
+  <li><%= link_to _('Sign in'), new_session_path(resource_name) %></li>
+  <li class="active"><%= _('Set your password') %></li>
+</ol>
+<% end %>
 
 <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: {method: :put, role: 'form'}) do |f| %>
-  <%= devise_error_messages! %>
   <%= f.hidden_field :reset_password_token %>
 
-  <div class="form-group">
+<% if resource.errors.any? %>
+  <div class="alert alert-danger">
+  <% resource.errors.full_messages.each do |message| %>
+    <p><%= message %></p>
+  <% end %>
+  </div>
+<% end %>
+
+  <div class="form-group<% if resource.errors[:password] %> has-error has-feedback<% end %>">
     <%= f.label :password, _('New password') %>
     <%= f.password_field :password, autofocus: true, autocomplete: 'off', class: 'form-control' %>
+  <% if resource.errors[:password] %>
+    <span class="glyphicon glyphicon-remove form-control-feedback"></span>
+  <% end %>
   </div>
 
-  <div class="form-group">
+  <div class="form-group<% if resource.errors[:password_confirmation] %> has-error has-feedback<% end %>">
     <%= f.label :password_confirmation, _('Confirm password') %>
     <%= f.password_field :password_confirmation, autocomplete: 'off', class: 'form-control' %>
+  <% if resource.errors[:password_confirmation] %>
+    <span class="glyphicon glyphicon-remove form-control-feedback"></span>
+  <% end %>
   </div>
 
   <%= f.button _('Set password'), class: 'btn btn-primary' %>

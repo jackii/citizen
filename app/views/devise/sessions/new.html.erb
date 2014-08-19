@@ -1,4 +1,8 @@
-<h2><%= _('Sign in') %></h2>
+<% content_for :breadcrumb do %>
+<ol class="breadcrumb">
+  <li class="active"><%= _('Sign in') %></li>
+</ol>
+<% end %>
 
 <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: {role: 'form'}) do |f| %>
   <div class="form-group">
