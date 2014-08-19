@@ -56,8 +56,18 @@
   }
 }
 
+h1,
+h2 {
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+p {
+  margin-bottom: 20px;
+}
+
 .list-unstyled {
-  margin-bottom: 1em;
+  margin-bottom: 20px;
 }
 
 .action-edit,
