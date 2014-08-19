@@ -1,3 +1,4 @@
+# @see https://github.com/grosser/fast_gettext#rails
 class CitizenBudgetDeviseController < CitizenBudgetModel.parent_controller.constantize
   include FastGettext::Translation
   helper_method :_
