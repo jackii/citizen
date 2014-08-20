@@ -4,22 +4,14 @@
 </ol>
 <% end %>
 
-<ul class="list-unstyled">
+<ul>
 <% @organizations.each do |organization| %>
   <li>
-    <%= link_to edit_organization_path(organization), class: 'action-edit' do %>
-      <span class="glyphicon glyphicon-pencil"></span>
-      <%= _('Edit') %>
-    <% end %>
-    <%= link_to organization, class: 'action-delete', method: :delete, data: { confirm: _('Are you sure?') } do %>
-      <span class="glyphicon glyphicon-trash"></span>
-      <%= _('Delete') %>
-    <% end %>
-    <%= link_to organization.name, organization, class: 'action-show' %>
+    <%= link_to organization.name, organization %>
   </li>
 <% end %>
 </ul>
 
-<div class="actions">
-  <%= link_to 'Add an organization', new_organization_path, class: 'btn btn-primary' %>
-</div>
+<%= link_to(new_organization_path, class: 'btn btn-primary') do %>
+  <span class="glyphicon glyphicon-plus"></span> <%= _('Add an organization') %>
+<% end %>

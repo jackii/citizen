@@ -4,22 +4,14 @@
 </ol>
 <% end %>
 
-<ul class="list-unstyled">
+<ul>
 <% @simulators.each do |simulator| %>
   <li>
-    <%= link_to edit_simulator_path(simulator), class: 'action-edit' do %>
-      <span class="glyphicon glyphicon-pencil"></span>
-      <%= _('Edit') %>
-    <% end %>
-    <%= link_to simulator, class: 'action-delete', method: :delete, data: { confirm: _('Are you sure?') } do %>
-      <span class="glyphicon glyphicon-trash"></span>
-      <%= _('Delete') %>
-    <% end %>
-    <%= link_to simulator.name, simulator, class: 'action-show' %>
+    <%= link_to simulator.name, simulator %>
   </li>
 <% end %>
 </ul>
 
-<div class="actions">
-  <%= link_to 'Add an simulator', new_simulator_path, class: 'btn btn-primary' %>
-</div>
+<%= link_to(new_simulator_path, class: 'btn btn-primary') do %>
+  <span class="glyphicon glyphicon-plus"></span> <%= _('Add a simulator') %>
+<% end %>
