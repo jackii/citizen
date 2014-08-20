@@ -61,8 +61,14 @@ module CitizenBudgetModel
       @template.content_tag(:div, content, class: klass)
     end
 
-    def save
-      button _('Save'), class: 'btn btn-primary'
+    def buttons
+      content = button(_('Save'), class: 'btn btn-primary')
+      if object.persisted?
+        content << @template.link_to(object, class: 'btn btn-danger pull-right', method: :delete, data: {confirm: _('Are you sure?')}) do
+          @template.content_tag(:span, nil, class: 'glyphicon glyphicon-trash') + ' ' + _('Delete')
+        end
+      end
+      content
     end
   end
 end

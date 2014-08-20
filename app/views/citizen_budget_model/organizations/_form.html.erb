@@ -1,5 +1,5 @@
 <%= form_for(@organization, html: {role: 'form'}, builder: CitizenBudgetModel::CitizenBudgetFormBuilder) do |f| %>
   <%= f.errors %>
   <%= f.translated_text_field :name %>
-  <%= f.save %>
+  <%= f.buttons %>
 <% end %>
