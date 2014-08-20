@@ -24,7 +24,7 @@
 
 // @see https://kuler.adobe.com/when-will-the-storm-come-color-theme-4162685/
 .breadcrumb {
-  margin-bottom: 40px;
+  margin-bottom: 20px;
   border-radius: 0; // 4px
   background-color: #F9F7C8;
 }
@@ -34,6 +34,10 @@
 .breadcrumb .active {
   font-weight: bold;
   color: #333; // #999
+}
+.breadcrumb .btn-xs {
+  display: inline-block;
+  margin-left: 1em;
 }
 
 .sign-in {
@@ -62,25 +66,11 @@ h2 {
   margin-bottom: 20px;
 }
 
-p {
+h1 {
+  font-size: 1em;
+}
+
+p,
+ul {
   margin-bottom: 20px;
-}
-
-.list-unstyled {
-  margin-bottom: 20px;
-}
-
-.action-edit,
-.action-delete {
-  padding-right: 1em;
-}
-.action-delete {
-  color: #D9534F;
-}
-.action-show {
-  font-weight: bold;
-}
-
-.actions {
-  margin-top: 40px;
 }
