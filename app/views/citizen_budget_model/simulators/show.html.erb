@@ -1,6 +1,10 @@
 <% content_for :breadcrumb do %>
 <ol class="breadcrumb">
   <li><%= link_to _('Simulators'), simulators_path %></li>
-  <li class="active"><%= @simulator.name %></li>
+  <li class="active"><%= @simulator.name %>
+    <%= link_to edit_simulator_path(@simulator), class: 'btn btn-default btn-xs', title: _('Edit') do %>
+      <span class="glyphicon glyphicon-pencil"></span>
+    <% end %>
+  </li>
 </ol>
 <% end %>

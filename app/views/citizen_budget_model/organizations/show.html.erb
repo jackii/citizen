@@ -1,6 +1,25 @@
 <% content_for :breadcrumb do %>
 <ol class="breadcrumb">
   <li><%= link_to _('Organizations'), organizations_path %></li>
-  <li class="active"><%= @organization.name %></li>
+  <li class="active"><%= @organization.name %>
+    <%= link_to edit_organization_path(@organization), class: 'btn btn-default btn-xs', title: _('Edit') do %>
+      <span class="glyphicon glyphicon-pencil"></span>
+    <% end %>
+  </li>
 </ol>
 <% end %>
+
+<% if @organization.simulators.any? %>
+<h1>Simulators</h1>
+<ul>
+<% @organization.simulators.each do |simulator| %>
+  <li><%= link_to simulator.name, simulator %></li>
+<% end %>
+</ul>
+<% end %>
+
+<p>
+  <%= link_to(new_simulator_path, class: 'btn btn-primary') do %>
+    <span class="glyphicon glyphicon-plus"></span> <%= _('Add an simulator') %>
+  <% end %>
+</p>
