@@ -4,7 +4,7 @@ module CitizenBudgetModel
     before_action :set_simulator, only: [:show, :edit, :update, :destroy, :sort, :solution]
 
     def index
-      @simulators = Simulator.all
+      @simulators = Simulator.all.sort_by(&:name)
     end
 
     def show

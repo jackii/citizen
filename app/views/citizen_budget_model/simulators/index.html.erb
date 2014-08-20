@@ -4,10 +4,15 @@
 </ol>
 <% end %>
 
-<ul>
+<ul class="index">
 <% @simulators.each do |simulator| %>
   <li>
     <%= link_to simulator.name, simulator %>
+    <span class="actions">
+      <%= link_to edit_simulator_path(simulator) do %>
+        <span class="glyphicon glyphicon-pencil"></span> <%= _('Edit') %>
+      <% end %>
+    </span>
   </li>
 <% end %>
 </ul>

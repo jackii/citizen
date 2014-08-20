@@ -37,7 +37,7 @@
 }
 .breadcrumb .btn-xs {
   display: inline-block;
-  margin-left: 1em;
+  margin-left: 10px;
 }
 
 .sign-in {
@@ -48,13 +48,13 @@
   }
 
   label, a {
-    padding-left: 1em;
+    padding-left: 10px;
   }
 }
 
 @media (max-width: 767px) {
   .sign-in a {
-    padding-top: 1em;
+    padding-top: 20px;
     padding-left: 0;
     display: block;
   }
@@ -73,4 +73,17 @@ h1 {
 p,
 ul {
   margin-bottom: 20px;
+}
+
+.actions {
+  display: none;
+}
+.index:hover .actions,
+.index:focus .actions,
+.index *:hover .actions,
+.index *:focus .actions {
+  display: inline-block;
+}
+.actions a {
+  padding-left: 10px;
 }

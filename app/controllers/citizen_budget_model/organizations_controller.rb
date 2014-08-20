@@ -4,7 +4,7 @@ module CitizenBudgetModel
     before_action :set_organization, only: [:show, :edit, :update, :destroy]
 
     def index
-      @organizations = Organization.all
+      @organizations = Organization.all.sort_by(&:name)
     end
 
     def show
