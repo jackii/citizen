@@ -3,13 +3,6 @@ guard 'bundler' do
   watch(/^.+\.gemspec/)
 end
 
-guard 'brakeman' do
-  watch(%r{^app/.+\.(erb|haml|rhtml|rb)$})
-  watch(%r{^config/.+\.rb$})
-  watch(%r{^lib/.+\.rb$})
-  watch('Gemfile')
-end
-
 guard 'rspec', cmd: 'bundle exec rspec' do
   watch('Gemfile.lock')                   { "spec" }
   watch(%r{^config/initializers/.+\.rb$}) { "spec" }

@@ -35,7 +35,6 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency 'database_cleaner', '~> 1.2'
   s.add_development_dependency 'factory_girl_rails', '~> 4.1'
-  s.add_development_dependency 'guard-brakeman', '~> 0.5'
   s.add_development_dependency 'guard-bundler', '~> 2.0'
   s.add_development_dependency 'guard-rspec', '~> 4.3'
   s.add_development_dependency 'rspec-rails', '~> 3.0'
