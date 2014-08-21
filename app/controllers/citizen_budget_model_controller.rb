@@ -26,24 +26,27 @@ module CitizenBudgetModel
       end
     end
 
-    def translated_text_field(method, options = {}) # @todo continue
-      if object.class.translated_attribute_names.include?(method)
-        object.class.globalize_locales.each do |locale|
-          @template.concat(text_field(method, options, locale))
+    def translated_text_field(method, options = {})
+      rows = ActiveSupport::SafeBuffer.new
+
+      object.class.globalize_locales.each_with_index do |locale,index|
+        klass = 'form-group'
+        content = label(locale) + text_field_without_label(object.class.localized_attr_name_for(method, locale), {class: 'form-control'}.merge(options))
+        if object.errors[method].any?
+          klass << ' has-error has-feedback'
+          content << @template.content_tag(:span, nil, class: 'glyphicon glyphicon-remove form-control-feedback')
         end
-        ''
-      else
-        text_field(method, options)
+        rows << @template.content_tag(:div, @template.content_tag(:div, content, class: klass), class: 'col-sm-6')
       end
+
+      label(method) + @template.content_tag(:div, rows, class: 'row')
     end
 
-    def text_field(method, options = {}, locale = nil)
-      field_method = method
-      if locale
-        field_method = object.class.localized_attr_name_for(method, locale)
-      end
+    alias_method :text_field_without_label, :text_field
+
+    def text_field(method, options = {})
       klass = 'form-group'
-      content = label(method) + super(field_method, {class: 'form-control'}.merge(options))
+      content = label(method) + super(method, {class: 'form-control'}.merge(options))
       if object.errors[method].any?
         klass << ' has-error has-feedback'
         content << @template.content_tag(:span, nil, class: 'glyphicon glyphicon-remove form-control-feedback')

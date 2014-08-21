@@ -87,3 +87,26 @@ ul {
 .actions a {
   padding-left: 10px;
 }
+
+.nav > li.legend > a {
+  color: #333;
+  font-weight: 700;
+}
+.nav > li.legend > a:hover,
+.nav > li.legend > a:focus {
+  color: #333;
+  text-decoration: none;
+  background-color: transparent;
+  border-color: transparent;
+  cursor: default;
+}
+
+.row {
+  label {
+    font-style: italic;
+    font-weight: normal;
+  }
+  .form-control-feedback {
+    top: 0;
+  }
+}
