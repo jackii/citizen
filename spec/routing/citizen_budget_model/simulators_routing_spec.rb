@@ -14,11 +14,11 @@ module CitizenBudgetModel
       end
 
       it 'routes to #show' do
-        expect(get: '/simulators/1').to route_to('citizen_budget_model/simulators#show', :id => '1')
+        expect(get: '/simulators/1').to route_to('citizen_budget_model/simulators#show', id: '1')
       end
 
       it 'routes to #edit' do
-        expect(get: '/simulators/1/edit').to route_to('citizen_budget_model/simulators#edit', :id => '1')
+        expect(get: '/simulators/1/edit').to route_to('citizen_budget_model/simulators#edit', id: '1')
       end
 
       it 'routes to #create' do
@@ -26,19 +26,19 @@ module CitizenBudgetModel
       end
 
       it 'routes to #update' do
-        expect(put: '/simulators/1').to route_to('citizen_budget_model/simulators#update', :id => '1')
+        expect(put: '/simulators/1').to route_to('citizen_budget_model/simulators#update', id: '1')
       end
 
       it 'routes to #destroy' do
-        expect(delete: '/simulators/1').to route_to('citizen_budget_model/simulators#destroy', :id => '1')
+        expect(delete: '/simulators/1').to route_to('citizen_budget_model/simulators#destroy', id: '1')
       end
 
       it 'routes to #sort' do
-        expect(post: '/simulators/1/sort').to route_to('citizen_budget_model/simulators#sort', :id => '1')
+        expect(post: '/simulators/1/sort').to route_to('citizen_budget_model/simulators#sort', id: '1')
       end
 
       it 'routes to #solution' do
-        expect(get: '/simulators/1/solution').to route_to('citizen_budget_model/simulators#solution', :id => '1')
+        expect(get: '/simulators/1/solution').to route_to('citizen_budget_model/simulators#solution', id: '1')
       end
     end
   end

@@ -5,18 +5,19 @@ CitizenBudgetModel::Engine.routes.draw do
 
   resources :simulators do
     member do
-      post :sort
       get :solution
-    end
-  end
 
-  resources :sections, except: [:index] do
-    member do
       post :sort
     end
-  end
 
-  resources :questions, except: [:index]
+    resources :sections, except: [:index] do
+      member do
+        post :sort
+      end
+
+      resources :questions, except: [:index]
+    end
+  end
 
   namespace :citizen_budget_model do
     get 'pages/home'
