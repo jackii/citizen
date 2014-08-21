@@ -78,10 +78,6 @@ module CitizenBudgetModel
             expect {
               post :create, {:organization => valid_attributes}
             }.to change(Organization, :count).by(1)
-          end
-
-          it 'assigns a newly created organization as @organization' do
-            post :create, {:organization => valid_attributes}
             expect(assigns(:organization)).to be_a(Organization)
             expect(assigns(:organization)).to be_persisted
             expect(response).to redirect_to(Organization.last)
@@ -130,11 +126,6 @@ module CitizenBudgetModel
           expect {
             delete :destroy, {:id => organization.to_param}
           }.to change(Organization, :count).by(-1)
-        end
-
-        it 'redirects to the organizations list' do
-          organization = Organization.create! valid_attributes
-          delete :destroy, {:id => organization.to_param}
           expect(response).to redirect_to(organizations_url)
         end
       end

@@ -68,10 +68,6 @@ module CitizenBudgetModel
             expect {
               post :create, {:question => valid_attributes}
             }.to change(Question, :count).by(1)
-          end
-
-          it 'assigns a newly created question as @question' do
-            post :create, {:question => valid_attributes}
             expect(assigns(:question)).to be_a(Question)
             expect(assigns(:question)).to be_persisted
             expect(response).to redirect_to(Question.last)
@@ -120,11 +116,6 @@ module CitizenBudgetModel
           expect {
             delete :destroy, {:id => question.to_param}
           }.to change(Question, :count).by(-1)
-        end
-
-        it 'redirects to the questions list' do
-          question = Question.create! valid_attributes
-          delete :destroy, {:id => question.to_param}
           expect(response).to redirect_to(questions_url)
         end
       end

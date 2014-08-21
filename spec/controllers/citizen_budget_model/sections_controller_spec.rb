@@ -70,9 +70,6 @@ module CitizenBudgetModel
             expect {
               post :create, {:section => valid_attributes}
             }.to change(Section, :count).by(1)
-          end
-
-          it 'assigns a newly created section as @section' do
             post :create, {:section => valid_attributes}
             expect(assigns(:section)).to be_a(Section)
             expect(assigns(:section)).to be_persisted
@@ -123,11 +120,6 @@ module CitizenBudgetModel
           expect {
             delete :destroy, {:id => section.to_param}
           }.to change(Section, :count).by(-1)
-        end
-
-        it 'redirects to the sections list' do
-          section = Section.create! valid_attributes
-          delete :destroy, {:id => section.to_param}
           expect(response).to redirect_to(sections_url)
         end
       end
