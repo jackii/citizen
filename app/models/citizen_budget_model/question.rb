@@ -8,8 +8,8 @@ module CitizenBudgetModel
 
     validates_presence_of :section_id
 
-    def name
-      title.present? && title || _('Untitled')
+    def display_name
+      name.present? && name || title.present? && title || _('Untitled')
     end
   end
 end

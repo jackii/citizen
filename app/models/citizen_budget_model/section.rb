@@ -9,7 +9,7 @@ module CitizenBudgetModel
 
     validates_presence_of :simulator_id
 
-    def name
+    def display_name
       title.present? && title || _('Untitled')
     end
   end

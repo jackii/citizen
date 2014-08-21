@@ -6,13 +6,13 @@ module CitizenBudgetModel
 
     describe '#name' do
       it 'should return the title' do
-        expect(Section.new(title_en_ca: 'Section').name).to eq('Section')
-        expect(Section.new(title_fr_ca: 'Section').name).to eq('Section')
+        expect(Section.new(title_en_ca: 'Section').display_name).to eq('Section')
+        expect(Section.new(title_fr_ca: 'Section').display_name).to eq('Section')
       end
 
       it 'should return the default title' do
-        expect(Section.new.name).to eq('Untitled')
-        expect(Section.new(title_en_ca: '').name).to eq('Untitled')
+        expect(Section.new.display_name).to eq('Untitled')
+        expect(Section.new(title_en_ca: '').display_name).to eq('Untitled')
       end
     end
   end
