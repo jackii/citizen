@@ -11,7 +11,7 @@ jQuery(function ($) {
       , data: $target.sortable('serialize')
       }).done(function (request) {
         $target.effect('highlight');
-      }
+      })
     }
   })
 });
