@@ -7,7 +7,35 @@
 
 ## Installation
 
+### Basic
+
+In `Gemfile`:
+
     gem 'citizen_budget_model'
+
+In `config/routes.rb`:
+
+    mount CitizenBudgetModel::Engine => '/'
+
+### Internationalization
+
+Set your locales in `config/application.rb`, for example:
+
+    config.i18n.available_locales = ['en-CA', 'fr-CA']
+    config.i18n.default_locale = 'en-CA'
+    config.i18n.fallbacks = {'en-CA' => ['en-CA', :en, 'fr-CA', :fr], 'fr-CA' => ['fr-CA', :fr, 'en-CA', :en]}
+    config.i18n.enforce_available_locales = false
+
+To fully support multiple languages, in `Gemfile`:
+
+    gem 'rails-i18n', '~> 4.0.0'
+    gem 'devise-i18n', '~> 0.10.4'
+
+### Views
+
+If you are not overriding this engine's views, in `Gemfile`:
+
+    gem 'jquery-rails'
 
 In `app/assets/application.css`:
 
@@ -15,20 +43,8 @@ In `app/assets/application.css`:
 
 In `app/assets/application.js`:
 
-    //= require jquery
     //= require jquery_ujs
     //= require citizen_budget_model/application
-
-In `config/application.rb`:
-
-    config.i18n.available_locales = ['en-CA', 'fr-CA']
-    config.i18n.default_locale = 'en-CA'
-    config.i18n.fallbacks = {'en-CA' => ['en-CA', :en, 'fr-CA', :fr], 'fr-CA' => ['fr-CA', :fr, 'en-CA', :en]}
-    config.i18n.enforce_available_locales = false
-
-In `config/routes.rb`:
-
-    mount CitizenBudgetModel::Engine => '/'
 
 ## Testing
 
