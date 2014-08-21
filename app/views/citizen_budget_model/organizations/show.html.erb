@@ -11,9 +11,17 @@
 
 <% if @organization.simulators.any? %>
 <h1>Simulators</h1>
-<ul>
+
+<ul class="index">
 <% @organization.simulators.each do |simulator| %>
-  <li><%= link_to simulator.name, simulator %></li>
+  <li>
+    <%= link_to simulator.name, simulator %>
+    <span class="actions">
+      <%= link_to edit_simulator_path(simulator) do %>
+        <span class="glyphicon glyphicon-pencil"></span> <%= _('Edit') %>
+      <% end %>
+    </span>
+  </li>
 <% end %>
 </ul>
 <% end %>
