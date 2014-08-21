@@ -1,39 +1,39 @@
 .navbar {
-  border: none; // 1px solid transparent
-  margin-bottom: 0; // 20px
+  border: none; /* 1px solid transparent */
+  margin-bottom: 0; /* 20px */
 }
 .navbar .navbar-toggle:hover,
 .navbar .navbar-toggle:hover {
-  background-color: #eee; // #ddd
-  border-color: #eee; // #ddd
+  background-color: #eee; /* #ddd */
+  border-color: #eee; /* #ddd */
 }
 .navbar .navbar-toggle .icon-bar {
-  background-color: #333; // #888
+  background-color: #333; /* #888 */
 }
 @media (max-width: 767px) {
   .navbar-nav {
-    margin-top: 0; // 7.5px
-    margin-bottom: 0; // 7.5px
+    margin-top: 0; /* 7.5px */
+    margin-bottom: 0; /* 7.5px */
   }
 }
 @media (min-width: 768px) {
   .navbar-collapse {
-    padding-right: 0; // 15px
+    padding-right: 0; /* 15px */
   }
 }
 
-// @see https://kuler.adobe.com/when-will-the-storm-come-color-theme-4162685/
+/* @see https://kuler.adobe.com/when-will-the-storm-come-color-theme-4162685/ */
 .breadcrumb {
   margin-bottom: 20px;
-  border-radius: 0; // 4px
+  border-radius: 0; /* 4px */
   background-color: #F9F7C8;
 }
 .breadcrumb > li + li:before {
-  color: #999; // #ccc
+  color: #999; /* #ccc */
 }
 .breadcrumb .active {
   font-weight: bold;
-  color: #333; // #999
+  color: #333; /* #999 */
 }
 .breadcrumb .btn-xs {
   display: inline-block;
