@@ -7,5 +7,9 @@ module CitizenBudgetModel
     belongs_to :section
 
     validates_presence_of :section_id
+
+    def name
+      title.present? && title || _('Untitled')
+    end
   end
 end
