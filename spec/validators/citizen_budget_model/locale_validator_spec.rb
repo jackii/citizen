@@ -23,6 +23,13 @@ module CitizenBudgetModel
         expect(instance).to_not be_valid
         expect(instance.errors.full_messages).to eq(["Name can't be blank"])
       end
+
+      it 'should add an error if the name is removed' do
+        instance = Thing.create! name_en_ca: 'Foo'
+        instance.name_en_ca = ''
+        expect(instance).to_not be_valid
+        expect(instance.errors.full_messages).to eq(["Name can't be blank"])
+      end
     end
   end
 end
