@@ -33,13 +33,13 @@ module CitizenBudgetModel
         expect(response).to redirect_to(new_user_session_path)
         post :create
         expect(response).to redirect_to(new_user_session_path)
-        get :show, {:id => 1}
+        get :show, {id: 1}
         expect(response).to redirect_to(new_user_session_path)
-        get :edit, {:id => 1}
+        get :edit, {id: 1}
         expect(response).to redirect_to(new_user_session_path)
-        put :update, {:id => 1}
+        put :update, {id: 1}
         expect(response).to redirect_to(new_user_session_path)
-        delete :destroy, {:id => 1}
+        delete :destroy, {id: 1}
         expect(response).to redirect_to(new_user_session_path)
       end
     end
@@ -63,7 +63,7 @@ module CitizenBudgetModel
       describe 'GET show' do
         it 'assigns the requested simulator as @simulator' do
           simulator = Simulator.create! valid_attributes_for_admin
-          get :show, {:id => simulator.to_param}
+          get :show, {id: simulator.to_param}
           expect(assigns(:simulator)).to eq(simulator)
         end
       end
@@ -71,7 +71,7 @@ module CitizenBudgetModel
       describe 'GET edit' do
         it 'assigns the requested simulator as @simulator' do
           simulator = Simulator.create! valid_attributes_for_admin
-          get :edit, {:id => simulator.to_param}
+          get :edit, {id: simulator.to_param}
           expect(assigns(:simulator)).to eq(simulator)
         end
       end
@@ -79,7 +79,7 @@ module CitizenBudgetModel
       describe 'POST create' do
         it 'allows any organization_id' do
           expect {
-            post :create, {:simulator => valid_attributes_for_admin}
+            post :create, {simulator: valid_attributes_for_admin}
           }.to change(Simulator, :count).by(1)
           expect(assigns(:simulator)).to be_a(Simulator)
           expect(assigns(:simulator)).to be_persisted
@@ -92,7 +92,7 @@ module CitizenBudgetModel
       describe 'PUT update' do
         it 'allows any organization_id' do
           simulator = Simulator.create! valid_attributes_for_admin
-          put :update, {:id => simulator.to_param, :simulator => new_attributes_for_admin}
+          put :update, {id: simulator.to_param, simulator: new_attributes_for_admin}
           expect(simulator.reload.name).to eq('Update')
           expect(assigns(:simulator)).to eq(simulator)
           expect(response).to redirect_to(simulator)
@@ -105,7 +105,7 @@ module CitizenBudgetModel
         it 'destroys the requested simulator' do
           simulator = Simulator.create! valid_attributes_for_admin
           expect {
-            delete :destroy, {:id => simulator.to_param}
+            delete :destroy, {id: simulator.to_param}
           }.to change(Simulator, :count).by(-1)
           expect(response).to redirect_to(simulators_url)
         end
@@ -143,12 +143,12 @@ module CitizenBudgetModel
       describe 'GET show' do
         it 'does not assign the unauthorized simulator as @simulator' do
           simulator = Simulator.create! valid_attributes_for_admin
-          expect{get(:show, {:id => simulator.to_param})}.to raise_error(ActiveRecord::RecordNotFound)
+          expect{get(:show, {id: simulator.to_param})}.to raise_error(ActiveRecord::RecordNotFound)
         end
 
         it 'assigns the requested simulator as @simulator' do
           simulator = Simulator.create! valid_attributes_for_create
-          get :show, {:id => simulator.to_param}
+          get :show, {id: simulator.to_param}
           expect(assigns(:simulator)).to eq(simulator)
         end
       end
@@ -163,12 +163,12 @@ module CitizenBudgetModel
       describe 'GET edit' do
         it 'does not assign the unauthorized simulator as @simulator' do
           simulator = Simulator.create! valid_attributes_for_admin
-          expect{get(:edit, {:id => simulator.to_param})}.to raise_error(ActiveRecord::RecordNotFound)
+          expect{get(:edit, {id: simulator.to_param})}.to raise_error(ActiveRecord::RecordNotFound)
         end
 
         it 'assigns the requested simulator as @simulator' do
           simulator = Simulator.create! valid_attributes_for_create
-          get :edit, {:id => simulator.to_param}
+          get :edit, {id: simulator.to_param}
           expect(assigns(:simulator)).to eq(simulator)
         end
       end
@@ -177,7 +177,7 @@ module CitizenBudgetModel
         describe 'with valid params' do
           it 'does not allow any organization_id' do
             expect {
-              post :create, {:simulator => valid_attributes_for_admin}
+              post :create, {simulator: valid_attributes_for_admin}
             }.to change(Simulator, :count).by(1)
             expect(assigns(:simulator)).to be_a(Simulator)
             expect(assigns(:simulator)).to be_persisted
@@ -188,7 +188,7 @@ module CitizenBudgetModel
 
           it 'creates a new Simulator' do
             expect {
-              post :create, {:simulator => valid_attributes}
+              post :create, {simulator: valid_attributes}
             }.to change(Simulator, :count).by(1)
             expect(assigns(:simulator)).to be_a(Simulator)
             expect(assigns(:simulator)).to be_persisted
@@ -198,7 +198,7 @@ module CitizenBudgetModel
 
         describe 'with invalid params' do
           it 'assigns a newly created but unsaved simulator as @simulator' do
-            post :create, {:simulator => invalid_attributes}
+            post :create, {simulator: invalid_attributes}
             expect(assigns(:simulator)).to be_a_new(Simulator)
             expect(response).to render_template('new')
           end
@@ -215,7 +215,7 @@ module CitizenBudgetModel
 
           it 'does not allow any organization_id' do
             simulator = Simulator.create! valid_attributes_for_create
-            put :update, {:id => simulator.to_param, :simulator => new_attributes_for_admin}
+            put :update, {id: simulator.to_param, simulator: new_attributes_for_admin}
             expect(simulator.reload.name).to eq('Update')
             expect(assigns(:simulator)).to eq(simulator)
             expect(response).to redirect_to(simulator)
@@ -225,7 +225,7 @@ module CitizenBudgetModel
 
           it 'updates the requested simulator' do
             simulator = Simulator.create! valid_attributes_for_create
-            put :update, {:id => simulator.to_param, :simulator => new_attributes}
+            put :update, {id: simulator.to_param, simulator: new_attributes}
             expect(simulator.reload.name).to eq('Update')
             expect(assigns(:simulator)).to eq(simulator)
             expect(response).to redirect_to(simulator)
@@ -235,7 +235,7 @@ module CitizenBudgetModel
         describe 'with invalid params' do
           it 'assigns the simulator as @simulator' do
             simulator = Simulator.create! valid_attributes_for_create
-            put :update, {:id => simulator.to_param, :simulator => invalid_attributes}
+            put :update, {id: simulator.to_param, simulator: invalid_attributes}
             expect(assigns(:simulator)).to eq(simulator)
             expect(response).to render_template('edit')
           end
@@ -245,13 +245,13 @@ module CitizenBudgetModel
       describe 'DELETE destroy' do
         it 'does not destroy the unauthorized simulator' do
           simulator = Simulator.create! valid_attributes_for_admin
-          expect{delete :destroy, {:id => simulator.to_param}}.to raise_error(ActiveRecord::RecordNotFound)
+          expect{delete :destroy, {id: simulator.to_param}}.to raise_error(ActiveRecord::RecordNotFound)
         end
 
         it 'destroys the requested simulator' do
           simulator = Simulator.create! valid_attributes_for_create
           expect {
-            delete :destroy, {:id => simulator.to_param}
+            delete :destroy, {id: simulator.to_param}
           }.to change(Simulator, :count).by(-1)
           expect(response).to redirect_to(simulators_url)
         end
@@ -266,7 +266,7 @@ module CitizenBudgetModel
           order = sections.map(&:id)
 
           expect(simulator.sections.map(&:id)).to eq(order)
-          post :sort, {:id => simulator.to_param, :section => order.reverse!}
+          post :sort, {id: simulator.to_param, section: order.reverse!}
           expect(simulator.sections.reload.map(&:id)).to eq(order)
         end
       end

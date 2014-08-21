@@ -10,13 +10,13 @@ module CitizenBudgetModel
         expect(response).to redirect_to(new_user_session_path)
         post :create
         expect(response).to redirect_to(new_user_session_path)
-        get :show, {:id => 1}
+        get :show, {id: 1}
         expect(response).to redirect_to(new_user_session_path)
-        get :edit, {:id => 1}
+        get :edit, {id: 1}
         expect(response).to redirect_to(new_user_session_path)
-        put :update, {:id => 1}
+        put :update, {id: 1}
         expect(response).to redirect_to(new_user_session_path)
-        delete :destroy, {:id => 1}
+        delete :destroy, {id: 1}
         expect(response).to redirect_to(new_user_session_path)
       end
     end
@@ -42,7 +42,7 @@ module CitizenBudgetModel
       describe 'GET show' do
         it 'assigns the requested question as @question' do
           question = Question.create! valid_attributes
-          get :show, {:id => question.to_param}
+          get :show, {id: question.to_param}
           expect(assigns(:question)).to eq(question)
         end
       end
@@ -57,7 +57,7 @@ module CitizenBudgetModel
       describe 'GET edit' do
         it 'assigns the requested question as @question' do
           question = Question.create! valid_attributes
-          get :edit, {:id => question.to_param}
+          get :edit, {id: question.to_param}
           expect(assigns(:question)).to eq(question)
         end
       end
@@ -66,7 +66,7 @@ module CitizenBudgetModel
         describe 'with valid params' do
           it 'creates a new Question' do
             expect {
-              post :create, {:question => valid_attributes}
+              post :create, {question: valid_attributes}
             }.to change(Question, :count).by(1)
             expect(assigns(:question)).to be_a(Question)
             expect(assigns(:question)).to be_persisted
@@ -76,7 +76,7 @@ module CitizenBudgetModel
 
         describe 'with invalid params' do
           it 'assigns a newly created but unsaved question as @question' do
-            post :create, {:question => invalid_attributes}
+            post :create, {question: invalid_attributes}
             expect(assigns(:question)).to be_a_new(Question)
             expect(response).to render_template('new')
           end
@@ -93,7 +93,7 @@ module CitizenBudgetModel
 
           it 'updates the requested question' do
             question = Question.create! valid_attributes
-            put :update, {:id => question.to_param, :question => new_attributes}
+            put :update, {id: question.to_param, question: new_attributes}
             expect(question.reload.title).to eq('Update')
             expect(assigns(:question)).to eq(question)
             expect(response).to redirect_to(question)
@@ -103,7 +103,7 @@ module CitizenBudgetModel
         describe 'with invalid params' do
           it 'assigns the question as @question' do
             question = Question.create! valid_attributes
-            put :update, {:id => question.to_param, :question => invalid_attributes}
+            put :update, {id: question.to_param, question: invalid_attributes}
             expect(assigns(:question)).to eq(question)
             expect(response).to render_template('edit')
           end
@@ -114,7 +114,7 @@ module CitizenBudgetModel
         it 'destroys the requested question' do
           question = Question.create! valid_attributes
           expect {
-            delete :destroy, {:id => question.to_param}
+            delete :destroy, {id: question.to_param}
           }.to change(Question, :count).by(-1)
           expect(response).to redirect_to(questions_url)
         end

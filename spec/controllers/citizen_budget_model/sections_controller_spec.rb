@@ -10,13 +10,13 @@ module CitizenBudgetModel
         expect(response).to redirect_to(new_user_session_path)
         post :create
         expect(response).to redirect_to(new_user_session_path)
-        get :show, {:id => 1}
+        get :show, {id: 1}
         expect(response).to redirect_to(new_user_session_path)
-        get :edit, {:id => 1}
+        get :edit, {id: 1}
         expect(response).to redirect_to(new_user_session_path)
-        put :update, {:id => 1}
+        put :update, {id: 1}
         expect(response).to redirect_to(new_user_session_path)
-        delete :destroy, {:id => 1}
+        delete :destroy, {id: 1}
         expect(response).to redirect_to(new_user_session_path)
       end
     end
@@ -44,7 +44,7 @@ module CitizenBudgetModel
       describe 'GET show' do
         it 'assigns the requested section as @section' do
           section = Section.create! valid_attributes
-          get :show, {:id => section.to_param}
+          get :show, {id: section.to_param}
           expect(assigns(:section)).to eq(section)
         end
       end
@@ -59,7 +59,7 @@ module CitizenBudgetModel
       describe 'GET edit' do
         it 'assigns the requested section as @section' do
           section = Section.create! valid_attributes
-          get :edit, {:id => section.to_param}
+          get :edit, {id: section.to_param}
           expect(assigns(:section)).to eq(section)
         end
       end
@@ -68,9 +68,9 @@ module CitizenBudgetModel
         describe 'with valid params' do
           it 'creates a new Section' do
             expect {
-              post :create, {:section => valid_attributes}
+              post :create, {section: valid_attributes}
             }.to change(Section, :count).by(1)
-            post :create, {:section => valid_attributes}
+            post :create, {section: valid_attributes}
             expect(assigns(:section)).to be_a(Section)
             expect(assigns(:section)).to be_persisted
             expect(response).to redirect_to(Section.last)
@@ -79,7 +79,7 @@ module CitizenBudgetModel
 
         describe 'with invalid params' do
           it 'assigns a newly created but unsaved section as @section' do
-            post :create, {:section => invalid_attributes}
+            post :create, {section: invalid_attributes}
             expect(assigns(:section)).to be_a_new(Section)
             expect(response).to render_template('new')
           end
@@ -97,7 +97,7 @@ module CitizenBudgetModel
 
           it 'updates the requested section' do
             section = Section.create! valid_attributes
-            put :update, {:id => section.to_param, :section => new_attributes}
+            put :update, {id: section.to_param, section: new_attributes}
             expect(section.reload.title).to eq('Update')
             expect(assigns(:section)).to eq(section)
             expect(response).to redirect_to(section)
@@ -107,7 +107,7 @@ module CitizenBudgetModel
         describe 'with invalid params' do
           it 'assigns the section as @section' do
             section = Section.create! valid_attributes
-            put :update, {:id => section.to_param, :section => invalid_attributes}
+            put :update, {id: section.to_param, section: invalid_attributes}
             expect(assigns(:section)).to eq(section)
             expect(response).to render_template('edit')
           end
@@ -118,7 +118,7 @@ module CitizenBudgetModel
         it 'destroys the requested section' do
           section = Section.create! valid_attributes
           expect {
-            delete :destroy, {:id => section.to_param}
+            delete :destroy, {id: section.to_param}
           }.to change(Section, :count).by(-1)
           expect(response).to redirect_to(sections_url)
         end
@@ -133,7 +133,7 @@ module CitizenBudgetModel
           order = questions.map(&:id)
 
           expect(section.questions.map(&:id)).to eq(order)
-          post :sort, {:id => section.to_param, :question => order.reverse!}
+          post :sort, {id: section.to_param, question: order.reverse!}
           expect(section.questions.reload.map(&:id)).to eq(order)
         end
       end

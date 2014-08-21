@@ -12,13 +12,13 @@ module CitizenBudgetModel
         expect(response).to redirect_to(new_user_session_path)
         post :create
         expect(response).to redirect_to(new_user_session_path)
-        get :show, {:id => 1}
+        get :show, {id: 1}
         expect(response).to redirect_to(new_user_session_path)
-        get :edit, {:id => 1}
+        get :edit, {id: 1}
         expect(response).to redirect_to(new_user_session_path)
-        put :update, {:id => 1}
+        put :update, {id: 1}
         expect(response).to redirect_to(new_user_session_path)
-        delete :destroy, {:id => 1}
+        delete :destroy, {id: 1}
         expect(response).to redirect_to(new_user_session_path)
       end
     end
@@ -52,7 +52,7 @@ module CitizenBudgetModel
       describe 'GET show' do
         it 'assigns the requested organization as @organization' do
           organization = Organization.create! valid_attributes
-          get :show, {:id => organization.to_param}
+          get :show, {id: organization.to_param}
           expect(assigns(:organization)).to eq(organization)
         end
       end
@@ -67,7 +67,7 @@ module CitizenBudgetModel
       describe 'GET edit' do
         it 'assigns the requested organization as @organization' do
           organization = Organization.create! valid_attributes
-          get :edit, {:id => organization.to_param}
+          get :edit, {id: organization.to_param}
           expect(assigns(:organization)).to eq(organization)
         end
       end
@@ -76,7 +76,7 @@ module CitizenBudgetModel
         describe 'with valid params' do
           it 'creates a new Organization' do
             expect {
-              post :create, {:organization => valid_attributes}
+              post :create, {organization: valid_attributes}
             }.to change(Organization, :count).by(1)
             expect(assigns(:organization)).to be_a(Organization)
             expect(assigns(:organization)).to be_persisted
@@ -86,7 +86,7 @@ module CitizenBudgetModel
 
         describe 'with invalid params' do
           it 'assigns a newly created but unsaved organization as @organization' do
-            post :create, {:organization => invalid_attributes}
+            post :create, {organization: invalid_attributes}
             expect(assigns(:organization)).to be_a_new(Organization)
             expect(response).to render_template('new')
           end
@@ -103,7 +103,7 @@ module CitizenBudgetModel
 
           it 'updates the requested organization' do
             organization = Organization.create! valid_attributes
-            put :update, {:id => organization.to_param, :organization => new_attributes}
+            put :update, {id: organization.to_param, organization: new_attributes}
             expect(organization.reload.name).to eq('Update')
             expect(assigns(:organization)).to eq(organization)
             expect(response).to redirect_to(organization)
@@ -113,7 +113,7 @@ module CitizenBudgetModel
         describe 'with invalid params' do
           it 'assigns the organization as @organization' do
             organization = Organization.create! valid_attributes
-            put :update, {:id => organization.to_param, :organization => invalid_attributes}
+            put :update, {id: organization.to_param, organization: invalid_attributes}
             expect(assigns(:organization)).to eq(organization)
             expect(response).to render_template('edit')
           end
@@ -124,7 +124,7 @@ module CitizenBudgetModel
         it 'destroys the requested organization' do
           organization = Organization.create! valid_attributes
           expect {
-            delete :destroy, {:id => organization.to_param}
+            delete :destroy, {id: organization.to_param}
           }.to change(Organization, :count).by(-1)
           expect(response).to redirect_to(organizations_url)
         end
