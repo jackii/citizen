@@ -37,7 +37,7 @@ module CitizenBudgetModel
 
     def destroy
       @organization.destroy
-      redirect_to organizations_url, notice: _('Organization was deleted.')
+      redirect_to organizations_path, notice: _('Organization was deleted.')
     end
 
   private

@@ -127,7 +127,7 @@ module CitizenBudgetModel
           expect {
             delete :destroy, {id: organization.to_param}
           }.to change(Organization, :count).by(-1)
-          expect(response).to redirect_to(organizations_url)
+          expect(response).to redirect_to(organizations_path)
         end
       end
     end

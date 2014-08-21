@@ -108,7 +108,7 @@ module CitizenBudgetModel
           expect {
             delete :destroy, {id: simulator.to_param}
           }.to change(Simulator, :count).by(-1)
-          expect(response).to redirect_to(simulators_url)
+          expect(response).to redirect_to(simulators_path)
         end
       end
     end
@@ -255,7 +255,7 @@ module CitizenBudgetModel
           expect {
             delete :destroy, {id: simulator.to_param}
           }.to change(Simulator, :count).by(-1)
-          expect(response).to redirect_to(simulators_url)
+          expect(response).to redirect_to(simulators_path)
         end
       end
 

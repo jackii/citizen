@@ -37,7 +37,7 @@ module CitizenBudgetModel
 
     def destroy
       @simulator.destroy
-      redirect_to simulators_url, notice: _('Simulator was deleted.')
+      redirect_to simulators_path, notice: _('Simulator was deleted.')
     end
 
     def sort
