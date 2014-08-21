@@ -3,7 +3,7 @@
   <li><%= link_to _('Simulators'), simulators_path %></li>
   <li><%= link_to @simulator.name, @simulator %></li>
   <li><%= link_to @section.name, @section %></li>
-  <li><%= _('Questions') %></li>
+  <li><%= link_to @question.name, @question %></li>
   <li class="active"><%= _('Edit') %></li>
 </ol>
 <% end %>

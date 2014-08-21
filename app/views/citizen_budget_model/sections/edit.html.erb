@@ -2,7 +2,7 @@
 <ol class="breadcrumb">
   <li><%= link_to _('Simulators'), simulators_path %></li>
   <li><%= link_to @simulator.name, @simulator %></li>
-  <li><%= _('Sections') %></li>
+  <li><%= link_to @section.name, [@simulator, @section] %></li>
   <li class="active"><%= _('Edit') %></li>
 </ol>
 <% end %>

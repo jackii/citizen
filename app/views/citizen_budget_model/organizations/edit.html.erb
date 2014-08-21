@@ -1,6 +1,7 @@
 <% content_for :breadcrumb do %>
 <ol class="breadcrumb">
   <li><%= link_to _('Organizations'), organizations_path %></li>
+  <li><%= link_to @organization.name, @organization %></li>
   <li class="active"><%= _('Edit') %></li>
 </ol>
 <% end %>
