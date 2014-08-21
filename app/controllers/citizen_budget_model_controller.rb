@@ -6,7 +6,7 @@ class CitizenBudgetModelController < CitizenBudgetModel.parent_controller.consta
   helper_method :admin?
 
   def set_locale
-    session[:locale] = I18n.locale = params[:locale] || session[:locale] || http_accept_language.compatible_language_from(I18n.available_locales) || I18n.default_locale
+    session[:locale] = I18n.locale = params[:locale] || session[:locale] || I18n.default_locale
   end
 
   def admin?
