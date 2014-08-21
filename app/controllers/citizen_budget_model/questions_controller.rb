@@ -1,23 +1,25 @@
 module CitizenBudgetModel
   class QuestionsController < CitizenBudgetModelController
     before_action :authenticate_user!
+    before_action :set_simulator
+    before_action :set_section
     before_action :set_question, only: [:show, :edit, :update, :destroy]
 
     def show
     end
 
     def new
-      @question = Question.new
+      @question = collection.new
     end
 
     def edit
     end
 
     def create
-      @question = Question.new(question_params)
+      @question = collection.new(question_params)
 
       if @question.save
-        redirect_to @question, notice: _('Question was created.')
+        redirect_to [@simulator, @section, @question], notice: _('Question was created.')
       else
         render :new
       end
@@ -25,7 +27,7 @@ module CitizenBudgetModel
 
     def update
       if @question.update(question_params)
-        redirect_to @question, notice: _('Question was updated.')
+        redirect_to [@simulator, @section, @question], notice: _('Question was updated.')
       else
         render :edit
       end
@@ -33,17 +35,29 @@ module CitizenBudgetModel
 
     def destroy
       @question.destroy
-      redirect_to questions_url, notice: _('Question was destroyed.')
+      redirect_to [@simulator, @section], notice: _('Question was destroyed.')
     end
 
   private
 
+    def collection
+      @collection ||= @section.questions
+    end
+
+    def set_simulator
+      @simulator = simulators.find(params[:simulator_id])
+    end
+
+    def set_section
+      @section = @simulator.sections.find(params[:section_id])
+    end
+
     def set_question
-      @question = Question.find(params[:id])
+      @question = collection.find(params[:id])
     end
 
     def question_params
-      attribute_names = Question.globalize_attribute_names + [:section_id, :machine_name, :default_value, :unit_value, :account, :widget, :options, :revenue, :maxlength, :required, :rows, :cols, :size]
+      attribute_names = Question.globalize_attribute_names + [:machine_name, :default_value, :unit_value, :account, :widget, :options, :revenue, :maxlength, :required, :rows, :cols, :size]
       params.require(:question).permit(attribute_names)
     end
   end

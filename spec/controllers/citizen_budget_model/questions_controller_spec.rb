@@ -6,17 +6,17 @@ module CitizenBudgetModel
 
     describe 'when not signed in' do
       it 'redirects to sign in page' do
-        get :new, {}
+        get :new, {simulator_id: 1, section_id: 1}
         expect(response).to redirect_to(new_user_session_path)
-        post :create
+        post :create, {simulator_id: 1, section_id: 1}
         expect(response).to redirect_to(new_user_session_path)
-        get :show, {id: 1}
+        get :show, {id: 1, simulator_id: 1, section_id: 1}
         expect(response).to redirect_to(new_user_session_path)
-        get :edit, {id: 1}
+        get :edit, {id: 1, simulator_id: 1, section_id: 1}
         expect(response).to redirect_to(new_user_session_path)
-        put :update, {id: 1}
+        put :update, {id: 1, simulator_id: 1, section_id: 1}
         expect(response).to redirect_to(new_user_session_path)
-        delete :destroy, {id: 1}
+        delete :destroy, {id: 1, simulator_id: 1, section_id: 1}
         expect(response).to redirect_to(new_user_session_path)
       end
     end
@@ -24,6 +24,9 @@ module CitizenBudgetModel
     describe 'when signed in' do
       before(:each) do
         @request.env['devise.mapping'] = Devise.mappings[:user]
+        CitizenBudgetModel::Organization.create!(id: 1, name_en_ca: 'Organization')
+        @simulator = CitizenBudgetModel::Simulator.create!(id: 1, name_en_ca: 'Simulator', organization_id: 1)
+        @section = CitizenBudgetModel::Section.create!(id: 1, simulator_id: 1)
         sign_in CitizenBudgetModel::User.create!(email: 'user@example.com', organization_id: 1)
       end
 
@@ -33,23 +36,17 @@ module CitizenBudgetModel
         }
       end
 
-      let(:invalid_attributes) do
-        {
-          section_id: '',
-        }
-      end
-
       describe 'GET show' do
         it 'assigns the requested question as @question' do
           question = Question.create! valid_attributes
-          get :show, {id: question.to_param}
+          get :show, {id: question.to_param, simulator_id: 1, section_id: 1}
           expect(assigns(:question)).to eq(question)
         end
       end
 
       describe 'GET new' do
         it 'assigns a new question as @question' do
-          get :new, {}
+          get :new, {simulator_id: 1, section_id: 1}
           expect(assigns(:question)).to be_a_new(Question)
         end
       end
@@ -57,7 +54,7 @@ module CitizenBudgetModel
       describe 'GET edit' do
         it 'assigns the requested question as @question' do
           question = Question.create! valid_attributes
-          get :edit, {id: question.to_param}
+          get :edit, {id: question.to_param, simulator_id: 1, section_id: 1}
           expect(assigns(:question)).to eq(question)
         end
       end
@@ -66,19 +63,11 @@ module CitizenBudgetModel
         describe 'with valid params' do
           it 'creates a new Question' do
             expect {
-              post :create, {question: valid_attributes}
+              post :create, {question: valid_attributes, simulator_id: 1, section_id: 1}
             }.to change(Question, :count).by(1)
             expect(assigns(:question)).to be_a(Question)
             expect(assigns(:question)).to be_persisted
-            expect(response).to redirect_to(Question.last)
-          end
-        end
-
-        describe 'with invalid params' do
-          it 'assigns a newly created but unsaved question as @question' do
-            post :create, {question: invalid_attributes}
-            expect(assigns(:question)).to be_a_new(Question)
-            expect(response).to render_template('new')
+            expect(response).to redirect_to([@simulator, @section, Question.last])
           end
         end
       end
@@ -93,19 +82,10 @@ module CitizenBudgetModel
 
           it 'updates the requested question' do
             question = Question.create! valid_attributes
-            put :update, {id: question.to_param, question: new_attributes}
+            put :update, {id: question.to_param, question: new_attributes, simulator_id: 1, section_id: 1}
             expect(question.reload.title).to eq('Update')
             expect(assigns(:question)).to eq(question)
-            expect(response).to redirect_to(question)
-          end
-        end
-
-        describe 'with invalid params' do
-          it 'assigns the question as @question' do
-            question = Question.create! valid_attributes
-            put :update, {id: question.to_param, question: invalid_attributes}
-            expect(assigns(:question)).to eq(question)
-            expect(response).to render_template('edit')
+            expect(response).to redirect_to([@simulator, @section, question])
           end
         end
       end
@@ -114,9 +94,9 @@ module CitizenBudgetModel
         it 'destroys the requested question' do
           question = Question.create! valid_attributes
           expect {
-            delete :destroy, {id: question.to_param}
+            delete :destroy, {id: question.to_param, simulator_id: 1, section_id: 1}
           }.to change(Question, :count).by(-1)
-          expect(response).to redirect_to(questions_url)
+          expect(response).to redirect_to([@simulator, @section])
         end
       end
     end

@@ -1,5 +1,11 @@
-<h1>New question</h1>
+<% content_for :breadcrumb do %>
+<ol class="breadcrumb">
+  <li><%= link_to _('Simulators'), simulators_path %></li>
+  <li><%= link_to @simulator.name, @simulator %></li>
+  <li><%= link_to @section.name, @section %></li>
+  <li><%= _('Questions') %></li>
+  <li class="active"><%= _('Add') %></li>
+</ol>
+<% end %>
 
 <%= render 'form' %>
-
-<%= link_to 'Back', questions_path %>

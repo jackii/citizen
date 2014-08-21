@@ -9,8 +9,8 @@ class CreateCitizenBudgetModelSections < ActiveRecord::Migration
     CitizenBudgetModel::Section.create_translation_table!({
       title: {type: :string, null: false, default: ''},
       description: {type: :text, null: false, default: ''},
-      popover: {type: :text, null: false, default: ''},
       modal: {type: :text, null: false, default: ''},
+      popover: {type: :text, null: false, default: ''},
     })
   end
 

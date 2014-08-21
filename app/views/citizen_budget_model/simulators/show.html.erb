@@ -16,7 +16,7 @@
 <% @simulator.sections.each do |section| %>
   <li id="<%= dom_id(section) %>">
     <span class="glyphicon glyphicon-resize-vertical"></span>
-    <%= link_to section.title, [@simulator, section] %>
+    <%= link_to section.name, [@simulator, section] %>
     <span class="actions">
       <%= link_to [:edit, @simulator, section] do %>
         <span class="glyphicon glyphicon-pencil"></span> <%= _('Edit') %>

@@ -6,17 +6,17 @@ module CitizenBudgetModel
 
     describe 'when not signed in' do
       it 'redirects to sign in page' do
-        get :new, {}
+        get :new, {simulator_id: 1}
         expect(response).to redirect_to(new_user_session_path)
-        post :create
+        post :create, {simulator_id: 1}
         expect(response).to redirect_to(new_user_session_path)
-        get :show, {id: 1}
+        get :show, {id: 1, simulator_id: 1}
         expect(response).to redirect_to(new_user_session_path)
-        get :edit, {id: 1}
+        get :edit, {id: 1, simulator_id: 1}
         expect(response).to redirect_to(new_user_session_path)
-        put :update, {id: 1}
+        put :update, {id: 1, simulator_id: 1}
         expect(response).to redirect_to(new_user_session_path)
-        delete :destroy, {id: 1}
+        delete :destroy, {id: 1, simulator_id: 1}
         expect(response).to redirect_to(new_user_session_path)
       end
     end
@@ -24,6 +24,8 @@ module CitizenBudgetModel
     describe 'when signed in' do
       before(:each) do
         @request.env['devise.mapping'] = Devise.mappings[:user]
+        CitizenBudgetModel::Organization.create!(id: 1, name_en_ca: 'Organization')
+        @simulator = CitizenBudgetModel::Simulator.create!(id: 1, name_en_ca: 'Simulator', organization_id: 1)
         sign_in CitizenBudgetModel::User.create!(email: 'user@example.com', organization_id: 1)
       end
 
@@ -34,24 +36,17 @@ module CitizenBudgetModel
         }
       end
 
-      let(:invalid_attributes) do
-        {
-          simulator_id: '',
-          title_en_ca: '',
-        }
-      end
-
       describe 'GET show' do
         it 'assigns the requested section as @section' do
           section = Section.create! valid_attributes
-          get :show, {id: section.to_param}
+          get :show, {id: section.to_param, simulator_id: 1}
           expect(assigns(:section)).to eq(section)
         end
       end
 
       describe 'GET new' do
         it 'assigns a new section as @section' do
-          get :new, {}
+          get :new, {simulator_id: 1}
           expect(assigns(:section)).to be_a_new(Section)
         end
       end
@@ -59,7 +54,7 @@ module CitizenBudgetModel
       describe 'GET edit' do
         it 'assigns the requested section as @section' do
           section = Section.create! valid_attributes
-          get :edit, {id: section.to_param}
+          get :edit, {id: section.to_param, simulator_id: 1}
           expect(assigns(:section)).to eq(section)
         end
       end
@@ -68,20 +63,12 @@ module CitizenBudgetModel
         describe 'with valid params' do
           it 'creates a new Section' do
             expect {
-              post :create, {section: valid_attributes}
+              post :create, {section: valid_attributes, simulator_id: 1}
             }.to change(Section, :count).by(1)
-            post :create, {section: valid_attributes}
+            post :create, {section: valid_attributes, simulator_id: 1}
             expect(assigns(:section)).to be_a(Section)
             expect(assigns(:section)).to be_persisted
-            expect(response).to redirect_to(Section.last)
-          end
-        end
-
-        describe 'with invalid params' do
-          it 'assigns a newly created but unsaved section as @section' do
-            post :create, {section: invalid_attributes}
-            expect(assigns(:section)).to be_a_new(Section)
-            expect(response).to render_template('new')
+            expect(response).to redirect_to([@simulator, Section.last])
           end
         end
       end
@@ -97,19 +84,10 @@ module CitizenBudgetModel
 
           it 'updates the requested section' do
             section = Section.create! valid_attributes
-            put :update, {id: section.to_param, section: new_attributes}
+            put :update, {id: section.to_param, section: new_attributes, simulator_id: 1}
             expect(section.reload.title).to eq('Update')
             expect(assigns(:section)).to eq(section)
-            expect(response).to redirect_to(section)
-          end
-        end
-
-        describe 'with invalid params' do
-          it 'assigns the section as @section' do
-            section = Section.create! valid_attributes
-            put :update, {id: section.to_param, section: invalid_attributes}
-            expect(assigns(:section)).to eq(section)
-            expect(response).to render_template('edit')
+            expect(response).to redirect_to([@simulator, section])
           end
         end
       end
@@ -118,9 +96,9 @@ module CitizenBudgetModel
         it 'destroys the requested section' do
           section = Section.create! valid_attributes
           expect {
-            delete :destroy, {id: section.to_param}
+            delete :destroy, {id: section.to_param, simulator_id: 1}
           }.to change(Section, :count).by(-1)
-          expect(response).to redirect_to(sections_url)
+          expect(response).to redirect_to([@simulator])
         end
       end
 
@@ -133,7 +111,7 @@ module CitizenBudgetModel
           order = questions.map(&:id)
 
           expect(section.questions.map(&:id)).to eq(order)
-          post :sort, {id: section.to_param, question: order.reverse!}
+          post :sort, {id: section.to_param, question: order.reverse!, simulator_id: 1}
           expect(section.questions.reload.map(&:id)).to eq(order)
         end
       end

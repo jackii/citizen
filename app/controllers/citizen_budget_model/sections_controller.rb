@@ -1,23 +1,24 @@
 module CitizenBudgetModel
   class SectionsController < CitizenBudgetModelController
     before_action :authenticate_user!
+    before_action :set_simulator
     before_action :set_section, only: [:show, :edit, :update, :destroy, :sort]
 
     def show
     end
 
     def new
-      @section = Section.new
+      @section = collection.new
     end
 
     def edit
     end
 
     def create
-      @section = Section.new(section_params)
+      @section = collection.new(section_params)
 
       if @section.save
-        redirect_to @section, notice: _('Section was created.')
+        redirect_to [@simulator, @section], notice: _('Section was created.')
       else
         render :new
       end
@@ -25,7 +26,7 @@ module CitizenBudgetModel
 
     def update
       if @section.update(section_params)
-        redirect_to @section, notice: _('Section was updated.')
+        redirect_to [@simulator, @section], notice: _('Section was updated.')
       else
         render :edit
       end
@@ -33,7 +34,7 @@ module CitizenBudgetModel
 
     def destroy
       @section.destroy
-      redirect_to sections_url, notice: _('Section was destroyed.')
+      redirect_to @simulator, notice: _('Section was destroyed.')
     end
 
     def sort
@@ -45,12 +46,20 @@ module CitizenBudgetModel
 
   private
 
+    def collection
+      @collection ||= @simulator.sections
+    end
+
+    def set_simulator
+      @simulator = simulators.find(params[:simulator_id])
+    end
+
     def set_section
-      @section = Section.find(params[:id])
+      @section = collection.find(params[:id])
     end
 
     def section_params
-      attribute_names = Section.globalize_attribute_names + [:simulator_id]
+      attribute_names = Section.globalize_attribute_names
       params.require(:section).permit(attribute_names)
     end
   end

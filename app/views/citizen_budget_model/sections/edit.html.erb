@@ -1,6 +1,10 @@
-<h1>Editing section</h1>
+<% content_for :breadcrumb do %>
+<ol class="breadcrumb">
+  <li><%= link_to _('Simulators'), simulators_path %></li>
+  <li><%= link_to @simulator.name, @simulator %></li>
+  <li><%= _('Sections') %></li>
+  <li class="active"><%= _('Edit') %></li>
+</ol>
+<% end %>
 
 <%= render 'form' %>
-
-<%= link_to 'Show', @section %> |
-<%= link_to 'Back', sections_path %>
