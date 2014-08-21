@@ -53,11 +53,7 @@ module CitizenBudgetModel
   private
 
     def collection
-      @collection ||= if admin?
-        Simulator
-      else
-        current_user.organization.simulators
-      end
+      @collection ||= simulators
     end
 
     def set_simulator

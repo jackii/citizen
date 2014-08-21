@@ -115,7 +115,7 @@ module CitizenBudgetModel
     describe 'when signed in as regular user' do
       before(:each) do
         @request.env['devise.mapping'] = Devise.mappings[:user]
-        organization = CitizenBudgetModel::Organization.create!(id: 1, name_en_ca: 'Organization')
+        CitizenBudgetModel::Organization.create!(id: 1, name_en_ca: 'Organization')
         sign_in CitizenBudgetModel::User.create!(email: 'user@example.com', organization_id: 1)
       end
 

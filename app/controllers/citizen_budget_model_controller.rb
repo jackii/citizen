@@ -3,6 +3,8 @@ class CitizenBudgetModelController < CitizenBudgetModel.parent_controller.consta
 
   before_filter :set_locale
 
+  helper_method :admin?
+
   def set_locale
     session[:locale] = I18n.locale = params[:locale] || session[:locale] || http_accept_language.compatible_language_from(I18n.available_locales) || I18n.default_locale
   end
@@ -10,10 +12,14 @@ class CitizenBudgetModelController < CitizenBudgetModel.parent_controller.consta
   def admin?
     user_signed_in? && current_user.organization_id.nil?
   end
-  helper_method :admin?
+
+  def simulators
+    @collection ||= admin? ? CitizenBudgetModel::Simulator : current_user.organization.simulators
+  end
 end
 
-# There's no convention for where to put form builders such that they reload in development.
+# There's no convention for where to put form builders such that they reload in
+# development, or for how to load the form builders for testing.
 module CitizenBudgetModel
   class CitizenBudgetFormBuilder < ActionView::Helpers::FormBuilder
     def errors
