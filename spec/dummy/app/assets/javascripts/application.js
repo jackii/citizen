@@ -12,5 +12,6 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui
 //= require citizen_budget_model/application
 //= require_tree .
