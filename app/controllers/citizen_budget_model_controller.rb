@@ -60,6 +60,21 @@ module CitizenBudgetModel
       @template.content_tag(:div, content, class: klass)
     end
 
+    def number_field(method, options = {})
+      klass = 'form-group'
+      content = label(method) + super(method, {class: 'form-control'}.merge(options))
+      if object.errors[method].any?
+        klass << ' has-error has-feedback'
+        content << @template.content_tag(:span, nil, class: 'glyphicon glyphicon-remove form-control-feedback')
+      end
+      @template.content_tag(:div, content, class: klass)
+    end
+
+    def check_box(method, options = {}, checked_value = '1', unchecked_value = '0')
+      content = @template.content_tag(:label, super(method, options, checked_value, unchecked_value) + ' ' + object.class.human_attribute_name(method))
+      @template.content_tag(:div, content, class: 'checkbox')
+    end
+
     def select(method, choices = nil, options = {}, html_options = {})
       klass = 'form-group'
       content = label(method) + super(method, choices, options, {class: 'form-control'}.merge(html_options))
