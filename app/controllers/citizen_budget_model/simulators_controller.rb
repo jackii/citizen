@@ -4,21 +4,21 @@ module CitizenBudgetModel
     before_action :set_simulator, only: [:show, :edit, :update, :destroy, :sort, :solution]
 
     def index
-      @simulators = Simulator.all.sort_by(&:name)
+      @simulators = collection.all.sort_by(&:name)
     end
 
     def show
     end
 
     def new
-      @simulator = Simulator.new
+      @simulator = collection.new
     end
 
     def edit
     end
 
     def create
-      @simulator = Simulator.new({organization_id: current_user.organization_id}.merge(simulator_params))
+      @simulator = collection.new({organization_id: current_user.organization_id}.merge(simulator_params))
 
       if @simulator.save
         redirect_to @simulator, notice: _('Simulator was created.')
@@ -48,13 +48,20 @@ module CitizenBudgetModel
     end
 
     def solution
-      # @todo
     end
 
   private
 
+    def collection
+      if admin?
+        Simulator
+      else
+        current_user.organization.simulators
+      end
+    end
+
     def set_simulator
-      @simulator = Simulator.find(params[:id])
+      @simulator = collection.find(params[:id])
     end
 
     def simulator_params
