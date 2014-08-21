@@ -2,9 +2,32 @@
 <ol class="breadcrumb">
   <li><%= link_to _('Simulators'), simulators_path %></li>
   <li class="active"><%= @simulator.name %>
-    <%= link_to edit_simulator_path(@simulator), class: 'btn btn-default btn-xs', title: _('Edit') do %>
+    <%= link_to [:edit, @simulator], class: 'btn btn-default btn-xs', title: _('Edit') do %>
       <span class="glyphicon glyphicon-pencil"></span>
     <% end %>
   </li>
 </ol>
 <% end %>
+
+<% if @simulator.sections.any? %>
+<h1>Simulators</h1>
+
+<ul class="index">
+<% @simulator.sections.each do |section| %>
+  <li>
+    <%= link_to section.name, [@simulator, section] %>
+    <span class="actions">
+      <%= link_to [:edit, @simulator, section] do %>
+        <span class="glyphicon glyphicon-pencil"></span> <%= _('Edit') %>
+      <% end %>
+    </span>
+  </li>
+<% end %>
+</ul>
+<% end %>
+
+<p>
+  <%= link_to(new_simulator_section_path(@simulator), class: 'btn btn-primary') do %>
+    <span class="glyphicon glyphicon-plus"></span> <%= _('Add a section') %>
+  <% end %>
+</p>

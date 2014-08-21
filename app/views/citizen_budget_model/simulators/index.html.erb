@@ -9,7 +9,7 @@
   <li>
     <%= link_to simulator.name, simulator %>
     <span class="actions">
-      <%= link_to edit_simulator_path(simulator) do %>
+      <%= link_to [:edit, simulator] do %>
         <span class="glyphicon glyphicon-pencil"></span> <%= _('Edit') %>
       <% end %>
     </span>

@@ -2,7 +2,7 @@
 <ol class="breadcrumb">
   <li><%= link_to _('Organizations'), organizations_path %></li>
   <li class="active"><%= @organization.name %>
-    <%= link_to edit_organization_path(@organization), class: 'btn btn-default btn-xs', title: _('Edit') do %>
+    <%= link_to [:edit, @organization], class: 'btn btn-default btn-xs', title: _('Edit') do %>
       <span class="glyphicon glyphicon-pencil"></span>
     <% end %>
   </li>
@@ -17,7 +17,7 @@
   <li>
     <%= link_to simulator.name, simulator %>
     <span class="actions">
-      <%= link_to edit_simulator_path(simulator) do %>
+      <%= link_to [:edit, simulator] do %>
         <span class="glyphicon glyphicon-pencil"></span> <%= _('Edit') %>
       <% end %>
     </span>

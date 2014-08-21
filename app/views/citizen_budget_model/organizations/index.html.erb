@@ -9,7 +9,7 @@
   <li>
     <%= link_to organization.name, organization %>
     <span class="actions">
-      <%= link_to edit_organization_path(organization) do %>
+      <%= link_to [:edit, organization] do %>
         <span class="glyphicon glyphicon-pencil"></span> <%= _('Edit') %>
       <% end %>
     </span>
