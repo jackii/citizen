@@ -35,7 +35,7 @@ module CitizenBudgetModel
     def translated_text_field(method, options = {})
       rows = ActiveSupport::SafeBuffer.new
 
-      object.class.globalize_locales.each_with_index do |locale,index|
+      object.class.globalize_locales.each do |locale|
         klass = 'form-group'
         content = label(locale) + text_field_without_label(object.class.localized_attr_name_for(method, locale), {class: 'form-control'}.merge(options))
         if object.errors[method].any?
@@ -73,7 +73,7 @@ module CitizenBudgetModel
     def buttons
       content = button(_('Save'), class: 'btn btn-primary')
       if object.persisted?
-        content << @template.link_to(object, class: 'btn btn-danger pull-right', method: :delete, data: {confirm: _('Are you sure?')}) do
+        content << @template.link_to(object_name, class: 'btn btn-danger pull-right', method: :delete, data: {confirm: _('Are you sure?')}) do
           @template.content_tag(:span, nil, class: 'glyphicon glyphicon-trash') + ' ' + _('Delete')
         end
       end
