@@ -10,13 +10,13 @@
 <% end %>
 
 <% if @simulator.sections.any? %>
-<h1>Simulators</h1>
+<h2>Simulators</h2>
 
 <ul class="index sortable">
 <% @simulator.sections.each do |section| %>
   <li id="<%= dom_id(section) %>">
     <span class="glyphicon glyphicon-resize-vertical"></span>
-    <%= link_to section.name, [@simulator, section] %>
+    <%= link_to section.display_name, [@simulator, section] %>
     <span class="actions">
       <%= link_to [:edit, @simulator, section] do %>
         <span class="glyphicon glyphicon-pencil"></span> <%= _('Edit') %>
