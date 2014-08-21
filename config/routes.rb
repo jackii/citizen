@@ -10,13 +10,13 @@ CitizenBudgetModel::Engine.routes.draw do
     end
   end
 
-  resources :sections do
+  resources :sections, except: [:index] do
     member do
       post :sort
     end
   end
 
-  resources :questions
+  resources :questions, except: [:index]
 
   namespace :citizen_budget_model do
     get 'pages/home'

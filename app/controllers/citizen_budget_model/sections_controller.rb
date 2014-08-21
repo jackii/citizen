@@ -3,10 +3,6 @@ module CitizenBudgetModel
     before_action :authenticate_user!
     before_action :set_section, only: [:show, :edit, :update, :destroy, :sort]
 
-    def index
-      @sections = Section.all
-    end
-
     def show
     end
 

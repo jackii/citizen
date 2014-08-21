@@ -5,10 +5,6 @@ module CitizenBudgetModel
     describe 'routing' do
       routes { CitizenBudgetModel::Engine.routes }
 
-      it 'routes to #index' do
-        expect(get: '/questions').to route_to('citizen_budget_model/questions#index')
-      end
-
       it 'routes to #new' do
         expect(get: '/questions/new').to route_to('citizen_budget_model/questions#new')
       end
