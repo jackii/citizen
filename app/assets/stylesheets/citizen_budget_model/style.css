@@ -40,16 +40,15 @@
   margin-left: 10px;
 }
 
-.sign-in {
-  label {
-    display: inline;
-    font-weight: 400;
-    cursor: pointer;
-  }
+.sign-in label {
+  display: inline;
+  font-weight: 400;
+  cursor: pointer;
+}
 
-  label, a {
-    padding-left: 10px;
-  }
+.sign-in label,
+.sign-in a {
+  padding-left: 10px;
 }
 
 @media (max-width: 767px) {
@@ -101,12 +100,14 @@ ul {
   cursor: default;
 }
 
-.row {
-  label {
-    font-style: italic;
-    font-weight: normal;
-  }
-  .form-control-feedback {
-    top: 0;
-  }
+.row label {
+  font-style: italic;
+  font-weight: normal;
+}
+.row .form-control-feedback {
+  top: 0;
+}
+
+.glyphicon-resize-vertical {
+  cursor: grab;
 }
