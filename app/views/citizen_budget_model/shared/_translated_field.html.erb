@@ -1,0 +1,13 @@
+<% if record.in_any_locale?(attribute) %>
+<div class="row translation">
+  <div class="col-sm-2">
+    <h2><%= record.class.human_attribute_name(attribute) %></h2>
+  </div>
+<% record.class.globalize_locales.each do |locale| %>
+  <div class="col-sm-5">
+    <h3><%= _(locale) %></h3>
+    <%= record.send(record.class.localized_attr_name_for(attribute, locale)) %>
+  </div>
+<% end %> 
+</div>
+<% end %>
