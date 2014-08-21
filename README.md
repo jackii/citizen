@@ -17,6 +17,7 @@ In `app/assets/application.js`:
 
     //= require jquery
     //= require jquery_ujs
+    //= require citizen_budget_model/application
 
 In `config/application.rb`:
 
