@@ -1,30 +1,67 @@
 <%= form_for([@simulator, @section, @question], html: {role: 'form'}, builder: CitizenBudgetModel::CitizenBudgetFormBuilder) do |f| %>
   <%= f.errors %>
 
-  <%= f.translated_text_field :name %>
-  <%= f.text_field :machine_name %>
-  <%= f.text_field :default_value %>
-  <%= f.text_field :unit_value %>
-  <%= f.text_field :account %>
+  <div class="panel panel-primary">
+    <div class="panel-heading panel-title">
+      <%= _('Simulation') %>
+    </div>
+    <div class="panel-body">
+      <%= f.translated_text_field :name %>
+      <%= f.text_field :machine_name %>
+      <%= f.text_field :default_value %>
+      <%= f.text_field :unit_value %>
+      <%= f.text_field :account %>
+    </div>
+  </div>
 
-  <%= f.text_field :widget %>
-  <%= f.translated_text_field :labels %>
-  <%= f.text_field :options %>
+  <div class="panel panel-primary">
+    <div class="panel-heading panel-title">
+      <%= _('Widget') %>
+    </div>
+    <div class="panel-body">
+      <%= f.text_field :widget %>
+      <%= f.translated_text_field :unit_name %>
+      <%= f.translated_text_field :labels %>
+      <%= f.text_field :options %>
+      <%= f.check_box :revenue %>
+    </div>
+  </div>
 
-  <%= f.translated_text_field :unit_name %>
-  <%= f.check_box :revenue %>
+  <div class="panel-group" id="panels">
+    <div class="panel panel-info">
+      <div class="panel-heading panel-title">
+        <a data-toggle="collapse" data-parent="#panels" href="#text">
+          <%= _('Text') %>
+        </a>
+      </div>
+      <div id="text" class="panel-collapse collapse">
+        <div class="panel-body">
+          <%= f.translated_text_field :title %>
+          <%= f.translated_text_field :description %>
+          <%= f.translated_text_field :modal %>
+          <%= f.translated_text_field :popover %>
+        </div>
+      </div>
+    </div>
 
-  <%= f.translated_text_field :title %>
-  <%= f.translated_text_field :description %>
-  <%= f.translated_text_field :modal %>
-  <%= f.translated_text_field :popover %>
-
-  <%= f.translated_text_field :placeholder %>
-  <%= f.number_field :maxlength %>
-  <%= f.check_box :required %>
-  <%= f.number_field :rows %>
-  <%= f.number_field :cols %>
-  <%= f.number_field :size %>
+    <div class="panel panel-info">
+      <div class="panel-heading panel-title">
+        <a data-toggle="collapse" data-parent="#panels" href="#html">
+          <%= _('HTML attributes') %>
+        </a>
+      </div>
+      <div id="html" class="panel-collapse collapse">
+        <div class="panel-body">
+          <%= f.check_box :required %>
+          <%= f.translated_text_field :placeholder %>
+          <%= f.number_field :maxlength %>
+          <%= f.number_field :rows %>
+          <%= f.number_field :cols %>
+          <%= f.number_field :size %>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <%= f.buttons %>
 <% end %>
