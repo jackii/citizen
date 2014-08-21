@@ -14,7 +14,7 @@ class CitizenBudgetModelController < CitizenBudgetModel.parent_controller.consta
   end
 
   def simulators
-    @collection ||= admin? ? CitizenBudgetModel::Simulator : current_user.organization.simulators
+    @simulators_collection ||= admin? ? CitizenBudgetModel::Simulator : current_user.organization.simulators
   end
 end
 
