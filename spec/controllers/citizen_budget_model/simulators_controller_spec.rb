@@ -63,6 +63,7 @@ module CitizenBudgetModel
       describe 'GET show' do
         it 'assigns the requested simulator as @simulator' do
           simulator = Simulator.create! valid_attributes_for_admin
+          Section.create!(simulator_id: simulator.id, title_en_ca: 'Section')
           get :show, {id: simulator.to_param}
           expect(assigns(:simulator)).to eq(simulator)
         end
@@ -148,6 +149,7 @@ module CitizenBudgetModel
 
         it 'assigns the requested simulator as @simulator' do
           simulator = Simulator.create! valid_attributes_for_create
+          Section.create!(simulator_id: simulator.id, title_en_ca: 'Section')
           get :show, {id: simulator.to_param}
           expect(assigns(:simulator)).to eq(simulator)
         end

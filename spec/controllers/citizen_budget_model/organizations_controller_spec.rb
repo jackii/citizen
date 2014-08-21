@@ -52,6 +52,7 @@ module CitizenBudgetModel
       describe 'GET show' do
         it 'assigns the requested organization as @organization' do
           organization = Organization.create! valid_attributes
+          Simulator.create!(organization_id: organization.id, name_en_ca: 'Simulator')
           get :show, {id: organization.to_param}
           expect(assigns(:organization)).to eq(organization)
         end
