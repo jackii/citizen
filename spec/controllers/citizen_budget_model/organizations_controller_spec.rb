@@ -84,10 +84,6 @@ module CitizenBudgetModel
             post :create, {:organization => valid_attributes}
             expect(assigns(:organization)).to be_a(Organization)
             expect(assigns(:organization)).to be_persisted
-          end
-
-          it 'redirects to the created organization' do
-            post :create, {:organization => valid_attributes}
             expect(response).to redirect_to(Organization.last)
           end
         end
@@ -96,10 +92,6 @@ module CitizenBudgetModel
           it 'assigns a newly created but unsaved organization as @organization' do
             post :create, {:organization => invalid_attributes}
             expect(assigns(:organization)).to be_a_new(Organization)
-          end
-
-          it 're-renders the "new" template' do
-            post :create, {:organization => invalid_attributes}
             expect(response).to render_template('new')
           end
         end
@@ -117,17 +109,7 @@ module CitizenBudgetModel
             organization = Organization.create! valid_attributes
             put :update, {:id => organization.to_param, :organization => new_attributes}
             expect(organization.reload.name).to eq('Update')
-          end
-
-          it 'assigns the requested organization as @organization' do
-            organization = Organization.create! valid_attributes
-            put :update, {:id => organization.to_param, :organization => valid_attributes}
             expect(assigns(:organization)).to eq(organization)
-          end
-
-          it 'redirects to the organization' do
-            organization = Organization.create! valid_attributes
-            put :update, {:id => organization.to_param, :organization => valid_attributes}
             expect(response).to redirect_to(organization)
           end
         end
@@ -137,11 +119,6 @@ module CitizenBudgetModel
             organization = Organization.create! valid_attributes
             put :update, {:id => organization.to_param, :organization => invalid_attributes}
             expect(assigns(:organization)).to eq(organization)
-          end
-
-          it 're-renders the "edit" template' do
-            organization = Organization.create! valid_attributes
-            put :update, {:id => organization.to_param, :organization => invalid_attributes}
             expect(response).to render_template('edit')
           end
         end

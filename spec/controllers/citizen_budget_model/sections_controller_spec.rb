@@ -6,8 +6,6 @@ module CitizenBudgetModel
 
     describe 'when not signed in' do
       it 'redirects to sign in page' do
-        get :index, {}
-        expect(response).to redirect_to(new_user_session_path)
         get :new, {}
         expect(response).to redirect_to(new_user_session_path)
         post :create
@@ -41,14 +39,6 @@ module CitizenBudgetModel
           simulator_id: '',
           title_en_ca: '',
         }
-      end
-
-      describe 'GET index' do
-        it 'assigns all sections as @sections' do
-          section = Section.create! valid_attributes
-          get :index, {}
-          expect(assigns(:sections)).to eq([section])
-        end
       end
 
       describe 'GET show' do
@@ -86,10 +76,6 @@ module CitizenBudgetModel
             post :create, {:section => valid_attributes}
             expect(assigns(:section)).to be_a(Section)
             expect(assigns(:section)).to be_persisted
-          end
-
-          it 'redirects to the created section' do
-            post :create, {:section => valid_attributes}
             expect(response).to redirect_to(Section.last)
           end
         end
@@ -98,10 +84,6 @@ module CitizenBudgetModel
           it 'assigns a newly created but unsaved section as @section' do
             post :create, {:section => invalid_attributes}
             expect(assigns(:section)).to be_a_new(Section)
-          end
-
-          it 're-renders the "new" template' do
-            post :create, {:section => invalid_attributes}
             expect(response).to render_template('new')
           end
         end
@@ -120,17 +102,7 @@ module CitizenBudgetModel
             section = Section.create! valid_attributes
             put :update, {:id => section.to_param, :section => new_attributes}
             expect(section.reload.title).to eq('Update')
-          end
-
-          it 'assigns the requested section as @section' do
-            section = Section.create! valid_attributes
-            put :update, {:id => section.to_param, :section => valid_attributes}
             expect(assigns(:section)).to eq(section)
-          end
-
-          it 'redirects to the section' do
-            section = Section.create! valid_attributes
-            put :update, {:id => section.to_param, :section => valid_attributes}
             expect(response).to redirect_to(section)
           end
         end
@@ -140,11 +112,6 @@ module CitizenBudgetModel
             section = Section.create! valid_attributes
             put :update, {:id => section.to_param, :section => invalid_attributes}
             expect(assigns(:section)).to eq(section)
-          end
-
-          it 're-renders the "edit" template' do
-            section = Section.create! valid_attributes
-            put :update, {:id => section.to_param, :section => invalid_attributes}
             expect(response).to render_template('edit')
           end
         end

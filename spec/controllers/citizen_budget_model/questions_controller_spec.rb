@@ -6,8 +6,6 @@ module CitizenBudgetModel
 
     describe 'when not signed in' do
       it 'redirects to sign in page' do
-        get :index, {}
-        expect(response).to redirect_to(new_user_session_path)
         get :new, {}
         expect(response).to redirect_to(new_user_session_path)
         post :create
@@ -39,14 +37,6 @@ module CitizenBudgetModel
         {
           section_id: '',
         }
-      end
-
-      describe 'GET index' do
-        it 'assigns all questions as @questions' do
-          question = Question.create! valid_attributes
-          get :index, {}
-          expect(assigns(:questions)).to eq([question])
-        end
       end
 
       describe 'GET show' do
@@ -84,10 +74,6 @@ module CitizenBudgetModel
             post :create, {:question => valid_attributes}
             expect(assigns(:question)).to be_a(Question)
             expect(assigns(:question)).to be_persisted
-          end
-
-          it 'redirects to the created question' do
-            post :create, {:question => valid_attributes}
             expect(response).to redirect_to(Question.last)
           end
         end
@@ -96,10 +82,6 @@ module CitizenBudgetModel
           it 'assigns a newly created but unsaved question as @question' do
             post :create, {:question => invalid_attributes}
             expect(assigns(:question)).to be_a_new(Question)
-          end
-
-          it 're-renders the "new" template' do
-            post :create, {:question => invalid_attributes}
             expect(response).to render_template('new')
           end
         end
@@ -117,17 +99,7 @@ module CitizenBudgetModel
             question = Question.create! valid_attributes
             put :update, {:id => question.to_param, :question => new_attributes}
             expect(question.reload.title).to eq('Update')
-          end
-
-          it 'assigns the requested question as @question' do
-            question = Question.create! valid_attributes
-            put :update, {:id => question.to_param, :question => valid_attributes}
             expect(assigns(:question)).to eq(question)
-          end
-
-          it 'redirects to the question' do
-            question = Question.create! valid_attributes
-            put :update, {:id => question.to_param, :question => valid_attributes}
             expect(response).to redirect_to(question)
           end
         end
@@ -137,11 +109,6 @@ module CitizenBudgetModel
             question = Question.create! valid_attributes
             put :update, {:id => question.to_param, :question => invalid_attributes}
             expect(assigns(:question)).to eq(question)
-          end
-
-          it 're-renders the "edit" template' do
-            question = Question.create! valid_attributes
-            put :update, {:id => question.to_param, :question => invalid_attributes}
             expect(response).to render_template('edit')
           end
         end
