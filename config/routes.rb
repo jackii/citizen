@@ -1,6 +1,8 @@
 CitizenBudgetModel::Engine.routes.draw do
   devise_for :users, class_name: 'CitizenBudgetModel::User', module: :devise
 
+  resources :users
+
   resources :organizations
 
   resources :simulators do
