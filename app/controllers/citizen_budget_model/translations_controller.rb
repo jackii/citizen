@@ -15,12 +15,15 @@ module CitizenBudgetModel
     end
 
     def create
-      locale, key = params[:pk].split('.', 2)
-      if I18n.backend.exists?(I18n.default_locale, key)
-        I18n.backend.store_translations(locale, {key => params[:value]}, :escape => false)
-        head :no_content
+      if params[:pk] && params[:value]
+        locale, key = params[:pk].split('.', 2)
+        if I18n.backend.exists?(I18n.default_locale, key)
+          I18n.backend.store_translations(locale, {key => params[:value]}, :escape => false)
+          head :no_content
+        else
+          head :bad_request
+        end
       else
-        # Don't allow setting arbitrary keys.
         head :bad_request
       end
     end
