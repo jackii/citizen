@@ -59,6 +59,10 @@ In `app/assets/application.js`:
     bundle exec rake
     bundle exec guard
 
+## Deployment
+
+    heroku config:set DEVISE_MAILER_SENDER=noreply@example.com
+
 ## Bugs? Questions?
 
 This engine's main repository is on GitHub: [http://github.com/opennorth/citizen_budget_model](http://github.com/opennorth/citizen_budget_model), where your contributions, forks, bug reports, feature requests, and feedback are greatly welcomed.
