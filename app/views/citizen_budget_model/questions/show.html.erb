@@ -7,6 +7,12 @@
     <%= link_to [:edit, @simulator, @section, @question], class: 'btn btn-default btn-xs', title: _('Edit') do %>
       <span class="glyphicon glyphicon-pencil"></span>
     <% end %>
+    <%= link_to new_simulator_section_question_path(@simulator, @section), class: 'btn btn-default btn-xs' do %>
+      <span class="glyphicon glyphicon-plus"></span> <%= _('Add a question') %>
+    <% end %>
+    <%= link_to new_simulator_section_path(@simulator), class: 'btn btn-default btn-xs' do %>
+      <span class="glyphicon glyphicon-plus"></span> <%= _('Add a section') %>
+    <% end %>
   </li>
 </ol>
 <% end %>
@@ -18,9 +24,10 @@
   </div>
   <div class="panel-body">
     <%= render partial: 'citizen_budget_model/shared/translated_field', locals: {record: @question, attribute: :name} %>
-    <% [:machine_name, :default_value, :unit_value, :account].each do |attribute| %>
-    <%= render partial: 'citizen_budget_model/shared/field', locals: {record: @question, attribute: attribute} %>
-    <% end %>
+    <%= render partial: 'citizen_budget_model/shared/field', locals: {record: @question, attribute: :machine_name} %>
+    <%= render partial: 'citizen_budget_model/shared/field', locals: {record: @question, attribute: :default_value, formatter: default_value_formatter(@question)} %>
+    <%= render partial: 'citizen_budget_model/shared/field', locals: {record: @question, attribute: :unit_value, formatter: unit_value_formatter} %>
+    <%#= render partial: 'citizen_budget_model/shared/field', locals: {record: @question, attribute: :account} %>
   </div>
 </div>
 <% end %>
@@ -31,17 +38,17 @@
     <%= _('Widget') %>
   </div>
   <div class="panel-body">
-    <%= render partial: 'citizen_budget_model/shared/field', locals: {record: @question, attribute: :widget} %>
-    <% [:unit_name, :labels].each do |attribute| %>
-    <%= render partial: 'citizen_budget_model/shared/translated_field', locals: {record: @question, attribute: attribute} %>
-    <% end %>
-    <% [:options, :revenue].each do |attribute| %>
-    <%= render partial: 'citizen_budget_model/shared/field', locals: {record: @question, attribute: attribute} %>
-    <% end %>
+    <%#= render partial: 'citizen_budget_model/shared/field', locals: {record: @question, attribute: :widget} %>
+    <%= render partial: 'citizen_budget_model/shared/translated_field', locals: {record: @question, attribute: :unit_name} %>
+    <%= render partial: 'citizen_budget_model/shared/translated_field', locals: {record: @question, attribute: :labels} %>
+    <%= render partial: 'citizen_budget_model/shared/field', locals: {record: @question, attribute: :options} %>
+    <%#= render partial: 'citizen_budget_model/shared/field', locals: {record: @question, attribute: :revenue} %>
   </div>
 </div>
 <% end %>
 
+<%
+=begin %>
 <% if @question.any_of?(:title, :description, :modal, :popover, :required, :placeholder, :maxlength, :rows, :cols, :size) %>
 <div class="panel-group" id="panels">
   <% if @question.any_of?(:title, :description, :modal, :popover) %>
@@ -53,9 +60,10 @@
     </div>
     <div id="text" class="panel-collapse collapse">
       <div class="panel-body">
-        <% [:title, :description, :modal, :popover].each do |attribute| %>
-        <%= render partial: 'citizen_budget_model/shared/translated_field', locals: {record: @question, attribute: attribute} %>
-        <% end %>
+        <%= render partial: 'citizen_budget_model/shared/translated_field', locals: {record: @question, attribute: :title} %>
+        <%= render partial: 'citizen_budget_model/shared/translated_field', locals: {record: @question, attribute: :description} %>
+        <%= render partial: 'citizen_budget_model/shared/translated_field', locals: {record: @question, attribute: :modal} %>
+        <%= render partial: 'citizen_budget_model/shared/translated_field', locals: {record: @question, attribute: :popover} %>
       </div>
     </div>
   </div>
@@ -81,3 +89,5 @@
   <% end %>
 </div>
 <% end %>
+<%
+=end %>

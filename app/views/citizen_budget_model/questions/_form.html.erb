@@ -10,7 +10,7 @@
       <%= f.text_field :machine_name %>
       <%= f.text_field :default_value %>
       <%= f.text_field :unit_value %>
-      <%= f.text_field :account %>
+      <%#= f.text_field :account %>
     </div>
   </div>
 
@@ -19,14 +19,16 @@
       <%= _('Widget') %>
     </div>
     <div class="panel-body">
-      <%= f.text_field :widget %>
+      <%#= f.text_field :widget %>
       <%= f.translated_text_field :unit_name %>
       <%= f.translated_text_field :labels %>
       <%= f.text_field :options %>
-      <%= f.check_box :revenue %>
+      <%#= f.check_box :revenue %>
     </div>
   </div>
 
+<%
+=begin %>
   <div class="panel-group" id="panels">
     <div class="panel panel-info">
       <div class="panel-heading panel-title">
@@ -62,6 +64,8 @@
       </div>
     </div>
   </div>
+<%
+=end %>
 
-  <%= f.buttons %>
+  <%= f.buttons(context: [@simulator, @section, @question]) %>
 <% end %>

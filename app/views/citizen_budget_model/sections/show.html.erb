@@ -10,9 +10,10 @@
 </ol>
 <% end %>
 
-<% [:title, :description, :modal, :popover].each do |attribute| %>
-<%= render partial: 'citizen_budget_model/shared/translated_field', locals: {record: @section, attribute: attribute} %>
-<% end %>
+<%= render partial: 'citizen_budget_model/shared/translated_field', locals: {record: @section, attribute: :title} %>
+<%#= render partial: 'citizen_budget_model/shared/translated_field', locals: {record: @section, attribute: :description} %>
+<%#= render partial: 'citizen_budget_model/shared/translated_field', locals: {record: @section, attribute: :modal} %>
+<%#= render partial: 'citizen_budget_model/shared/translated_field', locals: {record: @section, attribute: :popover} %>
 
 <% if @section.questions.any? %>
 <h2><%= _('Questions') %></h2>
