@@ -60,6 +60,10 @@
   }
 }
 
+#content {
+  margin-bottom: 20px;
+}
+
 h1,
 h2,
 h3 {
@@ -92,10 +96,8 @@ ul {
 .actions {
   display: none;
 }
-.index:hover .actions,
-.index:focus .actions,
-.index *:hover .actions,
-.index *:focus .actions {
+.index li:hover .actions,
+.index li:focus .actions {
   display: inline-block;
 }
 .actions a {
