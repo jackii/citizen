@@ -35,7 +35,7 @@ module CitizenBudgetModel
 
     def destroy
       @question.destroy
-      redirect_to [@simulator, @section], notice: _('Question was destroyed.')
+      redirect_to [@simulator, @section], notice: _('Question was deleted.')
     end
 
   private

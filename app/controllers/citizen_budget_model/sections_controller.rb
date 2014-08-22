@@ -34,7 +34,7 @@ module CitizenBudgetModel
 
     def destroy
       @section.destroy
-      redirect_to @simulator, notice: _('Section was destroyed.')
+      redirect_to @simulator, notice: _('Section was deleted.')
     end
 
     def sort
