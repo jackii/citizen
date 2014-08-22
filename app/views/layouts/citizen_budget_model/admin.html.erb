@@ -32,11 +32,11 @@
     <div class="collapse navbar-collapse" id="navbar-collapse">
     <% if user_signed_in? %>
       <ul class="nav navbar-nav">
-        <li><%= link_to _('Home'), root_path %></li>
+        <li><%= link_to _('Simulators'), simulators_path %></li>
       <% if admin? %>
         <li><%= link_to _('Organizations'), organizations_path %></li>
       <% end %>
-        <li><%= link_to _('Simulators'), simulators_path %></li>
+        <li><%= link_to _('Users'), users_path %></li>
       </ul>
     <% end %>
       <ul class="nav navbar-nav navbar-right">
