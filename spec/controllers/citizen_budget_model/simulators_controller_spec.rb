@@ -20,8 +20,8 @@ module CitizenBudgetModel
 
     let(:new_attributes_for_admin) do
       {
-        name_en_ca: 'Update',
         organization_id: '3',
+        name_en_ca: 'Update',
       }
     end
 
@@ -100,7 +100,7 @@ module CitizenBudgetModel
 
           expect(simulator.reload.organization_id).to eq(3)
         end
-      end      
+      end
 
       describe 'DELETE destroy' do
         it 'destroys the requested simulator' do
