@@ -37,7 +37,10 @@ module CitizenBudgetModel
 
       object.class.globalize_locales.each do |locale|
         klass = 'form-group'
-        content = label(locale) + text_field_without_label(object.class.localized_attr_name_for(method, locale), {class: 'form-control'}.merge(options))
+        method_name = object.class.localized_attr_name_for(method, locale)
+        tag_id = "#{object.class.model_name.param_key}_#{method_name}"
+        content = @template.content_tag(:label, _(locale), for: tag_id)
+        content << text_field_without_label(method_name, {class: 'form-control'}.merge(options))
         if object.errors[method].any?
           klass << ' has-error has-feedback'
           content << @template.content_tag(:span, nil, class: 'glyphicon glyphicon-remove form-control-feedback')

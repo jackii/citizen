@@ -21,6 +21,16 @@ namespace :citizen_budget_model do
       keys << locale.to_s
     end
 
+    keys << CitizenBudgetModel::User.model_name.human
+    keys += %w(organization_id email password password_confirmation)
+
+    %w(Organization Simulator Section Question).each do |constant|
+      klass = CitizenBudgetModel.const_get(constant)
+
+      keys << klass.model_name.human
+      keys += klass.attribute_names - %w(id deleted_at created_at updated_at)
+    end
+
     data = {}
 
     keys.each do |key|
@@ -28,8 +38,6 @@ namespace :citizen_budget_model do
         data[key] = key
       end
     end
-
-    # @todo Add models and attributes
 
     I18n.backend.store_translations(I18n.default_locale, data, escape: true)
 

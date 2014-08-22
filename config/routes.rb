@@ -3,9 +3,9 @@ CitizenBudgetModel::Engine.routes.draw do
 
   resources :translations, only: [:index, :create]
 
-  resources :users, except: [:show, :destroy]
-
   resources :organizations
+
+  resources :users, except: [:show, :destroy]
 
   resources :simulators do
     member do
