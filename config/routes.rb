@@ -1,6 +1,8 @@
 CitizenBudgetModel::Engine.routes.draw do
   devise_for :users, class_name: 'CitizenBudgetModel::User', module: :devise
 
+  resources :translations, only: [:index, :create]
+
   resources :users, except: [:show, :destroy]
 
   resources :organizations

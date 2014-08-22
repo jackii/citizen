@@ -1,0 +1,32 @@
+<% content_for :breadcrumb do %>
+<ol class="breadcrumb">
+  <li class="active"><%= _('Translations') %></li>
+</ol>
+<% end %>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= _('Text') %></th>
+    <% I18n.available_locales.each do |locale| %>
+      <th><%= _(locale) %></th>
+    <% end %>
+    </tr>
+  </thead>
+  <tbody>
+<% @translations.keys.sort.each do |key| %>
+    <tr>
+      <th width="<%= 100 / @columns %>%" scope="row">
+        <%= key %>
+      </th>
+    <% I18n.available_locales.each do |locale| %>
+      <td width="<%= 100 / @columns %>%">
+        <a href="#" data-pk="<%= "#{locale}.#{key}" %>" data-url="<%= translations_path %>" class="editable">
+          <%= @translations[key][locale] %>
+        </a>
+      </td>
+    <% end %>
+    </tr>
+<% end %>
+  </tbody>
+</table>

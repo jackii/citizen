@@ -9,17 +9,30 @@ namespace :citizen_budget_model do
       '.rb' => GetText::RubyParser,
     }
 
-    data = {}
+    keys = []
 
     Dir.glob('../../app/**/*.{erb,rb}') do |filename|
       parsers[File.extname(filename)].parse(filename).each do |poentry|
-        key = poentry.msgid # in case we want to scope by file: poentry.references.sub('../../', '').split(':')[0]
-        unless I18n.backend.exists?(I18n.default_locale, key)
-          data[key] = key
-        end
+        keys << poentry.msgid # if we want to scope by file: poentry.references.sub('../../', '').split(':')[0]
       end
     end
 
+    I18n.available_locales.each do |locale|
+      keys << locale.to_s
+    end
+
+    data = {}
+
+    keys.each do |key|
+      unless I18n.backend.exists?(I18n.default_locale, key)
+        data[key] = key
+      end
+    end
+
+    # @todo Add models and attributes
+
     I18n.backend.store_translations(I18n.default_locale, data, escape: true)
+
+    # @todo Delete any other keys
   end
 end

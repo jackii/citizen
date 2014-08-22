@@ -13,5 +13,7 @@ jQuery(function ($) {
         $target.effect('highlight');
       })
     }
-  })
+  });
+
+  $('.editable').editable({type: 'text'});
 });
