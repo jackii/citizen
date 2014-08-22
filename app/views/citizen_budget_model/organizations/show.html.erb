@@ -12,7 +12,7 @@
 <% if @organization.simulators.any? %>
 <h2><%= _('Simulators') %></h2>
 
-<ul class="index">
+<ul class="list-unstyled index">
 <% @organization.simulators.each do |simulator| %>
   <li>
     <%= link_to simulator.name, simulator %>

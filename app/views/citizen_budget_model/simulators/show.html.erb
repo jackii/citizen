@@ -12,7 +12,7 @@
 <% if @simulator.sections.any? %>
 <h2><%= _('Sections') %></h2>
 
-<ul class="index sortable">
+<ul class="list-unstyled index sortable">
 <% @simulator.sections.each do |section| %>
   <li id="<%= dom_id(section) %>">
     <span class="glyphicon glyphicon-resize-vertical"></span>

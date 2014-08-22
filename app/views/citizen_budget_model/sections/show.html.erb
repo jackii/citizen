@@ -17,7 +17,7 @@
 <% if @section.questions.any? %>
 <h2><%= _('Questions') %></h2>
 
-<ul class="index sortable">
+<ul class="list-unstyled index sortable">
 <% @section.questions.each do |question| %>
   <li id="<%= dom_id(question) %>">
     <span class="glyphicon glyphicon-resize-vertical"></span>
