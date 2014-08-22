@@ -21,7 +21,7 @@ module CitizenBudgetModel
       @user = collection.new(user_params)
 
       if @user.save
-        redirect_to @user, notice: _('User was created.')
+        redirect_to users_path, notice: _('User was created.')
       else
         render :new
       end
@@ -29,7 +29,7 @@ module CitizenBudgetModel
 
     def update
       if @user.update(user_params)
-        redirect_to @user, notice: _('User was updated.')
+        redirect_to users_path, notice: _('User was updated.')
       else
         render :edit
       end

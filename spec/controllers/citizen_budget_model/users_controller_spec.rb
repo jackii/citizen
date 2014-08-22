@@ -73,7 +73,7 @@ module CitizenBudgetModel
           }.to change(User, :count).by(1)
           expect(assigns(:user)).to be_a(User)
           expect(assigns(:user)).to be_persisted
-          expect(response).to redirect_to(User.last)
+          expect(response).to redirect_to(users_path)
 
           expect(assigns(:user).organization_id).to eq(2)
         end
@@ -85,7 +85,7 @@ module CitizenBudgetModel
           put :update, {id: user.to_param, user: new_attributes_for_admin}
           expect(user.reload.email).to eq('foe@example.com')
           expect(assigns(:user)).to eq(user)
-          expect(response).to redirect_to(user)
+          expect(response).to redirect_to(users_path)
 
           expect(user.reload.organization_id).to eq(3)
         end
@@ -149,7 +149,7 @@ module CitizenBudgetModel
             }.to change(User, :count).by(1)
             expect(assigns(:user)).to be_a(User)
             expect(assigns(:user)).to be_persisted
-            expect(response).to redirect_to(User.last)
+            expect(response).to redirect_to(users_path)
 
             expect(assigns(:user).organization_id).to eq(1)
           end
@@ -160,7 +160,7 @@ module CitizenBudgetModel
             }.to change(User, :count).by(1)
             expect(assigns(:user)).to be_a(User)
             expect(assigns(:user)).to be_persisted
-            expect(response).to redirect_to(User.last)
+            expect(response).to redirect_to(users_path)
           end
         end
 
@@ -186,7 +186,7 @@ module CitizenBudgetModel
             put :update, {id: user.to_param, user: new_attributes_for_admin}
             expect(user.reload.email).to eq('foe@example.com')
             expect(assigns(:user)).to eq(user)
-            expect(response).to redirect_to(user)
+            expect(response).to redirect_to(users_path)
 
             expect(user.reload.organization_id).to eq(1)
           end
@@ -196,7 +196,7 @@ module CitizenBudgetModel
             put :update, {id: user.to_param, user: new_attributes}
             expect(user.reload.email).to eq('foe@example.com')
             expect(assigns(:user)).to eq(user)
-            expect(response).to redirect_to(user)
+            expect(response).to redirect_to(users_path)
           end
         end
 
