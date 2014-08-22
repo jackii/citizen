@@ -77,7 +77,8 @@ h2,
 h3 {
   font-size: 1em;
 }
-h3 {
+h3 { /* locale */
+  color: #999;
   font-style: italic;
   font-weight: normal;
 }
@@ -106,7 +107,8 @@ ul {
 }
 
 /* Translations */
-.row label {
+.row label { /* locale */
+  color: #999;
   font-style: italic;
   font-weight: normal;
 }
@@ -116,4 +118,9 @@ ul {
 
 .translation {
   padding-bottom: 20px;
+}
+
+.muted {
+  color: #999;
+  font-style: italic;
 }
