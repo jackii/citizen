@@ -18,7 +18,7 @@ module CitizenBudgetModel
     end
 
     def create
-      @simulator = collection.new({organization_id: current_user.organization_id}.merge(simulator_params))
+      @simulator = collection.new(simulator_params)
 
       if @simulator.save
         redirect_to @simulator, notice: _('Simulator was created.')
@@ -65,7 +65,7 @@ module CitizenBudgetModel
       if admin?
         attribute_names << :organization_id
       end
-      params.require(:simulator).permit(attribute_names)
+      params.require(:simulator).permit(*attribute_names)
     end
   end
 end
