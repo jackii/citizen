@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140819181403) do
+ActiveRecord::Schema.define(version: 20140822213003) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -68,6 +68,7 @@ ActiveRecord::Schema.define(version: 20140819181403) do
     t.integer  "position"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "html_class",    default: "",    null: false
   end
 
   add_index "citizen_budget_model_questions", ["section_id"], name: "index_citizen_budget_model_questions_on_section_id", using: :btree
@@ -91,6 +92,7 @@ ActiveRecord::Schema.define(version: 20140819181403) do
     t.integer  "position"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "html_class",   default: "", null: false
   end
 
   add_index "citizen_budget_model_sections", ["simulator_id"], name: "index_citizen_budget_model_sections_on_simulator_id", using: :btree

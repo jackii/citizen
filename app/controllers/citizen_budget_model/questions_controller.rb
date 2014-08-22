@@ -57,7 +57,7 @@ module CitizenBudgetModel
     end
 
     def question_params
-      attribute_names = Question.globalize_attribute_names + [:machine_name, :default_value, :unit_value, :account, :widget, :options, :revenue, :maxlength, :required, :rows, :cols, :size]
+      attribute_names = Question.globalize_attribute_names + [:machine_name, :default_value, :unit_value, :account, :widget, :options, :revenue, :maxlength, :required, :rows, :cols, :size, :html_class]
       params.require(:question).permit(*attribute_names)
     end
   end

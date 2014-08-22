@@ -59,7 +59,7 @@ module CitizenBudgetModel
     end
 
     def section_params
-      attribute_names = Section.globalize_attribute_names
+      attribute_names = Section.globalize_attribute_names + [:html_class]
       params.require(:section).permit(*attribute_names)
     end
   end
