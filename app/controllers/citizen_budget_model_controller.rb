@@ -3,6 +3,8 @@ class CitizenBudgetModelController < CitizenBudgetModel.parent_controller.consta
 
   before_filter :set_locale
 
+  helper CitizenBudgetModel::Engine.helpers
+
   helper_method :admin?
 
   def set_locale
@@ -118,10 +120,10 @@ module CitizenBudgetModel
       button(_('Save'), class: 'btn btn-primary')
     end
 
-    def buttons
+    def buttons(options = {})
       content = submit
       if object.persisted?
-        content << @template.link_to(object_name, class: 'btn btn-danger pull-right', method: :delete, data: {confirm: _('Are you sure?')}) do
+        content << @template.link_to(options.fetch(:context, object), class: 'btn btn-danger pull-right', method: :delete, data: {confirm: _('Are you sure?')}) do
           @template.content_tag(:span, nil, class: 'glyphicon glyphicon-trash') + ' ' + _('Delete')
         end
       end
