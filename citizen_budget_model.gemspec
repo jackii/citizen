@@ -28,6 +28,7 @@ Gem::Specification.new do |s|
   # Internationalization
   s.add_dependency 'globalize', '~> 4.0.2'
   s.add_dependency 'globalize-accessors', '~> 0.1.5'
+  s.add_dependency 'redis'
 
   # Testing
   s.add_development_dependency 'database_cleaner', '~> 1.2'
@@ -40,6 +41,7 @@ Gem::Specification.new do |s|
 
   # Development
   s.add_development_dependency 'pry-rails'
+  s.add_development_dependency 'gettext'
 
   # Optional
   s.add_development_dependency 'rails-i18n', '~> 4.0.0'

@@ -28,8 +28,13 @@ Set your locales in `config/application.rb`, for example:
 
 To fully support multiple languages, in `Gemfile`:
 
+    gem 'gettext'
     gem 'rails-i18n', '~> 4.0.0'
     gem 'devise-i18n', '~> 0.10.4'
+
+Add translations to the Redis backend:
+
+    bundle exec rake citizen_budget_model:translations
 
 ### Views
 

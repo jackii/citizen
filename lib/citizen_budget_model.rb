@@ -4,6 +4,7 @@ require 'acts_as_list'
 require 'globalize'
 require 'globalize-accessors'
 require 'paranoia'
+require 'redis'
 
 module CitizenBudgetModel
   # The parent controller all Popolo controllers inherit from. Defaults to
