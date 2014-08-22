@@ -1,23 +1,27 @@
-<h1>Listing users</h1>
+<% content_for :breadcrumb do %>
+<ol class="breadcrumb">
+  <li class="active"><%= _('Users') %></li>
+</ol>
+<% end %>
 
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<ul class="index">
+<% @users.each do |user| %>
+  <li>
+    <%= user.email %>
+  <% if user.organization_id %>
+    <span class="muted"><%= user.organization.name %></span>
+  <% end %>
+    <span class="actions">
+      <%= link_to [:edit, user] do %>
+        <span class="glyphicon glyphicon-pencil"></span> <%= _('Edit') %>
+      <% end %>
+    </span>
+  </li>
+<% end %>
+</ul>
 
-  <tbody>
-    <% @users.each do |user| %>
-      <tr>
-        <td><%= link_to 'Show', user %></td>
-        <td><%= link_to 'Edit', edit_user_path(user) %></td>
-        <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New User', new_user_path %>
+<p>
+  <%= link_to(new_user_path, class: 'btn btn-primary') do %>
+    <span class="glyphicon glyphicon-plus"></span> <%= _('Add a user') %>
+  <% end %>
+</p>

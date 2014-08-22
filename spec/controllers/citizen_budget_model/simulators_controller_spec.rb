@@ -134,8 +134,8 @@ module CitizenBudgetModel
 
       describe 'GET index' do
         it 'assigns all authorized simulators as @simulators' do
-          simulator = Simulator.create!(valid_attributes_for_admin)
-          simulator = Simulator.create!(valid_attributes_for_create)
+          simulator = Simulator.create! valid_attributes_for_admin
+          simulator = Simulator.create! valid_attributes_for_create
           get :index, {}
           expect(assigns(:simulators)).to eq([simulator])
         end

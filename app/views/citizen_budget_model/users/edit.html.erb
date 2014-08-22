@@ -1,6 +1,9 @@
-<h1>Editing user</h1>
+<% content_for :breadcrumb do %>
+<ol class="breadcrumb">
+  <li><%= link_to _('Users'), users_path %></li>
+  <li><%= @user.email %></li>
+  <li class="active"><%= _('Edit') %></li>
+</ol>
+<% end %>
 
 <%= render 'form' %>
-
-<%= link_to 'Show', @user %> |
-<%= link_to 'Back', users_path %>

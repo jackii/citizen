@@ -1,62 +1,56 @@
-require_dependency "citizen_budget_model/application_controller"
-
 module CitizenBudgetModel
-  class UsersController < ApplicationController
+  class UsersController < CitizenBudgetModelController
+    before_action :authenticate_user!
     before_action :set_user, only: [:show, :edit, :update, :destroy]
 
-    # GET /users
     def index
-      @users = User.all
+      @users = collection.all.sort_by(&:email)
     end
 
-    # GET /users/1
     def show
     end
 
-    # GET /users/new
     def new
-      @user = User.new
+      @user = collection.new
     end
 
-    # GET /users/1/edit
     def edit
     end
 
-    # POST /users
     def create
-      @user = User.new(user_params)
+      @user = collection.new(user_params)
 
       if @user.save
-        redirect_to @user, notice: 'User was successfully created.'
+        redirect_to @user, notice: _('User was created.')
       else
         render :new
       end
     end
 
-    # PATCH/PUT /users/1
     def update
       if @user.update(user_params)
-        redirect_to @user, notice: 'User was successfully updated.'
+        redirect_to @user, notice: _('User was updated.')
       else
         render :edit
       end
     end
 
-    # DELETE /users/1
-    def destroy
-      @user.destroy
-      redirect_to users_url, notice: 'User was successfully destroyed.'
+  private
+
+    def collection
+      @collection ||= admin? ? CitizenBudgetModel::User : current_user.organization.users
     end
 
-    private
-      # Use callbacks to share common setup or constraints between actions.
-      def set_user
-        @user = User.find(params[:id])
-      end
+    def set_user
+      @user = collection.find(params[:id])
+    end
 
-      # Only allow a trusted parameter "white list" through.
-      def user_params
-        params[:user]
+    def user_params
+      attribute_names = [:email, :password, :password_confirmation]
+      if admin?
+        attribute_names << :organization_id
       end
+      params.require(:user).permit(*attribute_names)
+    end
   end
 end
