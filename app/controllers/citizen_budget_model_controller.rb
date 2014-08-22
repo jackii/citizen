@@ -13,6 +13,12 @@ class CitizenBudgetModelController < CitizenBudgetModel.parent_controller.consta
     user_signed_in? && current_user.organization_id.nil?
   end
 
+  def check_authorization!
+    unless admin?
+      head :forbidden
+    end
+  end
+
   def simulators
     @simulators_collection ||= admin? ? CitizenBudgetModel::Simulator : current_user.organization.simulators
   end

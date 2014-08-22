@@ -23,10 +23,34 @@ module CitizenBudgetModel
       end
     end
 
-    describe 'when signed in' do
+    describe 'when signed in as regular user' do
       before(:each) do
         @request.env['devise.mapping'] = Devise.mappings[:user]
         sign_in CitizenBudgetModel::User.create!(email: 'user@example.com', organization_id: 1)
+      end
+
+      it 'returns a forbidden HTTP status' do
+        get :index, {}
+        expect(response).to have_http_status(:forbidden)
+        get :new, {}
+        expect(response).to have_http_status(:forbidden)
+        post :create
+        expect(response).to have_http_status(:forbidden)
+        get :show, {id: 1}
+        expect(response).to have_http_status(:forbidden)
+        get :edit, {id: 1}
+        expect(response).to have_http_status(:forbidden)
+        put :update, {id: 1}
+        expect(response).to have_http_status(:forbidden)
+        delete :destroy, {id: 1}
+        expect(response).to have_http_status(:forbidden)
+      end
+    end
+
+    describe 'when signed in as super user' do
+      before(:each) do
+        @request.env['devise.mapping'] = Devise.mappings[:user]
+        sign_in CitizenBudgetModel::User.create!(email: 'user@example.com')
       end
 
       let(:valid_attributes) do
