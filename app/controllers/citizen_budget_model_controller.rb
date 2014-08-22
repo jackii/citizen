@@ -60,7 +60,27 @@ module CitizenBudgetModel
       @template.content_tag(:div, content, class: klass)
     end
 
+    def email_field(method, options = {})
+      klass = 'form-group'
+      content = label(method) + super(method, {class: 'form-control'}.merge(options))
+      if object.errors[method].any?
+        klass << ' has-error has-feedback'
+        content << @template.content_tag(:span, nil, class: 'glyphicon glyphicon-remove form-control-feedback')
+      end
+      @template.content_tag(:div, content, class: klass)
+    end
+
     def number_field(method, options = {})
+      klass = 'form-group'
+      content = label(method) + super(method, {class: 'form-control'}.merge(options))
+      if object.errors[method].any?
+        klass << ' has-error has-feedback'
+        content << @template.content_tag(:span, nil, class: 'glyphicon glyphicon-remove form-control-feedback')
+      end
+      @template.content_tag(:div, content, class: klass)
+    end
+
+    def password_field(method, options = {})
       klass = 'form-group'
       content = label(method) + super(method, {class: 'form-control'}.merge(options))
       if object.errors[method].any?
@@ -85,8 +105,12 @@ module CitizenBudgetModel
       @template.content_tag(:div, content, class: klass)
     end
 
+    def submit
+      button(_('Save'), class: 'btn btn-primary')
+    end
+
     def buttons
-      content = button(_('Save'), class: 'btn btn-primary')
+      content = submit
       if object.persisted?
         content << @template.link_to(object_name, class: 'btn btn-danger pull-right', method: :delete, data: {confirm: _('Are you sure?')}) do
           @template.content_tag(:span, nil, class: 'glyphicon glyphicon-trash') + ' ' + _('Delete')
