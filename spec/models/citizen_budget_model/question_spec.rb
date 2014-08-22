@@ -16,24 +16,60 @@ module CitizenBudgetModel
     it { should validate_numericality_of(:step).is_greater_than(0) }
     it { should ensure_inclusion_of(:widget).in_array(%w(slider)) }
 
+    it 'should get options' do
+      question = Question.new(options: [1, 3, 5])
+      expect(question.minimum).to eq(1)
+      expect(question.maximum).to eq(5)
+      expect(question.step).to eq(2)
+    end
+
+    it 'should get labels' do
+      question = Question.new(labels: ['One', 'Two', 'Three'])
+      expect(question.labels_as_list).to eq("One\nTwo\nThree")
+    end
+
+    it 'should set options' do
+      question = Question.new(minimum: 1, maximum: 5, step: 2)
+      question.valid?
+      expect(question.options).to eq([1, 3, 5])
+    end
+
+    it 'should set labels' do
+      question = Question.new(labels_as_list: "One\nTwo\nThree")
+      question.valid?
+      expect(question.labels).to eq(['One', 'Two', 'Three'])
+    end
+
+    it 'should ensure all or none of maximum, minimum and step are present' do
+      question = Question.new(section_id: 1, minimum: 0)
+      question.valid?
+      expect(question.errors.full_messages).to eq(["Maximum can't be blank", "Step can't be blank"])
+
+      question = Question.new(section_id: 1, maximum: 0)
+      question.valid?
+      expect(question.errors.full_messages).to eq(["Minimum can't be blank", "Step can't be blank"])
+
+      question = Question.new(section_id: 1, step: 1)
+      question.valid?
+      expect(question.errors.full_messages).to eq(["Minimum can't be blank", "Maximum can't be blank"])
+    end
+
     it 'should ensure minimum is less than maximum' do
-      question = Question.new(section_id: 1, minimum: 0, maximum: 0)
+      question = Question.new(section_id: 1, minimum: 0, maximum: 0, step: 1)
       question.valid?
       expect(question.errors.full_messages).to eq(['Minimum must be less than maximum'])
     end
 
-    it 'should ensure default value is between minimum and maximum' do
-      question = Question.new(section_id: 1, minimum: 1, maximum: 2, default_value: 3)
-      question.valid?
-      expect(question.errors.full_messages).to eq(['Default value must be between minimum and maximum'])
-
-      question = Question.new(section_id: 1, minimum: 1, maximum: 2, default_value: 0)
-      question.valid?
-      expect(question.errors.full_messages).to eq(['Default value must be between minimum and maximum'])
-    end
-
     it 'should ensure default value is an option' do
-      question = Question.new(section_id: 1, options: [1, 2, 3], default_value: 0)
+      question = Question.new(section_id: 1, minimum: 1, maximum: 2, step: 1, default_value: 3)
+      question.valid?
+      expect(question.errors.full_messages).to eq(['Default value must be a valid option'])
+
+      question = Question.new(section_id: 1, minimum: 1, maximum: 2, step: 1, default_value: 0)
+      question.valid?
+      expect(question.errors.full_messages).to eq(['Default value must be a valid option'])
+
+      question = Question.new(section_id: 1, options: [1, 3, 5], default_value: 2)
       question.valid?
       expect(question.errors.full_messages).to eq(['Default value must be a valid option'])
     end
@@ -41,7 +77,7 @@ module CitizenBudgetModel
     it 'should ensure there are the same number of labels and options' do
       question = Question.new(section_id: 1, options: [1, 2, 3], labels: ['Label'])
       question.valid?
-      expect(question.errors.full_messages).to eq(['Labels must match options'])
+      expect(question.errors.full_messages).to eq(['Labels must agree with options'])
     end
 
     describe '#name' do

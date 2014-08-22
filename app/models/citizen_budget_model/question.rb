@@ -26,10 +26,13 @@ module CitizenBudgetModel
       session_user some symmetric table then to trailing true union unique user
       using variadic when where window with), allow_blank: true
 
+    validate :all_or_none_of_minimum_and_maximum_and_step_should_be_present
     validate :minimum_must_be_less_than_maximum
-    validate :default_value_must_be_between_minimum_and_maximum
     validate :default_value_must_be_an_option
-    validate :options_and_labels_must_agree
+    validate :labels_must_agree_with_options
+
+    after_initialize :get_options, :get_labels
+    before_validation :set_options, :set_labels
 
     attr_accessor :minimum, :maximum, :step, :labels_as_list, :options_as_list
 
@@ -39,17 +42,50 @@ module CitizenBudgetModel
 
   private
 
-    def minimum_must_be_less_than_maximum
-      if minimum.present? && maximum.present? && minimum.to_f >= maximum.to_f
-        errors.add(:minimum, _('must be less than maximum'))
+    def get_options
+      if options.present?
+        @minimum = options.first.to_f
+        @maximum = options.last.to_f
+        @step = (options[1] - options[0]).round(3)
       end
     end
 
-    def default_value_must_be_between_minimum_and_maximum
-      if minimum.present? && maximum.present? && default_value.present? && minimum.to_f < maximum.to_f
-        if default_value.to_f < minimum.to_f || default_value.to_f > maximum.to_f
-          errors.add(:default_value, _('must be between minimum and maximum'))
+    def get_labels
+      if labels.present?
+        @labels_as_list = labels.join("\n")
+      end
+    end
+
+    def set_options
+      if minimum.present? && maximum.present? && step.present?
+        self.options = (BigDecimal(minimum.to_s)..BigDecimal(maximum.to_s)).step(BigDecimal(step.to_s)).map(&:to_f)
+        unless options.last == maximum.to_f
+          self.options << maximum.to_f
         end
+      else
+        self.options = []
+      end
+    end
+
+    def set_labels
+      if labels_as_list.present?
+        self.labels = labels_as_list.split("\n").map(&:strip).reject(&:empty?)
+      end
+    end
+
+    def all_or_none_of_minimum_and_maximum_and_step_should_be_present
+      unless minimum.present? && maximum.present? && step.present? || minimum.blank? && maximum.blank? && step.blank?
+        [:minimum, :maximum, :step].each do |attribute|
+          if send(attribute).blank?
+            errors.add(attribute, :blank)
+          end
+        end
+      end
+    end
+
+    def minimum_must_be_less_than_maximum
+      if minimum.present? && maximum.present? && minimum.to_f >= maximum.to_f
+        errors.add(:minimum, _('must be less than maximum'))
       end
     end
 
@@ -61,10 +97,10 @@ module CitizenBudgetModel
       end
     end
 
-    def options_and_labels_must_agree
+    def labels_must_agree_with_options
       if labels.present? && options.present?
         unless labels.size == options.size
-          errors.add(:labels, _('must match options'))
+          errors.add(:labels, _('must agree with options'))
         end
       end
     end
