@@ -21,10 +21,13 @@
     <div class="panel-body">
       <%#= f.text_field :widget %>
       <%= f.translated_text_field :unit_name %>
-      <%= f.translated_text_field :labels %>
-      <%= f.text_field :options %>
+      <%= f.number_field :minimum %>
+      <%= f.number_field :maximum %>
+      <%= f.number_field :step %>
+      <%#= f.translated_text_field :labels %>
+      <%#= f.text_field :options %>
       <%#= f.check_box :revenue %>
-      <%= f.text_field :html_class # remove after removing comments %>
+      <%= f.text_field :html_class %><%# remove after removing comments %>
     </div>
   </div>
 

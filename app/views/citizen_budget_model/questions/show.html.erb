@@ -25,8 +25,8 @@
   <div class="panel-body">
     <%= render partial: 'citizen_budget_model/shared/translated_field', locals: {record: @question, attribute: :name} %>
     <%= render partial: 'citizen_budget_model/shared/field', locals: {record: @question, attribute: :machine_name} %>
-    <%= render partial: 'citizen_budget_model/shared/field', locals: {record: @question, attribute: :default_value, formatter: default_value_formatter(@question)} %>
-    <%= render partial: 'citizen_budget_model/shared/field', locals: {record: @question, attribute: :unit_value, formatter: unit_value_formatter} %>
+    <%= render partial: 'citizen_budget_model/shared/field', locals: {record: @question, attribute: :default_value, formatter: value_formatter(@question)} %>
+    <%= render partial: 'citizen_budget_model/shared/field', locals: {record: @question, attribute: :unit_value, formatter: currency_formatter} %>
     <%#= render partial: 'citizen_budget_model/shared/field', locals: {record: @question, attribute: :account} %>
   </div>
 </div>
@@ -40,9 +40,13 @@
   <div class="panel-body">
     <%#= render partial: 'citizen_budget_model/shared/field', locals: {record: @question, attribute: :widget} %>
     <%= render partial: 'citizen_budget_model/shared/translated_field', locals: {record: @question, attribute: :unit_name} %>
-    <%= render partial: 'citizen_budget_model/shared/translated_field', locals: {record: @question, attribute: :labels} %>
-    <%= render partial: 'citizen_budget_model/shared/field', locals: {record: @question, attribute: :options} %>
+    <%= render partial: 'citizen_budget_model/shared/field', locals: {record: @question, attribute: :minimum, formatter: value_formatter(@question)} %>
+    <%= render partial: 'citizen_budget_model/shared/field', locals: {record: @question, attribute: :maximum, formatter: value_formatter(@question)} %>
+    <%= render partial: 'citizen_budget_model/shared/field', locals: {record: @question, attribute: :step, formatter: value_formatter(@question)} %>
+    <%#= render partial: 'citizen_budget_model/shared/translated_field', locals: {record: @question, attribute: :labels} %>
+    <%#= render partial: 'citizen_budget_model/shared/field', locals: {record: @question, attribute: :options} %>
     <%#= render partial: 'citizen_budget_model/shared/field', locals: {record: @question, attribute: :revenue} %>
+    <%= render partial: 'citizen_budget_model/shared/field', locals: {record: @question, attribute: :html_class} %>
   </div>
 </div>
 <% end %>
