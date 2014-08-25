@@ -17,6 +17,10 @@ In `config/routes.rb`:
 
     mount CitizenBudgetModel::Engine => '/'
 
+In `config/environments/production.rb`:
+
+    config.action_mailer.default_url_options = {host: ENV['ACTION_MAILER_HOST']}
+
 ### Internationalization
 
 Set your locales in `config/application.rb`, for example:
