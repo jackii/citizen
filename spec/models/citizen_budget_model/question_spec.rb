@@ -6,7 +6,7 @@ module CitizenBudgetModel
     it { should validate_uniqueness_of(:machine_name).scoped_to(:section_id) }
     it { should allow_value('', 'a', '_', 'aa', 'a_', 'a0', '_a', '__', '_0').for(:machine_name) }
     it { should_not allow_value('0', 'A', 'aA', '_A').for(:machine_name) } # too many to test
-    it { should ensure_exclusion_of(:machine_name).in_array(%w(all analyse)) } # testing all of them is slow
+    it { should validate_exclusion_of(:machine_name).in_array(%w(all analyse)) } # testing all of them is slow
     [:default_value, :unit_value, :minimum, :maximum].each do |attribute|
       it { should validate_numericality_of attribute }
     end
@@ -14,7 +14,7 @@ module CitizenBudgetModel
       it { should validate_numericality_of(attribute).only_integer.is_greater_than(0) }
     end
     it { should validate_numericality_of(:step).is_greater_than(0) }
-    it { should ensure_inclusion_of(:widget).in_array(%w(slider)) }
+    it { should validate_inclusion_of(:widget).in_array(%w(slider)) }
 
     it 'should get options' do
       question = Question.new(options: [1, 3, 5])
