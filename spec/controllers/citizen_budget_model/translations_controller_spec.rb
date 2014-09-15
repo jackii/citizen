@@ -28,7 +28,7 @@ module CitizenBudgetModel
 
       describe 'GET create' do
         before(:all) do
-          I18n.backend.store_translations('en-CA.en-CA', {'en-CA' => 'en-CA'}, escape: true)
+          I18n.backend.store_translations('en-CA', {'en-CA' => 'en-CA'}, escape: true)
         end
 
         it 'returns http success' do
