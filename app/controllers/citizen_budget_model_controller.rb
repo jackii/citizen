@@ -1,7 +1,7 @@
 class CitizenBudgetModelController < CitizenBudgetModel.parent_controller.constantize
   layout 'citizen_budget_model/admin'
 
-  before_filter :set_locale
+  before_action :set_locale
 
   helper CitizenBudgetModel::Engine.helpers
 
