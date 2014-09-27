@@ -12,6 +12,10 @@ module CitizenBudgetModel
       it 'routes to #create' do
         expect(post: '/translations').to route_to('citizen_budget_model/translations#create')
       end
+
+      it 'routes to #export' do
+        expect(get: '/translations/export').to route_to('citizen_budget_model/translations#export')
+      end
     end
   end
 end

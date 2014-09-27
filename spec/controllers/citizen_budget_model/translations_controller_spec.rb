@@ -11,6 +11,20 @@ module CitizenBudgetModel
         post :create
         expect(response).to redirect_to(new_user_session_path)
       end
+
+      describe 'GET export' do
+        it 'returns translations in the default locale' do
+          get :export
+          expect(response).to be_success
+          expect(JSON.parse(response.body)['']).to eq('lang' => 'en-CA')
+        end
+
+        it 'returns translations in the given locale' do
+          get :export, locale: 'fr-CA'
+          expect(response).to be_success
+          expect(JSON.parse(response.body)['']).to eq('lang' => 'fr-CA')
+        end
+      end
     end
 
     describe 'when signed in as regular user' do

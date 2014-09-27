@@ -1,13 +1,12 @@
 module CitizenBudgetModel
   class TranslationsController < CitizenBudgetModelController
-    before_action :authenticate_user!
+    before_action :authenticate_user!, except: [:export]
 
     def index
-      @translations = {}
+      @translations = Hash.new{|h,k| h[k] = {}}
       store = I18n.backend.backends.first.store
       store.keys.each do |k|
         locale, key = k.split('.', 2)
-        @translations[key] ||= {}
         @translations[key][locale.to_sym] = JSON.load(store[k])
       end
 
@@ -26,6 +25,19 @@ module CitizenBudgetModel
       else
         head :bad_request
       end
+    end
+
+    def export
+      translations = {'' => {lang: I18n.locale}}
+      store = I18n.backend.backends.first.store
+      store.keys.each do |k|
+        locale, key = k.split('.', 2)
+        if locale.to_sym == I18n.locale
+          translations[key.tr(I18n::Backend::Flatten::SEPARATOR_ESCAPE_CHAR, I18n::Backend::Flatten::FLATTEN_SEPARATOR)] = [nil, JSON.load(store[k])]
+        end
+      end
+
+      render json: translations
     end
   end
 end
