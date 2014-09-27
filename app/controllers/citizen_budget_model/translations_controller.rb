@@ -36,6 +36,15 @@ module CitizenBudgetModel
           translations[key.tr(I18n::Backend::Flatten::SEPARATOR_ESCAPE_CHAR, I18n::Backend::Flatten::FLATTEN_SEPARATOR)] = [nil, JSON.load(store[k])]
         end
       end
+      # @note May need to add translations as necessary.
+      %w(
+        number.currency.format.delimiter
+        number.currency.format.format
+        number.currency.format.separator
+        number.currency.format.unit
+      ).each do |key|
+        translations[key] = [nil, I18n.translate(key.to_sym)]
+      end
 
       render json: translations
     end
