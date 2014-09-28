@@ -41,6 +41,10 @@ module CitizenBudgetModel
         expect(response).to redirect_to(new_user_session_path)
         delete :destroy, {id: 1}
         expect(response).to redirect_to(new_user_session_path)
+        post :activate, {id: 1}
+        expect(response).to redirect_to(new_user_session_path)
+        post :sort, {id: 1}
+        expect(response).to redirect_to(new_user_session_path)
       end
     end
 
@@ -109,6 +113,30 @@ module CitizenBudgetModel
             delete :destroy, {id: simulator.to_param}
           }.to change(Simulator, :count).by(-1)
           expect(response).to redirect_to(simulators_path)
+        end
+      end
+
+      describe 'POST activate' do
+        it 'activates the requested simulator' do
+          simulator = Simulator.create! valid_attributes_for_admin
+          post :activate, {id: simulator.to_param}
+          expect(simulator.reload.active).to eq(true)
+          expect(assigns(:simulator)).to eq(simulator)
+          expect(response).to redirect_to(simulator)
+        end
+      end
+
+      describe 'POST sort' do
+        it 'sorts the sections in the simulator' do
+          simulator = Simulator.create! valid_attributes_for_admin
+          sections = 3.times.map do
+            Section.create!(simulator_id: simulator.to_param)
+          end
+          order = sections.map(&:id)
+
+          expect(simulator.sections.map(&:id)).to eq(order)
+          post :sort, {id: simulator.to_param, section: order.reverse!}
+          expect(simulator.sections.reload.map(&:id)).to eq(order)
         end
       end
     end
@@ -259,7 +287,27 @@ module CitizenBudgetModel
         end
       end
 
+      describe 'POST activate' do
+        it 'does not sort the unauthorized simulator' do
+          simulator = Simulator.create! valid_attributes_for_admin
+          expect{post :activate, {id: simulator.to_param}}.to raise_error(ActiveRecord::RecordNotFound)
+        end
+
+        it 'activates the requested simulator' do
+          simulator = Simulator.create! valid_attributes_for_create
+          post :activate, {id: simulator.to_param}
+          expect(simulator.reload.active).to eq(true)
+          expect(assigns(:simulator)).to eq(simulator)
+          expect(response).to redirect_to(simulator)
+        end
+      end
+
       describe 'POST sort' do
+        it 'does not sort the unauthorized simulator' do
+          simulator = Simulator.create! valid_attributes_for_admin
+          expect{post :sort, {id: simulator.to_param}}.to raise_error(ActiveRecord::RecordNotFound)
+        end
+
         it 'sorts the sections in the simulator' do
           simulator = Simulator.create! valid_attributes_for_create
           sections = 3.times.map do

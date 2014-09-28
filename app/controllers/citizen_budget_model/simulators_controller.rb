@@ -1,7 +1,7 @@
 module CitizenBudgetModel
   class SimulatorsController < CitizenBudgetModelController
-    before_action :authenticate_user!, except: [:solution]
-    before_action :set_simulator, only: [:show, :edit, :update, :destroy, :sort, :solution]
+    before_action :authenticate_user!
+    before_action :set_simulator, only: [:show, :edit, :update, :destroy, :activate, :sort]
 
     def index
       @simulators = collection.all.sort_by(&:name)
@@ -40,14 +40,16 @@ module CitizenBudgetModel
       redirect_to simulators_path, notice: _('Simulator was deleted.')
     end
 
+    def activate
+      @simulator.activate!
+      redirect_to @simulator, notice: _('Simulator was activated.')
+    end
+
     def sort
       @simulator.sections.each do |section|
         section.update_attributes position: params[:section].index(section.id.to_s)
       end
       render nothing: true, status: 204
-    end
-
-    def solution
     end
 
   private
