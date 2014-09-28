@@ -33,12 +33,12 @@ module CitizenBudgetModel
         expect(delete: '/simulators/1').to route_to('citizen_budget_model/simulators#destroy', id: '1')
       end
 
-      it 'routes to #sort' do
-        expect(post: '/simulators/1/sort').to route_to('citizen_budget_model/simulators#sort', id: '1')
+      it 'routes to #activate' do
+        expect(post: '/simulators/1/activate').to route_to('citizen_budget_model/simulators#activate', id: '1')
       end
 
-      it 'routes to #solution' do
-        expect(get: '/simulators/1/solution').to route_to('citizen_budget_model/simulators#solution', id: '1')
+      it 'routes to #sort' do
+        expect(post: '/simulators/1/sort').to route_to('citizen_budget_model/simulators#sort', id: '1')
       end
     end
   end

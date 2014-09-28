@@ -13,9 +13,8 @@ CitizenBudgetModel::Engine.routes.draw do
 
   resources :simulators do
     member do
-      get :solution
-
       post :sort
+      post :activate
     end
 
     resources :sections, except: [:index] do
