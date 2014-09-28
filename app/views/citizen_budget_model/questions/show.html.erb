@@ -51,8 +51,8 @@
 <% end %>
 
 <div class="panel-group" id="panels">
-  <% text_panel = [:title, :description, :modal, :popover] %>
-  <% if visible?(@question, *text_panel) && @question.any_of?(*text_panel) %>
+<% text_panel = [:title, :description, :modal, :popover] %>
+<% if visible?(@question, *text_panel) && @question.any_of?(*text_panel) %>
   <div class="panel panel-info">
     <div class="panel-heading panel-title">
       <a data-toggle="collapse" data-parent="#panels" href="#text">
@@ -68,7 +68,7 @@
       </div>
     </div>
   </div>
-  <% end %>
+<% end %>
 
   <% html_panel = [:required, :placeholder, :maxlength, :rows, :cols, :size, :html_class] %>
   <% if visible?(@question, *html_panel) && @question.any_of?(*html_panel) %>
@@ -88,6 +88,5 @@
       </div>
     </div>
   </div>
-  <% end %>
-</div>
 <% end %>
+</div>

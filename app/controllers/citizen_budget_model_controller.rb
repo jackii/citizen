@@ -45,7 +45,7 @@ module CitizenBudgetModel
     end
 
     def translated_text_field(method, options = {})
-      return unless visible?(object, method)
+      return unless @template.visible?(object, method)
 
       rows = ActiveSupport::SafeBuffer.new
 
@@ -68,7 +68,7 @@ module CitizenBudgetModel
     alias_method :text_field_without_label, :text_field
 
     def text_field(method, options = {})
-      return unless visible?(object, method)
+      return unless @template.visible?(object, method)
 
       klass = 'form-group'
       content = label(method) + super(method, {class: 'form-control'}.merge(options))
@@ -80,7 +80,7 @@ module CitizenBudgetModel
     end
 
     def email_field(method, options = {})
-      return unless visible?(object, method)
+      return unless @template.visible?(object, method)
 
       klass = 'form-group'
       content = label(method) + super(method, {class: 'form-control'}.merge(options))
@@ -92,7 +92,7 @@ module CitizenBudgetModel
     end
 
     def number_field(method, options = {})
-      return unless visible?(object, method)
+      return unless @template.visible?(object, method)
 
       klass = 'form-group'
       content = label(method) + super(method, {class: 'form-control'}.merge(options))
@@ -104,7 +104,7 @@ module CitizenBudgetModel
     end
 
     def password_field(method, options = {})
-      return unless visible?(object, method)
+      return unless @template.visible?(object, method)
 
       klass = 'form-group'
       content = label(method) + super(method, {class: 'form-control'}.merge(options))
@@ -116,14 +116,14 @@ module CitizenBudgetModel
     end
 
     def check_box(method, options = {}, checked_value = '1', unchecked_value = '0')
-      return unless visible?(object, method)
+      return unless @template.visible?(object, method)
 
       content = @template.content_tag(:label, super(method, options, checked_value, unchecked_value) + ' ' + object.class.human_attribute_name(method))
       @template.content_tag(:div, content, class: 'checkbox')
     end
 
     def select(method, choices = nil, options = {}, html_options = {})
-      return unless visible?(object, method)
+      return unless @template.visible?(object, method)
 
       klass = 'form-group'
       content = label(method) + super(method, choices, options, {class: 'form-control'}.merge(html_options))
