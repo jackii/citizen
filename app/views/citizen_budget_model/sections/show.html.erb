@@ -1,4 +1,3 @@
-<%# @todo uncomment below %>
 <% content_for :breadcrumb do %>
 <ol class="breadcrumb">
   <li><%= link_to _('Simulators'), simulators_path %></li>
@@ -12,9 +11,9 @@
 <% end %>
 
 <%= render partial: 'citizen_budget_model/shared/translated_field', locals: {record: @section, attribute: :title} %>
-<%#= render partial: 'citizen_budget_model/shared/translated_field', locals: {record: @section, attribute: :description} %>
-<%#= render partial: 'citizen_budget_model/shared/translated_field', locals: {record: @section, attribute: :modal} %>
-<%#= render partial: 'citizen_budget_model/shared/translated_field', locals: {record: @section, attribute: :popover} %>
+<%= render partial: 'citizen_budget_model/shared/translated_field', locals: {record: @section, attribute: :description} %>
+<%= render partial: 'citizen_budget_model/shared/translated_field', locals: {record: @section, attribute: :modal} %>
+<%= render partial: 'citizen_budget_model/shared/translated_field', locals: {record: @section, attribute: :popover} %>
 
 <% if @section.questions.any? %>
 <h2><%= _('Questions') %></h2>

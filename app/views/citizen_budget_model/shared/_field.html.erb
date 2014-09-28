@@ -1,4 +1,4 @@
-<% if record.send(attribute).present? %>
+<% if visible?(record, attribute) && record.send(attribute).present? %>
 <div class="row">
   <div class="col-sm-2">
     <h2><%= record.class.human_attribute_name(attribute) %></h2>

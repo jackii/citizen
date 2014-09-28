@@ -1,4 +1,3 @@
-<%# @todo uncomment below %>
 <%= form_for([@simulator, @section, @question], html: {role: 'form'}, builder: CitizenBudgetModel::CitizenBudgetFormBuilder) do |f| %>
   <%= f.errors %>
 
@@ -11,7 +10,7 @@
       <%= f.text_field :machine_name %>
       <%= f.text_field :default_value %>
       <%= f.text_field :unit_value %>
-      <%#= f.text_field :account %>
+      <%= f.text_field :account %>
     </div>
   </div>
 
@@ -20,21 +19,20 @@
       <%= _('Widget') %>
     </div>
     <div class="panel-body">
-      <%#= f.text_field :widget %>
+      <%= f.text_field :widget %>
       <%= f.translated_text_field :unit_name %>
       <%= f.number_field :minimum %>
       <%= f.number_field :maximum %>
       <%= f.number_field :step %>
-      <%#= f.translated_text_field :labels %>
-      <%#= f.text_field :options %>
-      <%#= f.check_box :revenue %>
-      <%= f.text_field :html_class %><%# remove after removing comments %>
+      <%= f.translated_text_field :labels %>
+      <%= f.text_field :options %>
+      <%= f.check_box :revenue %>
     </div>
   </div>
 
-<%
-=begin %>
   <div class="panel-group" id="panels">
+  <% text_panel = [:title, :description, :modal, :popover] %>
+  <% if visible?(@question, *text_panel) %>
     <div class="panel panel-info">
       <div class="panel-heading panel-title">
         <a data-toggle="collapse" data-parent="#panels" href="#text">
@@ -50,7 +48,10 @@
         </div>
       </div>
     </div>
+  <% end %>
 
+  <% html_panel = [:required, :placeholder, :maxlength, :rows, :cols, :size, :html_class] %>
+  <% if visible?(@question, *html_panel) %>
     <div class="panel panel-info">
       <div class="panel-heading panel-title">
         <a data-toggle="collapse" data-parent="#panels" href="#html">
@@ -69,9 +70,8 @@
         </div>
       </div>
     </div>
+  <% end %>
   </div>
-<%
-=end %>
 
   <%= f.buttons(context: [@simulator, @section, @question]) %>
 <% end %>

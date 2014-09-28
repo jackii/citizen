@@ -1,4 +1,4 @@
-<% if record.in_any_locale?(attribute) %>
+<% if visible?(record, attribute) && record.in_any_locale?(attribute) %>
 <div class="row translation">
   <div class="col-sm-2">
     <h2><%= record.class.human_attribute_name(attribute) %></h2>

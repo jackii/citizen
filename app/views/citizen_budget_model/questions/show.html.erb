@@ -1,4 +1,3 @@
-<%# @todo uncomment below %>
 <% content_for :breadcrumb do %>
 <ol class="breadcrumb">
   <li><%= link_to _('Simulators'), simulators_path %></li>
@@ -28,7 +27,7 @@
     <%= render partial: 'citizen_budget_model/shared/field', locals: {record: @question, attribute: :machine_name} %>
     <%= render partial: 'citizen_budget_model/shared/field', locals: {record: @question, attribute: :default_value, formatter: value_formatter(@question)} %>
     <%= render partial: 'citizen_budget_model/shared/field', locals: {record: @question, attribute: :unit_value, formatter: currency_formatter} %>
-    <%#= render partial: 'citizen_budget_model/shared/field', locals: {record: @question, attribute: :account} %>
+    <%= render partial: 'citizen_budget_model/shared/field', locals: {record: @question, attribute: :account} %>
   </div>
 </div>
 <% end %>
@@ -39,24 +38,21 @@
     <%= _('Widget') %>
   </div>
   <div class="panel-body">
-    <%#= render partial: 'citizen_budget_model/shared/field', locals: {record: @question, attribute: :widget} %>
+    <%= render partial: 'citizen_budget_model/shared/field', locals: {record: @question, attribute: :widget} %>
     <%= render partial: 'citizen_budget_model/shared/translated_field', locals: {record: @question, attribute: :unit_name} %>
     <%= render partial: 'citizen_budget_model/shared/field', locals: {record: @question, attribute: :minimum, formatter: value_formatter(@question)} %>
     <%= render partial: 'citizen_budget_model/shared/field', locals: {record: @question, attribute: :maximum, formatter: value_formatter(@question)} %>
     <%= render partial: 'citizen_budget_model/shared/field', locals: {record: @question, attribute: :step, formatter: value_formatter(@question)} %>
-    <%#= render partial: 'citizen_budget_model/shared/translated_field', locals: {record: @question, attribute: :labels} %>
-    <%#= render partial: 'citizen_budget_model/shared/field', locals: {record: @question, attribute: :options} %>
-    <%#= render partial: 'citizen_budget_model/shared/field', locals: {record: @question, attribute: :revenue} %>
-    <%= render partial: 'citizen_budget_model/shared/field', locals: {record: @question, attribute: :html_class} %>
+    <%= render partial: 'citizen_budget_model/shared/translated_field', locals: {record: @question, attribute: :labels} %>
+    <%= render partial: 'citizen_budget_model/shared/field', locals: {record: @question, attribute: :options} %>
+    <%= render partial: 'citizen_budget_model/shared/field', locals: {record: @question, attribute: :revenue} %>
   </div>
 </div>
 <% end %>
 
-<%
-=begin %>
-<% if @question.any_of?(:title, :description, :modal, :popover, :required, :placeholder, :maxlength, :rows, :cols, :size) %>
 <div class="panel-group" id="panels">
-  <% if @question.any_of?(:title, :description, :modal, :popover) %>
+  <% text_panel = [:title, :description, :modal, :popover] %>
+  <% if visible?(@question, *text_panel) && @question.any_of?(*text_panel) %>
   <div class="panel panel-info">
     <div class="panel-heading panel-title">
       <a data-toggle="collapse" data-parent="#panels" href="#text">
@@ -74,7 +70,8 @@
   </div>
   <% end %>
 
-  <% if @question.any_of?(:required, :placeholder, :maxlength, :rows, :cols, :size) %>
+  <% html_panel = [:required, :placeholder, :maxlength, :rows, :cols, :size, :html_class] %>
+  <% if visible?(@question, *html_panel) && @question.any_of?(*html_panel) %>
   <div class="panel panel-info">
     <div class="panel-heading panel-title">
       <a data-toggle="collapse" data-parent="#panels" href="#html">
@@ -85,7 +82,7 @@
       <div class="panel-body">
         <%= render partial: 'citizen_budget_model/shared/field', locals: {record: @question, attribute: :required} %>
         <%= render partial: 'citizen_budget_model/shared/translated_field', locals: {record: @question, attribute: :placeholder} %>
-        <% [:maxlength, :rows, :cols, :size].each do |attribute| %>
+        <% [:maxlength, :rows, :cols, :size, :html_class].each do |attribute| %>
         <%= render partial: 'citizen_budget_model/shared/field', locals: {record: @question, attribute: attribute} %>
         <% end %>
       </div>
@@ -94,5 +91,3 @@
   <% end %>
 </div>
 <% end %>
-<%
-=end %>
