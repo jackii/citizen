@@ -33,6 +33,20 @@ module CitizenBudgetModel
         sign_in CitizenBudgetModel::User.create!(email: 'user@example.com', organization_id: 1)
       end
 
+      it 'returns a forbidden HTTP status' do
+        get :index, {}
+        expect(response).to have_http_status(:forbidden)
+        post :create
+        expect(response).to have_http_status(:forbidden)
+      end
+    end
+
+    describe 'when signed in as super user' do
+      before(:each) do
+        @request.env['devise.mapping'] = Devise.mappings[:user]
+        sign_in CitizenBudgetModel::User.create!(email: 'user@example.com')
+      end
+
       describe 'GET index' do
         it 'returns http success' do
           get :index

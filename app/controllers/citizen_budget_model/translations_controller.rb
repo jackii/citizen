@@ -1,6 +1,7 @@
 module CitizenBudgetModel
   class TranslationsController < CitizenBudgetModelController
     before_action :authenticate_user!, except: [:export]
+    before_action :check_authorization!, except: [:export]
 
     def index
       @translations = Hash.new{|h,k| h[k] = {}}

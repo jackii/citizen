@@ -24,6 +24,10 @@ class CitizenBudgetModelController < CitizenBudgetModel.parent_controller.consta
   def simulators
     @simulators_collection ||= admin? ? CitizenBudgetModel::Simulator : current_user.organization.simulators
   end
+
+  def users
+    @users_collection ||= admin? ? CitizenBudgetModel::User : current_user.organization.users
+  end
 end
 
 # There's no convention for where to put form builders such that they reload in

@@ -7,9 +7,6 @@ module CitizenBudgetModel
       @users = collection.all.sort_by(&:email)
     end
 
-    def show
-    end
-
     def new
       @user = collection.new
     end
@@ -38,7 +35,7 @@ module CitizenBudgetModel
   private
 
     def collection
-      @collection ||= admin? ? CitizenBudgetModel::User : current_user.organization.users
+      @collection ||= users
     end
 
     def set_user
