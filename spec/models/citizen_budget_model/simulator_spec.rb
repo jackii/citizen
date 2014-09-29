@@ -32,6 +32,22 @@ module CitizenBudgetModel
       end
     end
 
+    describe '#working_equation' do
+      let(:simulator) do
+        Simulator.new
+      end
+
+      it 'should return the equation if set' do
+        simulator.equation = '1 + 1'
+        expect(simulator.working_equation).to eq('1 + 1')
+      end
+
+      it 'should return a default equation it not set' do
+        simulator.sections.build.questions.build({machine_name: 'var', default_value: 1, unit_value: 1})
+        expect(simulator.working_equation).to eq('(var - 1.0) * 1.0')
+      end
+    end
+
     describe '#default_equation' do
       it 'should return the empty string if no variables' do
         simulator = Simulator.new

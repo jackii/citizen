@@ -1,0 +1,5 @@
+<script>
+function solution(variables) {
+  return <%= equation.present? ? equation.gsub(/[a-z_][a-z_0-9]*/, 'variables.\0') : 0 %>;
+}
+</script>

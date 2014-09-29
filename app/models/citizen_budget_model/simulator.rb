@@ -18,6 +18,14 @@ module CitizenBudgetModel
       update!(active: true)
     end
 
+    def working_equation
+      if equation?
+        equation
+      else
+        default_equation
+      end
+    end
+
     def default_equation
       equation = []
       sections.each do |section|
