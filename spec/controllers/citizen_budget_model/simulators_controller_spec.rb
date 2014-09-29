@@ -2,7 +2,7 @@ require 'rails_helper'
 
 module CitizenBudgetModel
   RSpec.describe SimulatorsController, type: :controller do
-    routes { CitizenBudgetModel::Engine.routes }
+    routes { Engine.routes }
 
     let(:valid_attributes_for_create) do
       {
@@ -51,7 +51,7 @@ module CitizenBudgetModel
     describe 'when signed in as super user' do
       before(:each) do
         @request.env['devise.mapping'] = Devise.mappings[:user]
-        sign_in CitizenBudgetModel::User.create!(email: 'user@example.com')
+        sign_in User.create!(email: 'user@example.com')
       end
 
       describe 'GET index' do
@@ -144,8 +144,8 @@ module CitizenBudgetModel
     describe 'when signed in as regular user' do
       before(:each) do
         @request.env['devise.mapping'] = Devise.mappings[:user]
-        CitizenBudgetModel::Organization.create!(id: 1, name_en_ca: 'Organization')
-        sign_in CitizenBudgetModel::User.create!(email: 'user@example.com', organization_id: 1)
+        Organization.create!(id: 1, name_en_ca: 'Organization')
+        sign_in User.create!(email: 'user@example.com', organization_id: 1)
       end
 
       let(:valid_attributes) do

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 module CitizenBudgetModel
   RSpec.describe PagesController, type: :controller do
-    routes { CitizenBudgetModel::Engine.routes }
+    routes { Engine.routes }
 
     describe 'GET home' do
       it 'returns http success' do

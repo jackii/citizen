@@ -3,7 +3,7 @@ require 'rails_helper'
 module CitizenBudgetModel
   RSpec.describe QuestionsController, type: :routing do
     describe 'routing' do
-      routes { CitizenBudgetModel::Engine.routes }
+      routes { Engine.routes }
 
       it 'routes to #new' do
         expect(get: '/simulators/3/sections/2/questions/new').to route_to('citizen_budget_model/questions#new', section_id: '2', simulator_id: '3')

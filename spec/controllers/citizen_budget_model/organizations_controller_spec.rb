@@ -2,7 +2,7 @@ require 'rails_helper'
 
 module CitizenBudgetModel
   RSpec.describe OrganizationsController, type: :controller do
-    routes { CitizenBudgetModel::Engine.routes }
+    routes { Engine.routes }
 
     describe 'when not signed in' do
       it 'redirects to sign in page' do
@@ -26,7 +26,7 @@ module CitizenBudgetModel
     describe 'when signed in as regular user' do
       before(:each) do
         @request.env['devise.mapping'] = Devise.mappings[:user]
-        sign_in CitizenBudgetModel::User.create!(email: 'user@example.com', organization_id: 1)
+        sign_in User.create!(email: 'user@example.com', organization_id: 1)
       end
 
       it 'returns a forbidden HTTP status' do
@@ -50,7 +50,7 @@ module CitizenBudgetModel
     describe 'when signed in as super user' do
       before(:each) do
         @request.env['devise.mapping'] = Devise.mappings[:user]
-        sign_in CitizenBudgetModel::User.create!(email: 'user@example.com')
+        sign_in User.create!(email: 'user@example.com')
       end
 
       let(:valid_attributes) do

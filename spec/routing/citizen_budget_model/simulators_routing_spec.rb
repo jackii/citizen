@@ -3,7 +3,7 @@ require 'rails_helper'
 module CitizenBudgetModel
   RSpec.describe SimulatorsController, type: :routing do
     describe 'routing' do
-      routes { CitizenBudgetModel::Engine.routes }
+      routes { Engine.routes }
 
       it 'routes to #index' do
         expect(get: '/simulators').to route_to('citizen_budget_model/simulators#index')

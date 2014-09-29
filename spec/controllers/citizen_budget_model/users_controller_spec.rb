@@ -2,7 +2,7 @@ require 'rails_helper'
 
 module CitizenBudgetModel
   RSpec.describe UsersController, type: :controller do
-    routes { CitizenBudgetModel::Engine.routes }
+    routes { Engine.routes }
 
     let(:valid_attributes_for_create) do
       {
@@ -43,7 +43,7 @@ module CitizenBudgetModel
     describe 'when signed in as super user' do
       before(:each) do
         @request.env['devise.mapping'] = Devise.mappings[:user]
-        @user = CitizenBudgetModel::User.create!(email: 'user@example.com')
+        @user = User.create!(email: 'user@example.com')
         sign_in @user
       end
 
@@ -95,8 +95,8 @@ module CitizenBudgetModel
     describe 'when signed in as regular user' do
       before(:each) do
         @request.env['devise.mapping'] = Devise.mappings[:user]
-        CitizenBudgetModel::Organization.create!(id: 1, name_en_ca: 'Organization')
-        @user = CitizenBudgetModel::User.create!(email: 'user@example.com', organization_id: 1)
+        Organization.create!(id: 1, name_en_ca: 'Organization')
+        @user = User.create!(email: 'user@example.com', organization_id: 1)
         sign_in @user
       end
 
