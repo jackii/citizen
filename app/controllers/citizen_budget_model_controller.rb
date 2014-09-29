@@ -139,13 +139,16 @@ module CitizenBudgetModel
     end
 
     def buttons(options = {})
-      content = submit
-      if object.persisted?
-        content << @template.link_to(options.fetch(:context, object), class: 'btn btn-danger pull-right', method: :delete, data: {confirm: _('Are you sure?')}) do
-          @template.content_tag(:span, nil, class: 'glyphicon glyphicon-trash') + ' ' + _('Delete')
-        end
+      @template.concat(submit)
+      if block_given?
+        yield
       end
-      content
+      if object.persisted?
+        @template.concat(@template.link_to(options.fetch(:context, object), class: 'btn btn-danger pull-right', method: :delete, data: {confirm: _('Are you sure?')}) do
+          @template.content_tag(:span, nil, class: 'glyphicon glyphicon-trash') + ' ' + _('Delete')
+        end)
+      end
+      nil
     end
   end
 end

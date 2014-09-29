@@ -5,5 +5,11 @@
   <%= f.select :organization_id, CitizenBudgetModel::Organization.all.map{|o| [o.name, o.id]}, include_blank: true %>
 <% end %>
   <%= f.text_field :equation %>
-  <%= f.buttons %>
+  <% f.buttons do %>
+    <% unless @simulator.new_record? || @simulator.active? %>
+      <%= link_to([:activate, @simulator], class: 'btn btn-default', method: :post) do %>
+        <span class="glyphicon glyphicon-off"></span> <%= _('Activate') %>
+      <% end %>
+    <% end %>
+  <% end %>
 <% end %>
