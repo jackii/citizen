@@ -2,7 +2,19 @@ require 'rails_helper'
 
 module CitizenBudgetModel
   RSpec.describe QuestionsController, type: :controller do
-    routes { CitizenBudgetModel::Engine.routes }
+    routes { Engine.routes }
+
+    let(:valid_attributes_for_create) do
+      {
+        section_id: '1',
+      }
+    end
+
+    let(:valid_attributes_for_admin) do
+      {
+        section_id: '2',
+      }
+    end
 
     describe 'when not signed in' do
       it 'redirects to sign in page' do
@@ -21,13 +33,19 @@ module CitizenBudgetModel
       end
     end
 
-    describe 'when signed in' do
+    describe 'when signed in as super user' do
+      pending
+    end
+
+    describe 'when signed in as regular user' do
       before(:each) do
         @request.env['devise.mapping'] = Devise.mappings[:user]
-        CitizenBudgetModel::Organization.create!(id: 1, name_en_ca: 'Organization')
-        @simulator = CitizenBudgetModel::Simulator.create!(id: 1, name_en_ca: 'Simulator', organization_id: 1)
-        @section = CitizenBudgetModel::Section.create!(id: 1, simulator_id: 1)
-        sign_in CitizenBudgetModel::User.create!(email: 'user@example.com', organization_id: 1)
+        Organization.create!(id: 1, name_en_ca: 'Organization')
+        sign_in User.create!(email: 'user@example.com', organization_id: 1)
+        @simulator = Simulator.create!(id: 1, name_en_ca: 'Simulator', organization_id: 1)
+        @section = Section.create!(id: 1, simulator_id: 1)
+        simulator = Simulator.create!(id: 2, name_en_ca: 'Other', organization_id: 2)
+        section = Section.create!(id: 2, simulator_id: 2)
       end
 
       let(:valid_attributes) do
@@ -37,8 +55,13 @@ module CitizenBudgetModel
       end
 
       describe 'GET show' do
+        it 'does not assign the unauthorized section as @section' do
+          question = Question.create! valid_attributes_for_admin
+          expect{get(:show, {id: question.to_param, simulator_id: 2, section_id: 2})}.to raise_error(ActiveRecord::RecordNotFound)
+        end
+
         it 'assigns the requested question as @question' do
-          question = Question.create! valid_attributes
+          question = Question.create! valid_attributes_for_create
           get :show, {id: question.to_param, simulator_id: 1, section_id: 1}
           expect(assigns(:question)).to eq(question)
         end
@@ -52,8 +75,13 @@ module CitizenBudgetModel
       end
 
       describe 'GET edit' do
+        it 'does not assign the unauthorized question as @question' do
+          question = Question.create! valid_attributes_for_admin
+          expect{get(:edit, {id: question.to_param, simulator_id: 2, section_id: 2})}.to raise_error(ActiveRecord::RecordNotFound)
+        end
+
         it 'assigns the requested question as @question' do
-          question = Question.create! valid_attributes
+          question = Question.create! valid_attributes_for_create
           get :edit, {id: question.to_param, simulator_id: 1, section_id: 1}
           expect(assigns(:question)).to eq(question)
         end
@@ -61,6 +89,10 @@ module CitizenBudgetModel
 
       describe 'POST create' do
         describe 'with valid params' do
+          it 'does not allow any section_id' do
+            expect {post :create, {question: valid_attributes_for_admin, simulator_id: 2, section_id: 2}}.to raise_error(ActiveRecord::RecordNotFound)
+          end
+
           it 'creates a new Question' do
             expect {
               post :create, {question: valid_attributes, simulator_id: 1, section_id: 1}
@@ -80,8 +112,13 @@ module CitizenBudgetModel
             }
           end
 
+          it 'does not allow any section_id' do
+            question = Question.create! valid_attributes_for_create
+            expect{put :update, {id: question.to_param, question: new_attributes, simulator_id: 2, section_id: 2}}.to raise_error(ActiveRecord::RecordNotFound)
+          end
+
           it 'updates the requested question' do
-            question = Question.create! valid_attributes
+            question = Question.create! valid_attributes_for_create
             put :update, {id: question.to_param, question: new_attributes, simulator_id: 1, section_id: 1}
             expect(question.reload.title).to eq('Update')
             expect(assigns(:question)).to eq(question)
@@ -91,8 +128,13 @@ module CitizenBudgetModel
       end
 
       describe 'DELETE destroy' do
+        it 'does not destroy the unauthorized question' do
+          question = Question.create! valid_attributes_for_admin
+          expect{delete :destroy, {id: question.to_param, simulator_id: 2, section_id: 2}}.to raise_error(ActiveRecord::RecordNotFound)
+        end
+
         it 'destroys the requested question' do
-          question = Question.create! valid_attributes
+          question = Question.create! valid_attributes_for_create
           expect {
             delete :destroy, {id: question.to_param, simulator_id: 1, section_id: 1}
           }.to change(Question, :count).by(-1)
