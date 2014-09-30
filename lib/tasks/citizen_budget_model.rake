@@ -4,54 +4,44 @@ namespace :citizen_budget_model do
     require 'citizen_budget_model/gettext_helper'
     require 'citizen_budget_model/js_parser'
 
+    def confirm(message, objects)
+      unless objects.empty?
+        if ENV['CONFIRM']
+          puts message
+          puts objects.sort
+          puts 'Continue? (y/n)'
+          unless STDIN.gets == "y\n"
+            return
+          end
+        end
+        yield
+      end
+    end
+
     GetText::Tools::XGetText.add_parser(CitizenBudgetModel::JsParser)
+
     keys = CitizenBudgetModel::GetTextHelper.messages('app/**/*.{erb,rb,js}')
 
     # Unless the backend already has a key, add a default to the default locale.
-    data = {}
-    keys.each do |key|
-      unless I18n.backend.exists?(I18n.default_locale, key)
-        data[key] = key
-      end
+    keys_to_add = keys.reject do |key|
+      I18n.backend.exists?(I18n.default_locale, key)
     end
 
-    unless data.empty?
-      if ENV['CONFIRM']
-        puts "Adding:"
-        puts data.keys.sort
-        puts 'Continue? (y/n)'
-        unless STDIN.gets == "y\n"
-          next
-        end
-      end
-
-      I18n.backend.store_translations(I18n.default_locale, data, escape: false)
-      puts "#{data.size} added"
-    end
-
-    # List all the keys to be deleted.
-    delete = []
     store = I18n.backend.backends.first.store
-    store.keys.each do |k|
-      key = k.split('.', 2)[1]
-      unless keys.include?(key)
-        delete << k
-      end
-    end
 
     # Delete keys that are no longer extant.
-    unless delete.empty?
-      if ENV['CONFIRM']
-        puts "Deleting:"
-        puts delete.sort
-        puts 'Continue? (y/n)'
-        unless STDIN.gets == "y\n"
-          next
-        end
-      end
+    keys_to_delete = store.keys.reject do |k|
+      keys.include?(k.split('.', 2)[1])
+    end
 
-      number = store.del(delete)
-      puts "#{number} deleted"
+    confirm('Adding:', keys_to_add) do
+      I18n.backend.store_translations(I18n.default_locale, Hash[keys_to_add.zip(keys_to_add)], escape: false)
+      puts "#{data.size} added"
+
+      confirm('Deleting:', keys_to_delete) do
+        number = store.del(keys_to_delete)
+        puts "#{number} deleted"
+      end
     end
   end
 end
