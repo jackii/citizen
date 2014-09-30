@@ -66,5 +66,27 @@ module CitizenBudgetModel
         expect(simulator.default_equation).to eq('(variable_1 - -1.0) * 1.5 + (variable_2 - -2.0) * 3.0 + (variable_3 - -3.0) * 4.5')
       end
     end
+
+    describe '#solve' do
+      let(:simulator) do
+        simulator = Simulator.new(id: 1, equation: 'a + b * id')
+      end
+
+      it 'should solve the equation with strings as keys' do
+        expect(simulator.solve('a' => 2, 'b' => 3, 'id' => 4)).to eq(14)
+      end
+
+      it 'should solve the equation with symbols as keys' do
+        expect(simulator.solve(a: 2, b: 3, id: 4)).to eq(14)
+      end
+
+      it 'should coerce variable values' do
+        expect(simulator.solve(a: '2', b: '3', id: '4')).to eq(14)
+      end
+
+      it 'should error if not all variables provided' do
+        expect{simulator.solve(a: 2, b: 3)}.to raise_error(NameError, %(undefined local variable or method `id' for #<struct a=2.0, b=3.0>))
+      end
+    end
   end
 end
