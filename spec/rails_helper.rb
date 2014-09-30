@@ -1,5 +1,6 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV["RAILS_ENV"] ||= 'test'
+ENV["REDIS_URL"] ||= 'redis://localhost:6379/15'
 
 require 'coveralls'
 Coveralls.wear!
