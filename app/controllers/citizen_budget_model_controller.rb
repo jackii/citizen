@@ -58,53 +58,49 @@ module CitizenBudgetModel
       rows = ActiveSupport::SafeBuffer.new
 
       object.class.globalize_locales.each do |locale|
-        klass = 'form-group'
         method_name = object.class.localized_attr_name_for(method, locale)
         tag_id = "#{object.class.model_name.param_key}_#{method_name}"
         content = @template.content_tag(:label, _(locale), for: tag_id)
         content << text_field_without_label(method_name, {class: 'form-control'}.merge(options))
-        if object.errors[method].any?
-          klass << ' has-error has-feedback'
-          content << @template.content_tag(:span, nil, class: 'glyphicon glyphicon-remove form-control-feedback')
-        end
-        rows << @template.content_tag(:div, @template.content_tag(:div, content, class: klass), class: 'col-sm-6')
+        rows << @template.content_tag(:div, wrapper(method, content), class: 'col-sm-6')
       end
 
-      human_label(method) + @template.content_tag(:div, rows, class: 'row')
+      label(method, nil, for: nil) + @template.content_tag(:div, rows, class: 'row')
     end
 
     alias_method :text_field_without_label, :text_field
 
     def text_field(method, options = {})
-      field = super(method, {class: 'form-control'}.merge(options))
-      wrapper(method, field)
+      content = label(method) + super(method, {class: 'form-control'}.merge(options))
+      wrapper(method, content)
     end
 
     def email_field(method, options = {})
-      field = super(method, {class: 'form-control'}.merge(options))
-      wrapper(method, field)
+      content = label(method) + super(method, {class: 'form-control'}.merge(options))
+      wrapper(method, content)
     end
 
     def number_field(method, options = {})
-      field = super(method, {class: 'form-control'}.merge(options))
-      wrapper(method, field)
+      content = label(method) + super(method, {class: 'form-control'}.merge(options))
+      wrapper(method, content)
     end
 
     def password_field(method, options = {})
-      field = super(method, {class: 'form-control'}.merge(options))
-      wrapper(method, field)
+      content = label(method) + super(method, {class: 'form-control'}.merge(options))
+      wrapper(method, content)
+    end
+
+    def select(method, choices = nil, options = {}, html_options = {})
+      content = label(method) + super(method, choices, options, {class: 'form-control'}.merge(html_options))
+      wrapper(method, content)
     end
 
     def check_box(method, options = {}, checked_value = '1', unchecked_value = '0')
       return unless @template.visible?(object, method)
 
       content = @template.content_tag(:label, super(method, options, checked_value, unchecked_value) + ' ' + object.class.human_attribute_name(method))
-      @template.content_tag(:div, content, class: 'checkbox')
-    end
 
-    def select(method, choices = nil, options = {}, html_options = {})
-      field = super(method, choices, options, {class: 'form-control'}.merge(html_options))
-      wrapper(method, field)
+      @template.content_tag(:div, content, class: 'checkbox')
     end
 
     def submit
@@ -113,28 +109,30 @@ module CitizenBudgetModel
 
     def buttons(options = {})
       @template.concat(submit)
+
       if block_given?
         yield
       end
+
       if object.persisted?
         @template.concat(@template.link_to(options.fetch(:context, object), class: 'btn btn-danger pull-right', method: :delete, data: {confirm: _('Are you sure?')}) do
           @template.content_tag(:span, nil, class: 'glyphicon glyphicon-trash') + ' ' + _('Delete')
         end)
       end
+
       nil
     end
 
   private
 
-    def human_label(method)
-      label(method, _(object.class.human_attribute_name(method)))
+    def label(method, text = nil, options = {})
+      super(method, _(object.class.human_attribute_name(method)), options)
     end
 
-    def wrapper(method, field)
+    def wrapper(method, content)
       return unless @template.visible?(object, method)
 
       klass = 'form-group'
-      content = human_label(method) + field
       if object.errors[method].any?
         klass << ' has-error has-feedback'
         content << @template.content_tag(:span, nil, class: 'glyphicon glyphicon-remove form-control-feedback')
