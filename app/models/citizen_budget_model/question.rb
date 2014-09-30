@@ -36,12 +36,16 @@ module CitizenBudgetModel
 
     attr_accessor :minimum, :maximum, :step, :labels_as_list, :options_as_list
 
+    # Returns a question's name, title or "Untitled".
+    #
+    # @return [String] a question's name, title or "Untitled"
     def display_name
       name.present? && name || title.present? && title || _('Untitled')
     end
 
   private
 
+    # Sets the `minimum`, `maximum` and `step` virtual attributes.
     def get_options
       if options.present?
         @minimum = options.first.to_f
@@ -50,12 +54,14 @@ module CitizenBudgetModel
       end
     end
 
+    # Sets the `labels_as_list` virtual attribute.
     def get_labels
       if labels.present?
         @labels_as_list = labels.join("\n")
       end
     end
 
+    # Sets the `options` attribute based on `minimum`, `maximum` and `step`.
     def set_options
       if minimum.present? && maximum.present? && step.present?
         self.options = (BigDecimal(minimum.to_s)..BigDecimal(maximum.to_s)).step(BigDecimal(step.to_s)).map(&:to_f)
@@ -67,6 +73,7 @@ module CitizenBudgetModel
       end
     end
 
+    # Sets the `labels` attribute based on `labels_as_list`.
     def set_labels
       if labels_as_list.present?
         self.labels = labels_as_list.split("\n").map(&:strip).reject(&:empty?)

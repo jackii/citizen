@@ -9,6 +9,9 @@ module CitizenBudgetModel
 
     validates_presence_of :simulator_id
 
+    # Returns the section's title or "Untitled"
+    #
+    # @return [String] the section's title or "Untitled"
     def display_name
       title.present? && title || _('Untitled')
     end

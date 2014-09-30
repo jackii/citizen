@@ -45,9 +45,11 @@ module CitizenBudgetModel
     def errors
       if object.errors.any?
         content = ActiveSupport::SafeBuffer.new
+
         object.errors.full_messages.each do |message|
           content << @template.content_tag(:li, message)
         end
+
         @template.content_tag(:div, @template.content_tag(:ul, content), class: 'alert alert-danger')
       end
     end
