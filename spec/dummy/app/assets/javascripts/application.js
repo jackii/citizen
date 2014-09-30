@@ -13,3 +13,6 @@
 //= require jquery_ujs
 //= require citizen_budget_model/application
 //= require_tree .
+
+// Test the GetText helper.
+var foo = _('bar');
