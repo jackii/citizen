@@ -36,7 +36,7 @@ namespace :citizen_budget_model do
 
     confirm('Adding:', keys_to_add) do
       I18n.backend.store_translations(I18n.default_locale, Hash[keys_to_add.zip(keys_to_add)], escape: false)
-      puts "#{data.size} added"
+      puts "#{keys_to_add.size} added"
 
       confirm('Deleting:', keys_to_delete) do
         number = store.del(keys_to_delete)
