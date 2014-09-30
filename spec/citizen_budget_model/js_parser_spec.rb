@@ -16,15 +16,15 @@ module CitizenBudgetModel
       end
     end
 
-    STRING = <<-EOL
-    function _(msgid) {
-      return i18n.gettext(msgid);
-    }
-
-    alert(_('foo'));
-    EOL
-
     describe '.parse' do
+      STRING = <<-EOL
+      function _(msgid) {
+        return i18n.gettext(msgid);
+      }
+
+      alert(_('foo'));
+      EOL
+
       let(:path) do
         file = Tempfile.new('file.js')
         file.write(STRING)
