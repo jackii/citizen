@@ -5,9 +5,7 @@
 [![Coverage Status](https://coveralls.io/repos/opennorth/citizen_budget_model/badge.png?branch=master)](https://coveralls.io/r/opennorth/citizen_budget_model)
 [![Code Climate](https://codeclimate.com/github/opennorth/citizen_budget_model.png)](https://codeclimate.com/github/opennorth/citizen_budget_model)
 
-## Installation
-
-### Basic
+## Usage
 
 In `Gemfile`:
 
@@ -21,6 +19,10 @@ In `config/environments/production.rb`:
 
     config.action_mailer.default_url_options = {host: ENV['ACTION_MAILER_HOST']}
 
+If you are using the engine's admin views:
+
+    gem 'jquery-rails'
+
 ### Internationalization
 
 Set your locales in `config/application.rb`, for example:
@@ -29,10 +31,6 @@ Set your locales in `config/application.rb`, for example:
     config.i18n.default_locale = 'en-CA'
     config.i18n.fallbacks = {'en-CA' => ['en-CA', :en, 'fr-CA', :fr], 'fr-CA' => ['fr-CA', :fr, 'en-CA', :en]}
     config.i18n.enforce_available_locales = false
-
-If you are using the engine's admin views:
-
-    gem 'jquery-rails'
 
 To fully support multiple languages, in `Gemfile`:
 
@@ -44,6 +42,12 @@ You can then add translations to the Redis backend:
 
     bundle exec rake citizen_budget_model:translations CONFIRM=true
 
+### Deployment
+
+    heroku config:set SECRET_KEY_BASE=`bundle exec rake secret`
+    heroku config:set ACTION_MAILER_HOST=www.example.com
+    heroku config:set DEVISE_MAILER_SENDER=noreply@example.com
+
 ## Testing
 
     bundle exec RAILS_ENV=test rake db:drop
@@ -51,10 +55,6 @@ You can then add translations to the Redis backend:
     bundle exec RAILS_ENV=test rake db:migrate
     bundle exec rake
     bundle exec guard
-
-## Deployment
-
-    heroku config:set DEVISE_MAILER_SENDER=noreply@example.com
 
 ## Bugs? Questions?
 
