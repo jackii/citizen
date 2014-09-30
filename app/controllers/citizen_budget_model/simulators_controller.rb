@@ -46,10 +46,7 @@ module CitizenBudgetModel
     end
 
     def sort
-      @simulator.sections.each do |section|
-        section.update_attributes position: params[:section].index(section.id.to_s)
-      end
-      render nothing: true, status: 204
+      super(@simulator.sections)
     end
 
   private

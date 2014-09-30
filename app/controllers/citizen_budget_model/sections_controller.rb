@@ -38,10 +38,7 @@ module CitizenBudgetModel
     end
 
     def sort
-      @section.questions.each do |question|
-        question.update_attributes position: params[:question].index(question.id.to_s)
-      end
-      render nothing: true, status: 204
+      super(@section.questions)
     end
 
   private

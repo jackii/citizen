@@ -28,6 +28,14 @@ class CitizenBudgetModelController < CitizenBudgetModel.parent_controller.consta
   def users
     @users_collection ||= admin? ? CitizenBudgetModel::User : current_user.organization.users
   end
+
+  def sort(collection)
+    collection.each do |object|
+      object.update_attributes position: params[object.class.model_name.param_key].index(object.id.to_s)
+    end
+    render nothing: true, status: 204
+  end
+
 end
 
 # There's no convention for where to put form builders such that they reload in
@@ -68,51 +76,23 @@ module CitizenBudgetModel
     alias_method :text_field_without_label, :text_field
 
     def text_field(method, options = {})
-      return unless @template.visible?(object, method)
-
-      klass = 'form-group'
-      content = human_label(method) + super(method, {class: 'form-control'}.merge(options))
-      if object.errors[method].any?
-        klass << ' has-error has-feedback'
-        content << @template.content_tag(:span, nil, class: 'glyphicon glyphicon-remove form-control-feedback')
-      end
-      @template.content_tag(:div, content, class: klass)
+      field = super(method, {class: 'form-control'}.merge(options))
+      wrapper(method, field)
     end
 
     def email_field(method, options = {})
-      return unless @template.visible?(object, method)
-
-      klass = 'form-group'
-      content = human_label(method) + super(method, {class: 'form-control'}.merge(options))
-      if object.errors[method].any?
-        klass << ' has-error has-feedback'
-        content << @template.content_tag(:span, nil, class: 'glyphicon glyphicon-remove form-control-feedback')
-      end
-      @template.content_tag(:div, content, class: klass)
+      field = super(method, {class: 'form-control'}.merge(options))
+      wrapper(method, field)
     end
 
     def number_field(method, options = {})
-      return unless @template.visible?(object, method)
-
-      klass = 'form-group'
-      content = human_label(method) + super(method, {class: 'form-control'}.merge(options))
-      if object.errors[method].any?
-        klass << ' has-error has-feedback'
-        content << @template.content_tag(:span, nil, class: 'glyphicon glyphicon-remove form-control-feedback')
-      end
-      @template.content_tag(:div, content, class: klass)
+      field = super(method, {class: 'form-control'}.merge(options))
+      wrapper(method, field)
     end
 
     def password_field(method, options = {})
-      return unless @template.visible?(object, method)
-
-      klass = 'form-group'
-      content = human_label(method) + super(method, {class: 'form-control'}.merge(options))
-      if object.errors[method].any?
-        klass << ' has-error has-feedback'
-        content << @template.content_tag(:span, nil, class: 'glyphicon glyphicon-remove form-control-feedback')
-      end
-      @template.content_tag(:div, content, class: klass)
+      field = super(method, {class: 'form-control'}.merge(options))
+      wrapper(method, field)
     end
 
     def check_box(method, options = {}, checked_value = '1', unchecked_value = '0')
@@ -123,15 +103,8 @@ module CitizenBudgetModel
     end
 
     def select(method, choices = nil, options = {}, html_options = {})
-      return unless @template.visible?(object, method)
-
-      klass = 'form-group'
-      content = human_label(method) + super(method, choices, options, {class: 'form-control'}.merge(html_options))
-      if object.errors[method].any?
-        klass << ' has-error has-feedback'
-        content << @template.content_tag(:span, nil, class: 'glyphicon glyphicon-remove form-control-feedback')
-      end
-      @template.content_tag(:div, content, class: klass)
+      field = super(method, choices, options, {class: 'form-control'}.merge(html_options))
+      wrapper(method, field)
     end
 
     def submit
@@ -155,6 +128,19 @@ module CitizenBudgetModel
 
     def human_label(method)
       label(method, _(object.class.human_attribute_name(method)))
+    end
+
+    def wrapper(method, field)
+      return unless @template.visible?(object, method)
+
+      klass = 'form-group'
+      content = human_label(method) + field
+      if object.errors[method].any?
+        klass << ' has-error has-feedback'
+        content << @template.content_tag(:span, nil, class: 'glyphicon glyphicon-remove form-control-feedback')
+      end
+
+      @template.content_tag(:div, content, class: klass)
     end
   end
 end
