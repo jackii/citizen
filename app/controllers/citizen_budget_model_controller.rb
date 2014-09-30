@@ -62,7 +62,7 @@ module CitizenBudgetModel
         rows << @template.content_tag(:div, @template.content_tag(:div, content, class: klass), class: 'col-sm-6')
       end
 
-      label(method) + @template.content_tag(:div, rows, class: 'row')
+      human_label(method) + @template.content_tag(:div, rows, class: 'row')
     end
 
     alias_method :text_field_without_label, :text_field
@@ -71,7 +71,7 @@ module CitizenBudgetModel
       return unless @template.visible?(object, method)
 
       klass = 'form-group'
-      content = label(method) + super(method, {class: 'form-control'}.merge(options))
+      content = human_label(method) + super(method, {class: 'form-control'}.merge(options))
       if object.errors[method].any?
         klass << ' has-error has-feedback'
         content << @template.content_tag(:span, nil, class: 'glyphicon glyphicon-remove form-control-feedback')
@@ -83,7 +83,7 @@ module CitizenBudgetModel
       return unless @template.visible?(object, method)
 
       klass = 'form-group'
-      content = label(method) + super(method, {class: 'form-control'}.merge(options))
+      content = human_label(method) + super(method, {class: 'form-control'}.merge(options))
       if object.errors[method].any?
         klass << ' has-error has-feedback'
         content << @template.content_tag(:span, nil, class: 'glyphicon glyphicon-remove form-control-feedback')
@@ -95,7 +95,7 @@ module CitizenBudgetModel
       return unless @template.visible?(object, method)
 
       klass = 'form-group'
-      content = label(method) + super(method, {class: 'form-control'}.merge(options))
+      content = human_label(method) + super(method, {class: 'form-control'}.merge(options))
       if object.errors[method].any?
         klass << ' has-error has-feedback'
         content << @template.content_tag(:span, nil, class: 'glyphicon glyphicon-remove form-control-feedback')
@@ -107,7 +107,7 @@ module CitizenBudgetModel
       return unless @template.visible?(object, method)
 
       klass = 'form-group'
-      content = label(method) + super(method, {class: 'form-control'}.merge(options))
+      content = human_label(method) + super(method, {class: 'form-control'}.merge(options))
       if object.errors[method].any?
         klass << ' has-error has-feedback'
         content << @template.content_tag(:span, nil, class: 'glyphicon glyphicon-remove form-control-feedback')
@@ -126,7 +126,7 @@ module CitizenBudgetModel
       return unless @template.visible?(object, method)
 
       klass = 'form-group'
-      content = label(method) + super(method, choices, options, {class: 'form-control'}.merge(html_options))
+      content = human_label(method) + super(method, choices, options, {class: 'form-control'}.merge(html_options))
       if object.errors[method].any?
         klass << ' has-error has-feedback'
         content << @template.content_tag(:span, nil, class: 'glyphicon glyphicon-remove form-control-feedback')
@@ -149,6 +149,12 @@ module CitizenBudgetModel
         end)
       end
       nil
+    end
+
+  private
+
+    def human_label(method)
+      label(method, _(object.class.human_attribute_name(method)))
     end
   end
 end

@@ -35,9 +35,14 @@ namespace :citizen_budget_model do
       klass = CitizenBudgetModel.const_get(constant)
 
       keys << klass.model_name.human
-      (klass.attribute_names - %w(id deleted_at created_at updated_at)).each do |attribute_name|
+      (klass.attribute_names + klass.translated_attribute_names - %w(id position deleted_at created_at updated_at)).each do |attribute_name|
         keys << klass.human_attribute_name(attribute_name)
       end
+    end
+
+    # Add the virtual Question attribute names.
+    %w(minimum maximum step).each do |attribute_name|
+      keys << CitizenBudgetModel::Question.human_attribute_name(attribute_name)
     end
 
     # Unless the backend already has a key, add a default to the default locale.
@@ -47,7 +52,19 @@ namespace :citizen_budget_model do
         data[key] = key
       end
     end
-    I18n.backend.store_translations(I18n.default_locale, data, escape: false)
+
+    unless data.empty?
+      if ENV['CONFIRM']
+        puts "Adding:"
+        puts data.keys.sort
+        puts 'Continue? (y/n)'
+        unless STDIN.gets == "y\n"
+          return
+        end
+      end
+
+      I18n.backend.store_translations(I18n.default_locale, data, escape: false)
+    end
 
     # List all the keys in the backend.
     delete = []
@@ -61,6 +78,15 @@ namespace :citizen_budget_model do
 
     # Delete keys that are no longer extant.
     unless delete.empty?
+      if ENV['CONFIRM']
+        puts "Deleting:"
+        puts delete.sort
+        puts 'Continue? (y/n)'
+        unless STDIN.gets == "y\n"
+          return
+        end
+      end
+
       puts "#{store.del(delete)} deleted"
     end
   end

@@ -42,7 +42,7 @@ To fully support multiple languages, in `Gemfile`:
 
 You can then add translations to the Redis backend:
 
-    bundle exec rake citizen_budget_model:translations
+    bundle exec rake citizen_budget_model:translations CONFIRM=true
 
 ## Testing
 
