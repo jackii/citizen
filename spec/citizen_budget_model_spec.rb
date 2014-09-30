@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe CitizenBudgetModel do
+RSpec.describe CitizenBudgetModel do
   context 'when using default options' do
     it 'should use default options' do
       expect(CitizenBudgetModel.parent_controller).to eq('ApplicationController')
