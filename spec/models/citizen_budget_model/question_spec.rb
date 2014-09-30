@@ -34,8 +34,20 @@ module CitizenBudgetModel
       expect(question.options).to eq([1, 3, 5])
     end
 
+    it 'should add an additional option if the maximum is not steps from the minimum' do
+      question = Question.new(minimum: 1, maximum: 6, step: 2)
+      question.valid?
+      expect(question.options).to eq([1, 3, 5, 6])
+    end
+
     it 'should set labels' do
       question = Question.new(labels_as_list: "One\nTwo\nThree")
+      question.valid?
+      expect(question.labels).to eq(['One', 'Two', 'Three'])
+    end
+
+    it 'should skip empty labels' do
+      question = Question.new(labels_as_list: "\n \r\t\n\tOne\t\n Two \n\rThree\r")
       question.valid?
       expect(question.labels).to eq(['One', 'Two', 'Three'])
     end
