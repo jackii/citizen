@@ -30,30 +30,19 @@ Set your locales in `config/application.rb`, for example:
     config.i18n.fallbacks = {'en-CA' => ['en-CA', :en, 'fr-CA', :fr], 'fr-CA' => ['fr-CA', :fr, 'en-CA', :en]}
     config.i18n.enforce_available_locales = false
 
+If you are using the engine's admin views:
+
+    gem 'jquery-rails'
+
 To fully support multiple languages, in `Gemfile`:
 
     gem 'gettext'
     gem 'rails-i18n', '~> 4.0.0'
     gem 'devise-i18n', '~> 0.10.4'
 
-Add translations to the Redis backend:
+You can then add translations to the Redis backend:
 
     bundle exec rake citizen_budget_model:translations
-
-### Views
-
-If you are not overriding this engine's views, in `Gemfile`:
-
-    gem 'jquery-rails'
-
-In `app/assets/application.css`:
-
-    *= require citizen_budget_model/application
-
-In `app/assets/application.js`:
-
-    //= require jquery_ujs
-    //= require citizen_budget_model/application
 
 ## Testing
 
