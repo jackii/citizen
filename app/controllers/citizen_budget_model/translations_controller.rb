@@ -37,7 +37,8 @@ module CitizenBudgetModel
           translations[key.tr(I18n::Backend::Flatten::SEPARATOR_ESCAPE_CHAR, I18n::Backend::Flatten::FLATTEN_SEPARATOR)] = [nil, JSON.load(store[k])]
         end
       end
-      # @note May need to add translations as necessary.
+
+      # @note We may need to add translations as necessary.
       %w(
         number.currency.format.delimiter
         number.currency.format.format
