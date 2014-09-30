@@ -1,5 +1,7 @@
 module CitizenBudgetModel
   module AdminHelper
+    # Formats as a percentage if the unit name is "%", as a currency if the unit
+    # name is "$" and as a number otherwise.
     def value_formatter(question)
       if question.unit_name == '%'
         percentage_formatter
@@ -28,6 +30,11 @@ module CitizenBudgetModel
       }
     end
 
+    # Returns whether any of the given attributes are not hidden fields.
+    #
+    # @param record
+    # @param attributes
+    # @see CitizenBudgetModel.hidden_fields
     def visible?(record, *attributes)
       attributes.any? do |attribute|
         !CitizenBudgetModel.hidden_fields.fetch(record.class.model_name.param_key.to_sym, []).include?(attribute)

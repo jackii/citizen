@@ -48,7 +48,7 @@ module CitizenBudgetModel
 
     # Solves the equation with the given variables' values.
     #
-    # @param [Hash{<Symbol,String>=><Float,String>}] variables variables
+    # @param [Hash{Symbol,String=>Float,String}] variables variables
     # @return [Float] a solution
     def solve(variables)
       keys = []
