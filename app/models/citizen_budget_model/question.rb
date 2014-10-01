@@ -43,6 +43,32 @@ module CitizenBudgetModel
       name.present? && name || title.present? && title || _('Untitled')
     end
 
+    # Returns the equation or a default equation if not set.
+    #
+    # @return [String] an equation
+    def working_equation
+      # @note This method is stubbed.
+      default_equation
+    end
+
+    # Returns a default equation, where the difference between the chosen value
+    # and the default value is multiplied by the unit value.
+    #
+    # @return [String] a default equation
+    def default_equation
+      if machine_name? && default_value? && unit_value?
+        "(#{machine_name} - #{default_value}) * #{unit_value}"
+      end
+    end
+
+    # Solves the equation with the variable's given value.
+    #
+    # @param [Float,String] value value
+    # @return [Float] a solution
+    def solve(value)
+      eval(working_equation, Struct.new(machine_name.to_sym).new(Float(value)).instance_eval{binding})
+    end
+
   private
 
     # Sets the `minimum`, `maximum` and `step` virtual attributes.

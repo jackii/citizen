@@ -105,5 +105,46 @@ module CitizenBudgetModel
         expect(Question.new(name_en_ca: '', title_en_ca: '').display_name).to eq('Untitled')
       end
     end
+
+    describe '#working_equation' do
+      it 'should return the equation if set' do
+        skip
+      end
+
+      it 'should return a default equation it not set' do
+        question = Question.new(machine_name: 'var', default_value: 1, unit_value: 2)
+        expect(question.working_equation).to eq('(var - 1.0) * 2.0')
+      end
+    end
+
+    describe '#default_equation' do
+      it 'should return nil if missing variables' do
+        question = Question.new(machine_name: 'incomplete')
+        expect(question.default_equation).to eq(nil)
+      end
+
+      it 'should return a default equation if no missing variables' do
+        question = Question.new(machine_name: 'var', default_value: 1, unit_value: 2)
+        expect(question.working_equation).to eq('(var - 1.0) * 2.0')
+      end
+    end
+
+    describe '#solve' do
+      let(:question) do
+        question = Question.new(machine_name: 'var', default_value: 1, unit_value: 2)
+      end
+
+      it 'should solve the equation' do
+        expect(question.solve(4)).to eq(6)
+      end
+
+      it 'should coerce variable values' do
+        expect(question.solve('4')).to eq(6)
+      end
+
+      it 'should error if value is nil' do
+        expect{question.solve(nil)}.to raise_error(TypeError, "can't convert nil into Float")
+      end
+    end
   end
 end

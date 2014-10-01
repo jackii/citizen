@@ -31,19 +31,17 @@ module CitizenBudgetModel
     end
 
     # Returns a default equation, where the difference between the chosen value
-    # and the default value is multiplied by the unit value for each question.
+    # and the default value is multiplied by the unit value for each variable.
     #
     # @return [String] a default equation
     def default_equation
       equation = []
       sections.each do |section|
         section.questions.each do |question|
-          if question.machine_name? && question.default_value? && question.unit_value?
-            equation << "(#{question.machine_name} - #{question.default_value}) * #{question.unit_value}"
-          end
+          equation << question.working_equation
         end
       end
-      equation.join(' + ')
+      equation.compact.join(' + ')
     end
 
     # Solves the equation with the given variables' values.
