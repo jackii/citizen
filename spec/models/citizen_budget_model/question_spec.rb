@@ -124,8 +124,8 @@ module CitizenBudgetModel
       end
 
       it 'should return a default equation if no missing variables' do
-        question = Question.new(machine_name: 'var', default_value: 1, unit_value: 2)
-        expect(question.working_equation).to eq('(var - 1.0) * 2.0')
+        question = Question.new(machine_name: 'var', default_value: 0, unit_value: 2)
+        expect(question.working_equation).to eq('(var - 0.0) * 2.0')
       end
     end
 

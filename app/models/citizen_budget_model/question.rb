@@ -47,8 +47,7 @@ module CitizenBudgetModel
     #
     # @return [String] an equation
     def working_equation
-      # @note This method is stubbed.
-      default_equation
+      default_equation || ''
     end
 
     # Returns a default equation, where the difference between the chosen value
@@ -56,7 +55,7 @@ module CitizenBudgetModel
     #
     # @return [String] a default equation
     def default_equation
-      if machine_name? && default_value? && unit_value?
+      if machine_name.present? && default_value.present? && unit_value.present?
         "(#{machine_name} - #{default_value}) * #{unit_value}"
       end
     end

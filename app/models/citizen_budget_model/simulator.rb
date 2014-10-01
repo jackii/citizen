@@ -41,7 +41,7 @@ module CitizenBudgetModel
           equation << question.working_equation
         end
       end
-      equation.compact.join(' + ')
+      equation.reject(&:empty?).join(' + ')
     end
 
     # Solves the equation with the given variables' values.
