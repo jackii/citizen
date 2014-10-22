@@ -73,9 +73,19 @@ module CitizenBudgetModel
     end
 
     it 'should ensure minimum is less than maximum' do
-      question = Question.new(section_id: 1, minimum: 0, maximum: 0, step: 1)
+      question = Question.new(section_id: 1, minimum: 0, maximum: 0, step: 1, default_value: 0)
       question.valid?
-      expect(question.errors.full_messages).to eq(['Minimum must be less than maximum'])
+      expect(question.errors.full_messages).to include('Minimum must be less than maximum')
+    end
+
+    it 'should validate presence of default value if options present' do
+      question = Question.new(section_id: 1, options: [1, 2, 3])
+      question.valid?
+      expect(question.errors.full_messages).to eq(["Default value can't be blank"])
+
+      question = Question.new(section_id: 1, minimum: 1, maximum: 5, step: 2)
+      question.valid?
+      expect(question.errors.full_messages).to eq(["Default value can't be blank"])
     end
 
     it 'should ensure default value is an option' do
@@ -86,18 +96,22 @@ module CitizenBudgetModel
       question = Question.new(section_id: 1, minimum: 1, maximum: 2, step: 1, default_value: 0)
       question.valid?
       expect(question.errors.full_messages).to eq(['Default value must be a valid option'])
+    end
 
-      question = Question.new(section_id: 1, options: [1, 3, 5], default_value: 2)
+    it 'should ensure default value is a step away from the minimum' do
+      question = Question.new(section_id: 1, minimum: 1, maximum: 6, step: 3, default_value: 3)
       question.valid?
-      expect(question.errors.full_messages).to eq(['Default value must be a valid option'])
+      expect(question.errors.full_messages).to eq(['Default value must be a step away from the minimum'])
+    end
 
-      question = Question.new(section_id: 1, options: [1, 3, 5], default_value: 4)
+    it 'should ensure default value is a step away from the maximum' do
+      question = Question.new(section_id: 1, minimum: 0, maximum: 5, step: 3, default_value: 3)
       question.valid?
-      expect(question.errors.full_messages).to eq(['Default value must be a valid option'])
+      expect(question.errors.full_messages).to eq(['Default value must be a step away from the maximum'])
     end
 
     it 'should ensure there are the same number of labels and options' do
-      question = Question.new(section_id: 1, options: [1, 2, 3], labels: ['Label'])
+      question = Question.new(section_id: 1, options: [1, 2, 3], default_value: 2, labels: ['Label'])
       question.valid?
       expect(question.errors.full_messages).to eq(['Labels must agree with options'])
     end

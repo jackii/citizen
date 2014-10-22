@@ -10,9 +10,9 @@ module CitizenBudgetModel
     validates_uniqueness_of :machine_name, scope: :section_id, allow_blank: true
     validates_format_of :machine_name, with: /\A[a-z_][a-z_0-9]*\z/, allow_blank: true
     validates_numericality_of :default_value, :unit_value, :minimum, :maximum, allow_blank: true
-    validates_numericality_of :maxlength, :rows, :cols, :size, allow_blank: true, greater_than: 0, only_integer: true
+    validates_numericality_of :maxlength, :rows, :cols, :size, greater_than: 0, only_integer: true, allow_blank: true
     validates_inclusion_of :widget, in: %w(slider), allow_blank: true
-    validates_numericality_of :step, allow_blank: true, greater_than: 0
+    validates_numericality_of :step, greater_than: 0, allow_blank: true
 
     # @see http://www.postgresql.org/docs/9.3/static/sql-keywords-appendix.html
     # Nokogiri::HTML(open(url).read).xpath('//table/tbody/tr[td[2][text()="reserved"]]/td[1]//text()').map{|s| s.to_s.downcase}
@@ -88,35 +88,39 @@ module CitizenBudgetModel
 
     # Sets the `options` attribute based on `minimum`, `maximum`, `step` and `default_value`.
     def set_options
-      if minimum.present? && maximum.present? && step.present? && default_value.present?
-        decimal_minimum = BigDecimal(minimum.to_s)
-        decimal_maximum = BigDecimal(maximum.to_s)
-        decimal_step = BigDecimal(step.to_s)
+      if minimum.present? && maximum.present? && step.present? && step.nonzero?
+        if default_value.present?
+          decimal_minimum = BigDecimal(minimum.to_s)
+          decimal_maximum = BigDecimal(maximum.to_s)
+          decimal_step = BigDecimal(step.to_s)
 
-        # The default value is lower than the minimum value.
-        decimal_default = BigDecimal(default_value.to_s)
-        if decimal_default < decimal_minimum
-          errors.add(:default_value, _('must be a valid option'))
-        end
+          # The default value is lower than the minimum value.
+          decimal_default = BigDecimal(default_value.to_s)
+          if decimal_default < decimal_minimum
+            errors.add(:default_value, _('must be a valid option'))
+          end
 
-        # The default value less than a step away from the minimum value.
-        steps = ((decimal_default - decimal_minimum) / decimal_step).floor
-        if steps.zero?
-          errors.add(:default_value, _('must be a valid option'))
-        end
+          # The default value less than a step away from the minimum value.
+          steps = ((decimal_default - decimal_minimum) / decimal_step).floor
+          if steps.zero?
+            errors.add(:default_value, _('must be a step away from the minimum'))
+          end
 
-        # The default value less than a step away from the maximum value.
-        steps = ((decimal_maximum - decimal_default) / decimal_step).floor
-        if steps.zero?
-          errors.add(:default_value, _('must be a valid option'))
-        end
+          # The default value less than a step away from the maximum value.
+          steps = ((decimal_maximum - decimal_default) / decimal_step).floor
+          if steps.zero?
+            errors.add(:default_value, _('must be a step away from the maximum'))
+          end
 
-        self.options = ((decimal_default - decimal_step * steps)...decimal_default).step(decimal_step).map(&:to_f) + (decimal_default..decimal_maximum).step(decimal_step).map(&:to_f)
-        unless options.first == minimum.to_f
-          self.options.unshift(minimum.to_f)
-        end
-        unless options.last == maximum.to_f
-          self.options << maximum.to_f
+          self.options = ((decimal_default - decimal_step * steps)...decimal_default).step(decimal_step).map(&:to_f) + (decimal_default..decimal_maximum).step(decimal_step).map(&:to_f)
+          unless options.first == minimum.to_f
+            self.options.unshift(minimum.to_f)
+          end
+          unless options.last == maximum.to_f
+            self.options << maximum.to_f
+          end
+        else
+          errors.add(:default_value, :blank)
         end
       else
         self.options = []
