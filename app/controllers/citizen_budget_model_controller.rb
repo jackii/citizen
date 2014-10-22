@@ -55,46 +55,34 @@ module CitizenBudgetModel
     end
 
     def translated_text_field(method, options = {})
-      return unless @template.visible?(object, method)
+      translated(:text_field_without_label, method, options)
+    end
 
-      rows = ActiveSupport::SafeBuffer.new
-
-      object.class.globalize_locales.each do |locale|
-        method_name = object.class.localized_attr_name_for(method, locale)
-        tag_id = "#{object.class.model_name.param_key}_#{method_name}"
-        content = @template.content_tag(:label, _(locale), for: tag_id)
-        content << text_field_without_label(method_name, {class: 'form-control'}.merge(options))
-        rows << @template.content_tag(:div, wrapper(method, content), class: 'col-sm-6')
-      end
-
-      label(method, nil, for: nil) + @template.content_tag(:div, rows, class: 'row')
+    def translated_text_area(method, options = {})
+      translated(:text_area_without_label, method, options)
     end
 
     alias_method :text_field_without_label, :text_field
+    alias_method :text_area_without_label, :text_area
 
     def text_field(method, options = {})
-      content = label(method) + super(method, {class: 'form-control'}.merge(options))
-      wrapper(method, content)
+      wrapper_and_label(method, super(method, default_options(options)))
     end
 
     def email_field(method, options = {})
-      content = label(method) + super(method, {class: 'form-control'}.merge(options))
-      wrapper(method, content)
+      wrapper_and_label(method, super(method, default_options(options)))
     end
 
     def number_field(method, options = {})
-      content = label(method) + super(method, {class: 'form-control'}.merge(options))
-      wrapper(method, content)
+      wrapper_and_label(method, super(method, default_options(options)))
     end
 
     def password_field(method, options = {})
-      content = label(method) + super(method, {class: 'form-control'}.merge(options))
-      wrapper(method, content)
+      wrapper_and_label(method, super(method, default_options(options)))
     end
 
     def select(method, choices = nil, options = {}, html_options = {})
-      content = label(method) + super(method, choices, options, {class: 'form-control'}.merge(html_options))
-      wrapper(method, content)
+      wrapper_and_label(method, super(method, choices, options, default_options(options)))
     end
 
     def check_box(method, options = {}, checked_value = '1', unchecked_value = '0')
@@ -127,8 +115,16 @@ module CitizenBudgetModel
 
   private
 
+    def default_options(options)
+      {class: 'form-control'}.merge(options)
+    end
+
     def label(method, text = nil, options = {})
       super(method, _(object.class.human_attribute_name(method)), options)
+    end
+
+    def wrapper_and_label(method, content)
+      wrapper(method, label(method) + content)
     end
 
     def wrapper(method, content)
@@ -141,6 +137,22 @@ module CitizenBudgetModel
       end
 
       @template.content_tag(:div, content, class: klass)
+    end
+
+    def translated(helper, method, options)
+      return unless @template.visible?(object, method)
+
+      rows = ActiveSupport::SafeBuffer.new
+
+      object.class.globalize_locales.each do |locale|
+        method_name = object.class.localized_attr_name_for(method, locale)
+        tag_id = "#{object.class.model_name.param_key}_#{method_name}"
+        content = @template.content_tag(:label, _(locale), for: tag_id)
+        content << send(helper, method_name, {class: 'form-control'}.merge(options))
+        rows << @template.content_tag(:div, wrapper(method, content), class: 'col-sm-6')
+      end
+
+      label(method, nil, for: nil) + @template.content_tag(:div, rows, class: 'row')
     end
   end
 end

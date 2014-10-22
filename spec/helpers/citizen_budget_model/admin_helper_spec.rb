@@ -37,7 +37,7 @@ module CitizenBudgetModel
       end
     end
 
-    describe '#visible' do
+    describe '#visible?' do
       before(:all) do
         CitizenBudgetModel.hidden_fields = {section: [:description, :popover, :modal]}
       end
@@ -64,6 +64,28 @@ module CitizenBudgetModel
 
       it 'should return false if no attribute is visible' do
         expect(helper.visible?(record, :popover, :modal)).to eq(false)
+      end
+    end
+
+    describe '#present?' do
+      let(:record) do
+        Section.new(title: 'Section')
+      end
+
+      it 'should return true if an attribute is present' do
+        expect(helper.present?(record, :title)).to eq(true)
+      end
+
+      it 'should return false if an attribute is blank' do
+        expect(helper.present?(record, :modal)).to eq(false)
+      end
+
+      it 'should return true if any attribute is present' do
+        expect(helper.present?(record, :title, :modal)).to eq(true)
+      end
+
+      it 'should return false if no attribute is present' do
+        expect(helper.present?(record, :popover, :modal)).to eq(false)
       end
     end
   end

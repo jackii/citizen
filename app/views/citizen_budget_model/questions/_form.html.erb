@@ -39,12 +39,12 @@
           <%= _('Text') %>
         </a>
       </div>
-      <div id="text" class="panel-collapse collapse">
+      <div id="text" class="panel-collapse<% if !present?(@question, *text_panel) %> collapse<% end %>">
         <div class="panel-body">
           <%= f.translated_text_field :title %>
-          <%= f.translated_text_field :description %>
-          <%= f.translated_text_field :modal %>
-          <%= f.translated_text_field :popover %>
+          <%= f.translated_text_area :description %>
+          <%= f.translated_text_area :modal %>
+          <%= f.translated_text_area :popover %>
         </div>
       </div>
     </div>
@@ -58,7 +58,7 @@
           <%= _('HTML attributes') %>
         </a>
       </div>
-      <div id="html" class="panel-collapse collapse">
+      <div id="html" class="panel-collapse<% if !present?(@question, *html_panel) %> collapse<% end %>">
         <div class="panel-body">
           <%= f.check_box :required %>
           <%= f.translated_text_field :placeholder %>

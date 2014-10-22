@@ -34,10 +34,22 @@ module CitizenBudgetModel
     #
     # @param record
     # @param attributes
+    # @return [Boolean] whether any of the given attributes are not hidden fields
     # @see CitizenBudgetModel.hidden_fields
     def visible?(record, *attributes)
       attributes.any? do |attribute|
         !CitizenBudgetModel.hidden_fields.fetch(record.class.model_name.param_key.to_sym, []).include?(attribute)
+      end
+    end
+
+    # Returns whether any of the given attributes are present.
+    #
+    # @param record
+    # @param attributes
+    # @return [Boolean] whether any of the given attributes are present
+    def present?(record, *attributes)
+      attributes.any? do |attribute|
+        record[attribute].present?
       end
     end
   end
