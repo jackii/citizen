@@ -29,13 +29,19 @@ module CitizenBudgetModel
     end
 
     it 'should set options' do
-      question = Question.new(minimum: 1, maximum: 5, step: 2)
+      question = Question.new(minimum: 1, maximum: 5, step: 2, default_value: 3)
       question.valid?
       expect(question.options).to eq([1, 3, 5])
     end
 
-    it 'should add an additional option if the maximum is not steps from the minimum' do
-      question = Question.new(minimum: 1, maximum: 6, step: 2)
+    it 'should add an additional option if the minimum is not steps from the default value' do
+      question = Question.new(minimum: 0, maximum: 5, step: 2, default_value: 3)
+      question.valid?
+      expect(question.options).to eq([0, 1, 3, 5])
+    end
+
+    it 'should add an additional option if the maximum is not steps from the default value' do
+      question = Question.new(minimum: 1, maximum: 6, step: 2, default_value: 3)
       question.valid?
       expect(question.options).to eq([1, 3, 5, 6])
     end
@@ -82,6 +88,10 @@ module CitizenBudgetModel
       expect(question.errors.full_messages).to eq(['Default value must be a valid option'])
 
       question = Question.new(section_id: 1, options: [1, 3, 5], default_value: 2)
+      question.valid?
+      expect(question.errors.full_messages).to eq(['Default value must be a valid option'])
+
+      question = Question.new(section_id: 1, options: [1, 3, 5], default_value: 4)
       question.valid?
       expect(question.errors.full_messages).to eq(['Default value must be a valid option'])
     end
