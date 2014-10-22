@@ -40,10 +40,13 @@ module CitizenBudgetModel
 
       # @note We may need to add translations as necessary.
       %w(
+        number.format.separator
         number.currency.format.delimiter
         number.currency.format.format
         number.currency.format.separator
         number.currency.format.unit
+        number.percentage.format.delimiter
+        number.percentage.format.format
       ).each do |key|
         translations[key] = [nil, I18n.translate(key.to_sym)]
       end
