@@ -8,8 +8,8 @@
     <div class="panel-body">
       <%= f.translated_text_field :name %>
       <%= f.text_field :machine_name %>
-      <%= f.text_field :default_value %>
-      <%= f.text_field :unit_value %>
+      <%= f.number_field :default_value, step: 'any' %>
+      <%= f.number_field :unit_value, step: 'any' %>
       <%= f.text_field :account %>
     </div>
   </div>
@@ -21,9 +21,9 @@
     <div class="panel-body">
       <%= f.text_field :widget %>
       <%= f.translated_text_field :unit_name %>
-      <%= f.number_field :minimum %>
-      <%= f.number_field :maximum %>
-      <%= f.number_field :step %>
+      <%= f.number_field :minimum, step: 'any' %>
+      <%= f.number_field :maximum, step: 'any' %>
+      <%= f.number_field :step, step: 'any', min: 0 %>
       <%= f.translated_text_field :labels %>
       <%= f.text_field :options %>
       <%= f.check_box :revenue %>
@@ -62,10 +62,10 @@
         <div class="panel-body">
           <%= f.check_box :required %>
           <%= f.translated_text_field :placeholder %>
-          <%= f.number_field :maxlength %>
-          <%= f.number_field :rows %>
-          <%= f.number_field :cols %>
-          <%= f.number_field :size %>
+          <%= f.number_field :maxlength, step: 1, min: 1 %>
+          <%= f.number_field :rows, step: 1, min: 1 %>
+          <%= f.number_field :cols, step: 1, min: 1 %>
+          <%= f.number_field :size, step: 1, min: 1 %>
           <%= f.text_field :html_class %>
         </div>
       </div>
