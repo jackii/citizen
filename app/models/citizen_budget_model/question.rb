@@ -88,28 +88,27 @@ module CitizenBudgetModel
 
     # Sets the `options` attribute based on `minimum`, `maximum`, `step` and `default_value`.
     def set_options
-      if minimum.present? && maximum.present? && step.present? && step.nonzero?
+      if minimum.present? && maximum.present? && step.present? && step.to_f.nonzero?
         if default_value.present?
           decimal_minimum = BigDecimal(minimum.to_s)
           decimal_maximum = BigDecimal(maximum.to_s)
           decimal_step = BigDecimal(step.to_s)
+          decimal_default = BigDecimal(default_value.to_s)
 
           # The default value is lower than the minimum value.
-          decimal_default = BigDecimal(default_value.to_s)
           if decimal_default < decimal_minimum
             errors.add(:default_value, _('must be a valid option'))
+          end
+
+          # The default value less than a step away from the maximum value.
+          if ((decimal_maximum - decimal_default) / decimal_step).floor.zero?
+            errors.add(:default_value, _('must be a step away from the maximum'))
           end
 
           # The default value less than a step away from the minimum value.
           steps = ((decimal_default - decimal_minimum) / decimal_step).floor
           if steps.zero?
             errors.add(:default_value, _('must be a step away from the minimum'))
-          end
-
-          # The default value less than a step away from the maximum value.
-          steps = ((decimal_maximum - decimal_default) / decimal_step).floor
-          if steps.zero?
-            errors.add(:default_value, _('must be a step away from the maximum'))
           end
 
           self.options = ((decimal_default - decimal_step * steps)...decimal_default).step(decimal_step).map(&:to_f) + (decimal_default..decimal_maximum).step(decimal_step).map(&:to_f)
