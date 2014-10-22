@@ -60,7 +60,7 @@ module CitizenBudgetModel
     end
 
     def simulator_params
-      attribute_names = Simulator.globalize_attribute_names + [:equation]
+      attribute_names = Simulator.globalize_attribute_names + [:equation, :total_revenue]
       if admin?
         attribute_names << :organization_id
       end

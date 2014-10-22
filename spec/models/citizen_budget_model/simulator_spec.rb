@@ -12,6 +12,7 @@ module CitizenBudgetModel
     [:organization_id, :name].each do |attribute|
       it { should validate_presence_of attribute }
     end
+    it { should validate_numericality_of(:total_revenue).only_integer.is_greater_than(0) }
 
     it 'should validate the equation' do
       expect(Simulator.new(valid_attributes.merge(equation: 'INVALID'))).to_not be_valid

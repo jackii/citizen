@@ -9,6 +9,7 @@ module CitizenBudgetModel
 
     validates_presence_of :organization_id
     validates :name, 'citizen_budget_model/locale' => true
+    validates_numericality_of :total_revenue, greater_than: 0, only_integer: true, allow_blank: true
     validates :equation, 'citizen_budget_model/equation' => true, allow_blank: true
 
     # Sets the simulator as active and all others as inactive.
