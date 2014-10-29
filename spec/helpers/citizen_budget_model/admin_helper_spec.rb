@@ -17,11 +17,21 @@ module CitizenBudgetModel
         question = Question.new
         expect(helper.value_formatter(question).call('2.10')).to eq('2.1')
       end
+
+      it 'should accept options' do
+        question = Question.new
+        expect(helper.value_formatter(question, strip_insignificant_zeros: false).call('2.10')).to eq('2.100')
+      end
     end
 
     describe '#percentage_formatter' do
       it 'should return a number as a percentage' do
         expect(helper.percentage_formatter.call('2.10')).to eq('2.1%')
+      end
+
+      it 'should accept options' do
+        question = Question.new
+        expect(helper.percentage_formatter(strip_insignificant_zeros: false).call('2.10')).to eq('2.100%')
       end
     end
 
@@ -29,11 +39,21 @@ module CitizenBudgetModel
       it 'should return a number as a currency' do
         expect(helper.currency_formatter.call('2.10')).to eq('$2.1')
       end
+
+      it 'should accept options' do
+        question = Question.new
+        expect(helper.currency_formatter(strip_insignificant_zeros: false).call('2.10')).to eq('$2.10')
+      end
     end
 
     describe '#precision_formatter' do
       it 'should return a number with precision' do
         expect(helper.precision_formatter.call('2.10')).to eq('2.1')
+      end
+
+      it 'should accept options' do
+        question = Question.new
+        expect(helper.precision_formatter(strip_insignificant_zeros: false).call('2.10')).to eq('2.100')
       end
     end
 

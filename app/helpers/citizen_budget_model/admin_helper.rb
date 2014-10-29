@@ -2,31 +2,31 @@ module CitizenBudgetModel
   module AdminHelper
     # Formats as a percentage if the unit name is "%", as a currency if the unit
     # name is "$" and as a number otherwise.
-    def value_formatter(question)
+    def value_formatter(question, options = {})
       if question.unit_name == '%'
-        percentage_formatter
+        percentage_formatter(options)
       elsif question.unit_name == '$'
-        currency_formatter
+        currency_formatter(options)
       else
-        precision_formatter
+        precision_formatter(options)
       end
     end
 
-    def percentage_formatter
+    def percentage_formatter(options = {})
       lambda{|v|
-        number_to_percentage(v, strip_insignificant_zeros: true)
+        number_to_percentage(v, {strip_insignificant_zeros: true}.merge(options))
       }
     end
 
-    def currency_formatter
+    def currency_formatter(options = {})
       lambda{|v|
-        number_to_currency(v, strip_insignificant_zeros: true)
+        number_to_currency(v, {strip_insignificant_zeros: true}.merge(options))
       }
     end
 
-    def precision_formatter
+    def precision_formatter(options = {})
       lambda{|v|
-        number_with_precision(v, strip_insignificant_zeros: true)
+        number_with_precision(v, {strip_insignificant_zeros: true}.merge(options))
       }
     end
 
