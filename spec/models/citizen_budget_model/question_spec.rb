@@ -155,7 +155,11 @@ module CitizenBudgetModel
 
     describe '#solve' do
       let(:question) do
-        question = Question.new(machine_name: 'var', default_value: 1, unit_value: 2)
+        question = Question.new(default_value: 1, unit_value: 2, machine_name: 'var')
+      end
+
+      let(:blank_question) do
+        question = Question.new(default_value: 1, unit_value: 2)
       end
 
       it 'should solve the equation' do
@@ -168,6 +172,14 @@ module CitizenBudgetModel
 
       it 'should error if value is nil' do
         expect{question.solve(nil)}.to raise_error(TypeError, "can't convert nil into Float")
+      end
+
+      it 'should not solve the equation if the machine name is blank' do
+        expect(Question.new(default_value: 1, unit_value: 2).solve(4)).to eq(nil)
+      end
+
+      it 'should not solve the equation if the working equation is blank' do
+        expect(Question.new.solve(4)).to eq(nil)
       end
     end
   end

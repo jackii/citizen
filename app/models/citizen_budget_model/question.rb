@@ -65,7 +65,9 @@ module CitizenBudgetModel
     # @param [Float,String] value value
     # @return [Float] a solution
     def solve(value)
-      eval(working_equation, Struct.new(machine_name.to_sym).new(Float(value)).instance_eval{binding})
+      if working_equation.present? && machine_name.present?
+        eval(working_equation, Struct.new(machine_name.to_sym).new(Float(value)).instance_eval{binding})
+      end
     end
 
   private
