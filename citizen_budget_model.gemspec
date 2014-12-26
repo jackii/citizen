@@ -16,6 +16,7 @@ Gem::Specification.new do |s|
   s.test_files = Dir["spec/**/*"]
 
   s.add_dependency 'rails', '~> 4.1.0'
+  s.add_dependency 'i18n', '< 0.7' # 0.7 fallbacks can't reference unavailable locales
   s.add_dependency 'pg' # uses array column types
 
   # ActiveRecord
