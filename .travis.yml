@@ -7,3 +7,4 @@ services:
   - redis
 before_script:
   - psql -U postgres -c 'CREATE DATABASE dummy_test'
+  - bundle exec rake db:migrate RAILS_ENV=test
