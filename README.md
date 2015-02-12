@@ -57,8 +57,4 @@ You can then add translations to the Redis backend:
     bundle exec rake
     bundle exec guard
 
-## Bugs? Questions?
-
-This engine's main repository is on GitHub: [http://github.com/opennorth/citizen_budget_model](http://github.com/opennorth/citizen_budget_model), where your contributions, forks, bug reports, feature requests, and feedback are greatly welcomed.
-
 Copyright (c) 2014 Open North Inc., released under the MIT license
