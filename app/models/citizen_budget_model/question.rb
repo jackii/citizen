@@ -56,7 +56,7 @@ module CitizenBudgetModel
     # @return [String] a default equation
     def default_equation
       if machine_name.present? && default_value.present? && unit_value_down.present? && unit_value_up.present?
-        "(#{machine_name} - #{default_value}) * #{unit_value_down}"
+        "(#{machine_name} - #{default_value}) * (#{machine_name} < #{default_value} ? #{unit_value_down} : #{unit_value_up})"
       end
     end
 

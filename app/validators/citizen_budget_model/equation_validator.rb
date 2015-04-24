@@ -1,7 +1,7 @@
 
 # line 1 "app/validators/citizen_budget_model/equation_validator.rl"
 
-# line 15 "app/validators/citizen_budget_model/equation_validator.rl"
+# line 17 "app/validators/citizen_budget_model/equation_validator.rl"
 
 
 module CitizenBudgetModel
@@ -10,64 +10,41 @@ module CitizenBudgetModel
     
 # line 12 "app/validators/citizen_budget_model/equation_validator.rb"
 class << self
-	attr_accessor :_validator_actions
-	private :_validator_actions, :_validator_actions=
-end
-self._validator_actions = [
-	0, 1, 0, 1, 1
-]
-
-class << self
-	attr_accessor :_validator_key_offsets
-	private :_validator_key_offsets, :_validator_key_offsets=
-end
-self._validator_key_offsets = [
-	0, 0, 10, 19, 21, 23, 33, 41, 
-	50, 61, 63, 73, 86, 88, 95, 105, 
-	114, 126
-]
-
-class << self
 	attr_accessor :_validator_trans_keys
 	private :_validator_trans_keys, :_validator_trans_keys=
 end
 self._validator_trans_keys = [
-	32, 40, 45, 95, 9, 13, 48, 57, 
-	97, 122, 32, 40, 95, 9, 13, 48, 
-	57, 97, 122, 48, 57, 48, 57, 32, 
-	40, 45, 95, 9, 13, 48, 57, 97, 
-	122, 32, 41, 45, 47, 9, 13, 42, 
-	43, 32, 40, 95, 9, 13, 48, 57, 
-	97, 122, 32, 41, 45, 46, 47, 9, 
-	13, 42, 43, 48, 57, 48, 57, 32, 
-	41, 45, 47, 9, 13, 42, 43, 48, 
-	57, 32, 41, 45, 47, 95, 9, 13, 
-	42, 43, 48, 57, 97, 122, 48, 57, 
-	32, 45, 47, 9, 13, 42, 43, 32, 
-	45, 46, 47, 9, 13, 42, 43, 48, 
-	57, 32, 45, 47, 9, 13, 42, 43, 
-	48, 57, 32, 45, 47, 95, 9, 13, 
-	42, 43, 48, 57, 97, 122, 0
+	0, 0, 9, 122, 9, 122, 
+	48, 57, 9, 57, 48, 
+	57, 9, 63, 9, 63, 
+	9, 57, 48, 57, 9, 58, 
+	9, 58, 9, 57, 48, 
+	57, 48, 57, 9, 58, 
+	48, 57, 9, 63, 9, 122, 
+	9, 47, 9, 122, 9, 
+	57, 48, 57, 9, 57, 
+	9, 122, 9, 60, 9, 57, 
+	48, 57, 9, 63, 9, 
+	63, 9, 57, 48, 57, 
+	9, 58, 9, 58, 9, 57, 
+	48, 57, 48, 57, 9, 
+	58, 48, 57, 9, 63, 
+	9, 47, 9, 57, 9, 57, 
+	9, 122, 9, 60, 0, 
+	0, 0
 ]
 
 class << self
-	attr_accessor :_validator_single_lengths
-	private :_validator_single_lengths, :_validator_single_lengths=
+	attr_accessor :_validator_key_spans
+	private :_validator_key_spans, :_validator_key_spans=
 end
-self._validator_single_lengths = [
-	0, 4, 3, 0, 0, 4, 4, 3, 
-	5, 0, 4, 5, 0, 3, 4, 3, 
-	4, 0
-]
-
-class << self
-	attr_accessor :_validator_range_lengths
-	private :_validator_range_lengths, :_validator_range_lengths=
-end
-self._validator_range_lengths = [
-	0, 3, 3, 1, 1, 3, 2, 3, 
-	3, 1, 3, 4, 1, 2, 3, 3, 
-	4, 0
+self._validator_key_spans = [
+	0, 114, 114, 10, 49, 10, 55, 55, 
+	49, 10, 50, 50, 49, 10, 10, 50, 
+	10, 55, 114, 39, 114, 49, 10, 49, 
+	114, 52, 49, 10, 55, 55, 49, 10, 
+	50, 50, 49, 10, 10, 50, 10, 55, 
+	39, 49, 49, 114, 52, 0
 ]
 
 class << self
@@ -75,9 +52,12 @@ class << self
 	private :_validator_index_offsets, :_validator_index_offsets=
 end
 self._validator_index_offsets = [
-	0, 0, 8, 15, 17, 19, 27, 34, 
-	41, 50, 52, 60, 70, 72, 78, 86, 
-	93, 102
+	0, 0, 115, 230, 241, 291, 302, 358, 
+	414, 464, 475, 526, 577, 627, 638, 649, 
+	700, 711, 767, 882, 922, 1037, 1087, 1098, 
+	1148, 1263, 1316, 1366, 1377, 1433, 1489, 1539, 
+	1550, 1601, 1652, 1702, 1713, 1724, 1775, 1786, 
+	1842, 1882, 1932, 1982, 2097, 2150
 ]
 
 class << self
@@ -85,19 +65,275 @@ class << self
 	private :_validator_indicies, :_validator_indicies=
 end
 self._validator_indicies = [
-	0, 2, 3, 5, 0, 4, 5, 1, 
-	0, 2, 5, 0, 4, 5, 1, 6, 
-	1, 4, 1, 7, 8, 9, 11, 7, 
-	10, 11, 1, 12, 13, 14, 7, 12, 
-	7, 1, 7, 8, 11, 7, 10, 11, 
-	1, 12, 13, 14, 15, 7, 12, 7, 
-	10, 1, 16, 1, 12, 13, 14, 7, 
-	12, 7, 16, 1, 12, 13, 14, 7, 
-	11, 12, 7, 11, 11, 1, 10, 1, 
-	17, 18, 0, 17, 0, 1, 17, 18, 
-	19, 0, 17, 0, 4, 1, 17, 18, 
-	0, 17, 0, 6, 1, 17, 18, 0, 
-	5, 17, 0, 5, 5, 1, 1, 0
+	0, 0, 0, 0, 0, 1, 1, 1, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	1, 1, 1, 1, 1, 1, 1, 0, 
+	1, 1, 1, 1, 1, 1, 1, 2, 
+	1, 1, 1, 1, 3, 1, 1, 4, 
+	4, 4, 4, 4, 4, 4, 4, 4, 
+	4, 1, 1, 1, 1, 1, 1, 1, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	1, 1, 1, 1, 1, 1, 5, 1, 
+	5, 5, 5, 5, 5, 5, 5, 5, 
+	5, 5, 5, 5, 5, 5, 5, 5, 
+	5, 5, 5, 5, 5, 5, 5, 5, 
+	5, 5, 1, 0, 0, 0, 0, 0, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	1, 1, 0, 1, 1, 1, 1, 1, 
+	1, 1, 2, 1, 1, 1, 1, 1, 
+	1, 1, 4, 4, 4, 4, 4, 4, 
+	4, 4, 4, 4, 1, 1, 1, 1, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	1, 5, 1, 5, 5, 5, 5, 5, 
+	5, 5, 5, 5, 5, 5, 5, 5, 
+	5, 5, 5, 5, 5, 5, 5, 5, 
+	5, 5, 5, 5, 5, 1, 6, 6, 
+	6, 6, 6, 6, 6, 6, 6, 6, 
+	1, 7, 7, 7, 7, 7, 1, 1, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	7, 1, 1, 1, 1, 1, 1, 1, 
+	1, 1, 1, 1, 1, 8, 1, 1, 
+	9, 9, 9, 9, 9, 9, 9, 9, 
+	9, 9, 1, 9, 9, 9, 9, 9, 
+	9, 9, 9, 9, 9, 1, 10, 10, 
+	10, 10, 10, 1, 1, 1, 1, 1, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	1, 1, 1, 1, 1, 10, 1, 1, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	1, 1, 1, 11, 1, 9, 9, 9, 
+	9, 9, 9, 9, 9, 9, 9, 1, 
+	1, 1, 1, 1, 12, 1, 10, 10, 
+	10, 10, 10, 1, 1, 1, 1, 1, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	1, 1, 1, 1, 1, 10, 1, 1, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	1, 1, 1, 1, 12, 1, 12, 12, 
+	12, 12, 12, 1, 1, 1, 1, 1, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	1, 1, 1, 1, 1, 12, 1, 1, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	1, 1, 13, 1, 1, 14, 14, 14, 
+	14, 14, 14, 14, 14, 14, 14, 1, 
+	14, 14, 14, 14, 14, 14, 14, 14, 
+	14, 14, 1, 15, 15, 15, 15, 15, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	1, 1, 15, 1, 1, 1, 1, 1, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	16, 1, 14, 14, 14, 14, 14, 14, 
+	14, 14, 14, 14, 17, 1, 15, 15, 
+	15, 15, 15, 1, 1, 1, 1, 1, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	1, 1, 1, 1, 1, 15, 1, 1, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	1, 1, 1, 1, 1, 1, 1, 17, 
+	1, 17, 17, 17, 17, 17, 1, 1, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	17, 1, 1, 1, 1, 1, 1, 1, 
+	1, 1, 1, 1, 1, 3, 1, 1, 
+	4, 4, 4, 4, 4, 4, 4, 4, 
+	4, 4, 1, 4, 4, 4, 4, 4, 
+	4, 4, 4, 4, 4, 1, 18, 18, 
+	18, 18, 18, 18, 18, 18, 18, 18, 
+	1, 15, 15, 15, 15, 15, 1, 1, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	15, 1, 1, 1, 1, 1, 1, 1, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	18, 18, 18, 18, 18, 18, 18, 18, 
+	18, 18, 17, 1, 19, 19, 19, 19, 
+	19, 19, 19, 19, 19, 19, 1, 10, 
+	10, 10, 10, 10, 1, 1, 1, 1, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	1, 1, 1, 1, 1, 1, 10, 1, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	1, 1, 1, 1, 1, 1, 19, 19, 
+	19, 19, 19, 19, 19, 19, 19, 19, 
+	1, 1, 1, 1, 1, 12, 1, 20, 
+	20, 20, 20, 20, 1, 1, 1, 1, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	1, 1, 1, 1, 1, 1, 20, 1, 
+	1, 1, 1, 1, 1, 1, 21, 1, 
+	1, 1, 1, 22, 1, 1, 23, 23, 
+	23, 23, 23, 23, 23, 23, 23, 23, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	1, 1, 1, 1, 1, 24, 1, 24, 
+	24, 24, 24, 24, 24, 24, 24, 24, 
+	24, 24, 24, 24, 24, 24, 24, 24, 
+	24, 24, 24, 24, 24, 24, 24, 24, 
+	24, 1, 25, 25, 25, 25, 25, 1, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	1, 25, 1, 1, 1, 1, 1, 1, 
+	1, 1, 26, 20, 20, 1, 27, 1, 
+	20, 1, 20, 20, 20, 20, 20, 1, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	1, 20, 1, 1, 1, 1, 1, 1, 
+	1, 21, 1, 1, 1, 1, 1, 1, 
+	1, 23, 23, 23, 23, 23, 23, 23, 
+	23, 23, 23, 1, 1, 1, 1, 1, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	24, 1, 24, 24, 24, 24, 24, 24, 
+	24, 24, 24, 24, 24, 24, 24, 24, 
+	24, 24, 24, 24, 24, 24, 24, 24, 
+	24, 24, 24, 24, 1, 25, 25, 25, 
+	25, 25, 1, 1, 1, 1, 1, 1, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	1, 1, 1, 1, 25, 1, 1, 1, 
+	1, 1, 1, 1, 1, 26, 20, 20, 
+	1, 27, 28, 20, 23, 23, 23, 23, 
+	23, 23, 23, 23, 23, 23, 1, 29, 
+	29, 29, 29, 29, 29, 29, 29, 29, 
+	29, 1, 25, 25, 25, 25, 25, 1, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	1, 25, 1, 1, 1, 1, 1, 1, 
+	1, 1, 26, 20, 20, 1, 27, 1, 
+	20, 29, 29, 29, 29, 29, 29, 29, 
+	29, 29, 29, 1, 30, 30, 30, 30, 
+	30, 1, 1, 1, 1, 1, 1, 1, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	1, 1, 1, 30, 1, 1, 1, 1, 
+	1, 1, 1, 1, 26, 20, 20, 1, 
+	27, 1, 20, 24, 24, 24, 24, 24, 
+	24, 24, 24, 24, 24, 1, 1, 31, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	1, 1, 24, 1, 24, 24, 24, 24, 
+	24, 24, 24, 24, 24, 24, 24, 24, 
+	24, 24, 24, 24, 24, 24, 24, 24, 
+	24, 24, 24, 24, 24, 24, 1, 30, 
+	30, 30, 30, 30, 1, 1, 1, 1, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	1, 1, 1, 1, 1, 1, 30, 1, 
+	1, 1, 1, 1, 1, 1, 1, 26, 
+	20, 20, 1, 27, 1, 20, 1, 1, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	1, 1, 31, 1, 31, 31, 31, 31, 
+	31, 1, 1, 1, 1, 1, 1, 1, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	1, 1, 1, 31, 1, 1, 1, 1, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	32, 1, 1, 33, 33, 33, 33, 33, 
+	33, 33, 33, 33, 33, 1, 33, 33, 
+	33, 33, 33, 33, 33, 33, 33, 33, 
+	1, 34, 34, 34, 34, 34, 1, 1, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	34, 1, 1, 1, 1, 1, 1, 1, 
+	1, 1, 1, 1, 1, 1, 35, 1, 
+	33, 33, 33, 33, 33, 33, 33, 33, 
+	33, 33, 1, 1, 1, 1, 1, 36, 
+	1, 34, 34, 34, 34, 34, 1, 1, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	34, 1, 1, 1, 1, 1, 1, 1, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	1, 1, 1, 1, 1, 1, 1, 36, 
+	1, 36, 36, 36, 36, 36, 1, 1, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	36, 1, 1, 1, 1, 1, 1, 1, 
+	1, 1, 1, 1, 1, 37, 1, 1, 
+	38, 38, 38, 38, 38, 38, 38, 38, 
+	38, 38, 1, 38, 38, 38, 38, 38, 
+	38, 38, 38, 38, 38, 1, 39, 39, 
+	39, 39, 39, 1, 1, 1, 1, 1, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	1, 1, 1, 1, 1, 39, 1, 1, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	1, 1, 1, 40, 1, 38, 38, 38, 
+	38, 38, 38, 38, 38, 38, 38, 41, 
+	1, 39, 39, 39, 39, 39, 1, 1, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	39, 1, 1, 1, 1, 1, 1, 1, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	1, 1, 41, 1, 41, 41, 41, 41, 
+	41, 1, 1, 1, 1, 1, 1, 1, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	1, 1, 1, 41, 1, 1, 1, 1, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	22, 1, 1, 23, 23, 23, 23, 23, 
+	23, 23, 23, 23, 23, 1, 23, 23, 
+	23, 23, 23, 23, 23, 23, 23, 23, 
+	1, 42, 42, 42, 42, 42, 42, 42, 
+	42, 42, 42, 1, 39, 39, 39, 39, 
+	39, 1, 1, 1, 1, 1, 1, 1, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	1, 1, 1, 39, 1, 1, 1, 1, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	1, 1, 1, 42, 42, 42, 42, 42, 
+	42, 42, 42, 42, 42, 41, 1, 43, 
+	43, 43, 43, 43, 43, 43, 43, 43, 
+	43, 1, 34, 34, 34, 34, 34, 1, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	1, 34, 1, 1, 1, 1, 1, 1, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	1, 43, 43, 43, 43, 43, 43, 43, 
+	43, 43, 43, 1, 1, 1, 1, 1, 
+	36, 1, 44, 44, 44, 44, 44, 1, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	1, 44, 1, 1, 1, 1, 1, 1, 
+	1, 1, 1, 0, 0, 1, 45, 1, 
+	0, 1, 44, 44, 44, 44, 44, 1, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	1, 44, 1, 1, 1, 1, 1, 1, 
+	1, 1, 1, 0, 0, 1, 45, 46, 
+	0, 4, 4, 4, 4, 4, 4, 4, 
+	4, 4, 4, 1, 44, 44, 44, 44, 
+	44, 1, 1, 1, 1, 1, 1, 1, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	1, 1, 1, 44, 1, 1, 1, 1, 
+	1, 1, 1, 1, 1, 0, 0, 1, 
+	45, 1, 0, 6, 6, 6, 6, 6, 
+	6, 6, 6, 6, 6, 1, 47, 47, 
+	47, 47, 47, 1, 1, 1, 1, 1, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	1, 1, 1, 1, 1, 47, 1, 1, 
+	1, 1, 1, 1, 1, 1, 1, 0, 
+	0, 1, 45, 1, 0, 5, 5, 5, 
+	5, 5, 5, 5, 5, 5, 5, 1, 
+	1, 7, 1, 1, 1, 1, 1, 1, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	1, 1, 1, 1, 5, 1, 5, 5, 
+	5, 5, 5, 5, 5, 5, 5, 5, 
+	5, 5, 5, 5, 5, 5, 5, 5, 
+	5, 5, 5, 5, 5, 5, 5, 5, 
+	1, 47, 47, 47, 47, 47, 1, 1, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	47, 1, 1, 1, 1, 1, 1, 1, 
+	1, 1, 0, 0, 1, 45, 1, 0, 
+	1, 1, 1, 1, 1, 1, 1, 1, 
+	1, 1, 1, 1, 7, 1, 1, 0
 ]
 
 class << self
@@ -105,9 +341,12 @@ class << self
 	private :_validator_trans_targs, :_validator_trans_targs=
 end
 self._validator_trans_targs = [
-	1, 0, 13, 4, 14, 16, 15, 5, 
-	6, 12, 8, 11, 6, 17, 7, 9, 
-	10, 13, 2, 3
+	1, 0, 40, 13, 41, 43, 42, 4, 
+	5, 6, 7, 16, 8, 9, 10, 11, 
+	14, 12, 15, 17, 18, 19, 35, 21, 
+	24, 19, 45, 20, 22, 23, 25, 26, 
+	27, 28, 29, 38, 30, 31, 32, 33, 
+	36, 34, 37, 39, 40, 2, 3, 44
 ]
 
 class << self
@@ -116,8 +355,11 @@ class << self
 end
 self._validator_trans_actions = [
 	0, 0, 1, 0, 0, 0, 0, 0, 
-	1, 0, 0, 0, 0, 3, 0, 0, 
-	0, 0, 0, 0
+	0, 0, 0, 0, 0, 0, 0, 0, 
+	0, 0, 0, 0, 0, 1, 0, 0, 
+	0, 0, 2, 0, 0, 0, 0, 0, 
+	0, 0, 0, 0, 0, 0, 0, 0, 
+	0, 0, 0, 0, 0, 0, 0, 0
 ]
 
 class << self
@@ -127,7 +369,7 @@ self.validator_start = 1;
 class << self
 	attr_accessor :validator_first_final
 end
-self.validator_first_final = 13;
+self.validator_first_final = 40;
 class << self
 	attr_accessor :validator_error
 end
@@ -136,14 +378,14 @@ self.validator_error = 0;
 class << self
 	attr_accessor :validator_en_rest
 end
-self.validator_en_rest = 5;
+self.validator_en_rest = 18;
 class << self
 	attr_accessor :validator_en_main
 end
 self.validator_en_main = 1;
 
 
-# line 21 "app/validators/citizen_budget_model/equation_validator.rl"
+# line 23 "app/validators/citizen_budget_model/equation_validator.rl"
     #% # fix highlighting
 
     # Returns whether an equation is valid.
@@ -156,7 +398,7 @@ self.validator_en_main = 1;
       stack = []
 
       
-# line 160 "app/validators/citizen_budget_model/equation_validator.rb"
+# line 402 "app/validators/citizen_budget_model/equation_validator.rb"
 begin
 	p ||= 0
 	pe ||= data.length
@@ -164,11 +406,12 @@ begin
 	top = 0
 end
 
-# line 33 "app/validators/citizen_budget_model/equation_validator.rl"
+# line 35 "app/validators/citizen_budget_model/equation_validator.rl"
       
-# line 170 "app/validators/citizen_budget_model/equation_validator.rb"
+# line 412 "app/validators/citizen_budget_model/equation_validator.rb"
 begin
-	_klen, _trans, _keys, _acts, _nacts = nil
+	testEof = false
+	_slen, _trans, _keys, _inds, _acts, _nacts = nil
 	_goto_level = 0
 	_resume = 10
 	_eof_trans = 15
@@ -176,7 +419,6 @@ begin
 	_test_eof = 30
 	_out = 40
 	while true
-	_trigger_goto = false
 	if _goto_level <= 0
 	if p == pe
 		_goto_level = _test_eof
@@ -188,94 +430,44 @@ begin
 	end
 	end
 	if _goto_level <= _resume
-	_keys = _validator_key_offsets[cs]
-	_trans = _validator_index_offsets[cs]
-	_klen = _validator_single_lengths[cs]
-	_break_match = false
-	
-	begin
-	  if _klen > 0
-	     _lower = _keys
-	     _upper = _keys + _klen - 1
-
-	     loop do
-	        break if _upper < _lower
-	        _mid = _lower + ( (_upper - _lower) >> 1 )
-
-	        if data[p].ord < _validator_trans_keys[_mid]
-	           _upper = _mid - 1
-	        elsif data[p].ord > _validator_trans_keys[_mid]
-	           _lower = _mid + 1
-	        else
-	           _trans += (_mid - _keys)
-	           _break_match = true
-	           break
-	        end
-	     end # loop
-	     break if _break_match
-	     _keys += _klen
-	     _trans += _klen
-	  end
-	  _klen = _validator_range_lengths[cs]
-	  if _klen > 0
-	     _lower = _keys
-	     _upper = _keys + (_klen << 1) - 2
-	     loop do
-	        break if _upper < _lower
-	        _mid = _lower + (((_upper-_lower) >> 1) & ~1)
-	        if data[p].ord < _validator_trans_keys[_mid]
-	          _upper = _mid - 2
-	        elsif data[p].ord > _validator_trans_keys[_mid+1]
-	          _lower = _mid + 2
-	        else
-	          _trans += ((_mid - _keys) >> 1)
-	          _break_match = true
-	          break
-	        end
-	     end # loop
-	     break if _break_match
-	     _trans += _klen
-	  end
-	end while false
-	_trans = _validator_indicies[_trans]
+	_keys = cs << 1
+	_inds = _validator_index_offsets[cs]
+	_slen = _validator_key_spans[cs]
+	_wide = data[p].ord
+	_trans = if (   _slen > 0 && 
+			_validator_trans_keys[_keys] <= _wide && 
+			_wide <= _validator_trans_keys[_keys + 1] 
+		    ) then
+			_validator_indicies[ _inds + _wide - _validator_trans_keys[_keys] ] 
+		 else 
+			_validator_indicies[ _inds + _slen ]
+		 end
 	cs = _validator_trans_targs[_trans]
 	if _validator_trans_actions[_trans] != 0
-		_acts = _validator_trans_actions[_trans]
-		_nacts = _validator_actions[_acts]
-		_acts += 1
-		while _nacts > 0
-			_nacts -= 1
-			_acts += 1
-			case _validator_actions[_acts - 1]
-when 0 then
+	case _validator_trans_actions[_trans]
+	when 1 then
 # line 8 "app/validators/citizen_budget_model/equation_validator.rl"
 		begin
  	begin
 		stack[top] = cs
 		top+= 1
-		cs = 5
-		_trigger_goto = true
+		cs = 18
 		_goto_level = _again
-		break
+		next
 	end
  		end
-when 1 then
-# line 12 "app/validators/citizen_budget_model/equation_validator.rl"
+	when 2 then
+# line 14 "app/validators/citizen_budget_model/equation_validator.rl"
 		begin
  	begin
 		top -= 1
 		cs = stack[top]
-		_trigger_goto = true
 		_goto_level = _again
-		break
+		next
 	end
  		end
-# line 274 "app/validators/citizen_budget_model/equation_validator.rb"
-			end # action switch
-		end
+# line 470 "app/validators/citizen_budget_model/equation_validator.rb"
 	end
-	if _trigger_goto
-		next
 	end
 	end
 	if _goto_level <= _again
@@ -294,10 +486,10 @@ when 1 then
 	if _goto_level <= _out
 		break
 	end
-	end
+end
 	end
 
-# line 34 "app/validators/citizen_budget_model/equation_validator.rl"
+# line 36 "app/validators/citizen_budget_model/equation_validator.rl"
 
       # Ensure all parentheses are closed and the state machine is in a final state.
       top.zero? && cs >= validator_first_final

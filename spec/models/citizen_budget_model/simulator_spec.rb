@@ -44,8 +44,8 @@ module CitizenBudgetModel
       end
 
       it 'should return a default equation it not set' do
-        simulator.sections.build.questions.build(machine_name: 'var', default_value: 1, unit_value_down: 1, unit_value_up: 1)
-        expect(simulator.working_equation).to eq('(var - 1.0) * 1.0')
+        simulator.sections.build.questions.build(machine_name: 'var', default_value: 1, unit_value_down: 1, unit_value_up: 2)
+        expect(simulator.working_equation).to eq('(var - 1.0) * (var < 1.0 ? 1.0 : 2.0)')
       end
     end
 
@@ -62,13 +62,13 @@ module CitizenBudgetModel
             machine_name: "variable_#{number}",
             default_value: -number,
             unit_value_down: number * 1.5,
-            unit_value_up: number * 1.5,
+            unit_value_up: number * 2,
           })
         end
         simulator.sections.build.questions.build({
           machine_name: "incomplete",
         })
-        expect(simulator.default_equation).to eq('(variable_1 - -1.0) * 1.5 + (variable_2 - -2.0) * 3.0 + (variable_3 - -3.0) * 4.5')
+        expect(simulator.default_equation).to eq('(variable_1 - -1.0) * (variable_1 < -1.0 ? 1.5 : 2.0) + (variable_2 - -2.0) * (variable_2 < -2.0 ? 3.0 : 4.0) + (variable_3 - -3.0) * (variable_3 < -3.0 ? 4.5 : 6.0)')
       end
     end
 

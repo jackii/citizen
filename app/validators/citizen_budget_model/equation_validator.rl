@@ -6,7 +6,9 @@
   number   = '-'? digit+ ('.' digit+)?;
   word     = [a-z_][a-z_0-9]*;
   group    = '(' @{ fcall rest; };
-  factor   = number | word | group;
+  # The ternary operator is not SQL, but it is Ruby and JavaScript.
+  ternary  = word space* '<' space* number space* '?' space* number space* ':' space* number;
+  factor   = number | word | ternary | group;
   # Strong difference to prevent SQL comments.
   expr     = (space* factor (space* operator space* factor)* space*) -- '--';
   rest    := expr ')' @{ fret; };
