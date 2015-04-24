@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 require File.expand_path('../lib/citizen_budget_model/version', __FILE__)
 
 Gem::Specification.new do |s|
@@ -30,12 +31,12 @@ Gem::Specification.new do |s|
   s.add_dependency('redis')
 
   # Testing
+  s.add_development_dependency('coveralls')
   s.add_development_dependency('database_cleaner', '~> 1.2')
   s.add_development_dependency('factory_girl_rails', '~> 4.1')
   s.add_development_dependency('guard-bundler', '~> 2.0')
   s.add_development_dependency('guard-rspec', '~> 4.3')
   s.add_development_dependency('rspec-rails', '~> 3.0')
-  s.add_development_dependency('coveralls')
   s.add_development_dependency('shoulda-matchers', '~> 2.7')
 
   # Development
