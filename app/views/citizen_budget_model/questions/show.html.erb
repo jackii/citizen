@@ -17,7 +17,7 @@
 </ol>
 <% end %>
 
-<% if @question.any_of?(:name, :machine_name, :default_value, :unit_value, :account) %>
+<% if @question.any_of?(:name, :machine_name, :default_value, :unit_value_down, :unit_value_up, :account) %>
 <div class="panel panel-primary">
   <div class="panel-heading panel-title">
     <%= _('Simulation') %>
@@ -26,7 +26,8 @@
     <%= render partial: 'citizen_budget_model/shared/translated_field', locals: {record: @question, attribute: :name} %>
     <%= render partial: 'citizen_budget_model/shared/field', locals: {record: @question, attribute: :machine_name} %>
     <%= render partial: 'citizen_budget_model/shared/field', locals: {record: @question, attribute: :default_value, formatter: value_formatter(@question)} %>
-    <%= render partial: 'citizen_budget_model/shared/field', locals: {record: @question, attribute: :unit_value, formatter: currency_formatter} %>
+    <%= render partial: 'citizen_budget_model/shared/field', locals: {record: @question, attribute: :unit_value_down, formatter: currency_formatter} %>
+    <%= render partial: 'citizen_budget_model/shared/field', locals: {record: @question, attribute: :unit_value_up, formatter: currency_formatter} %>
     <%= render partial: 'citizen_budget_model/shared/field', locals: {record: @question, attribute: :account} %>
   </div>
 </div>

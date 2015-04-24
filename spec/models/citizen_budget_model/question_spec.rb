@@ -7,7 +7,7 @@ module CitizenBudgetModel
     it { should allow_value('', 'a', '_', 'aa', 'a_', 'a0', '_a', '__', '_0').for(:machine_name) }
     it { should_not allow_value('0', 'A', 'aA', '_A').for(:machine_name) } # too many to test
     it { should validate_exclusion_of(:machine_name).in_array(%w(all analyse)) } # testing all of them is slow
-    [:default_value, :unit_value, :minimum, :maximum].each do |attribute|
+    [:default_value, :unit_value_down, :unit_value_up, :minimum, :maximum].each do |attribute|
       it { should validate_numericality_of attribute }
     end
     [:maxlength, :rows, :cols, :size].each do |attribute|
@@ -136,7 +136,7 @@ module CitizenBudgetModel
       end
 
       it 'should return a default equation it not set' do
-        question = Question.new(machine_name: 'var', default_value: 1, unit_value: 2)
+        question = Question.new(machine_name: 'var', default_value: 1, unit_value_down: 2, unit_value_up: 2)
         expect(question.working_equation).to eq('(var - 1.0) * 2.0')
       end
     end
@@ -148,18 +148,18 @@ module CitizenBudgetModel
       end
 
       it 'should return a default equation if no missing variables' do
-        question = Question.new(machine_name: 'var', default_value: 0, unit_value: 2)
+        question = Question.new(machine_name: 'var', default_value: 0, unit_value_down: 2, unit_value_up: 2)
         expect(question.working_equation).to eq('(var - 0.0) * 2.0')
       end
     end
 
     describe '#solve' do
       let(:question) do
-        question = Question.new(default_value: 1, unit_value: 2, machine_name: 'var')
+        question = Question.new(default_value: 1, unit_value_down: 2, unit_value_up: 2, machine_name: 'var')
       end
 
       let(:blank_question) do
-        question = Question.new(default_value: 1, unit_value: 2)
+        question = Question.new(default_value: 1, unit_value_down: 2, unit_value_up: 2)
       end
 
       it 'should solve the equation' do
@@ -175,7 +175,7 @@ module CitizenBudgetModel
       end
 
       it 'should not solve the equation if the machine name is blank' do
-        expect(Question.new(default_value: 1, unit_value: 2).solve(4)).to eq(nil)
+        expect(Question.new(default_value: 1, unit_value_down: 2, unit_value_up: 2).solve(4)).to eq(nil)
       end
 
       it 'should not solve the equation if the working equation is blank' do

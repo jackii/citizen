@@ -9,7 +9,7 @@ module CitizenBudgetModel
     validates_presence_of :section_id
     validates_uniqueness_of :machine_name, scope: :section_id, allow_blank: true
     validates_format_of :machine_name, with: /\A[a-z_][a-z_0-9]*\z/, allow_blank: true
-    validates_numericality_of :default_value, :unit_value, :minimum, :maximum, allow_blank: true
+    validates_numericality_of :default_value, :unit_value_down, :unit_value_up, :minimum, :maximum, allow_blank: true
     validates_numericality_of :maxlength, :rows, :cols, :size, greater_than: 0, only_integer: true, allow_blank: true
     validates_inclusion_of :widget, in: %w(slider), allow_blank: true
     validates_numericality_of :step, greater_than: 0, allow_blank: true
@@ -55,8 +55,8 @@ module CitizenBudgetModel
     #
     # @return [String] a default equation
     def default_equation
-      if machine_name.present? && default_value.present? && unit_value.present?
-        "(#{machine_name} - #{default_value}) * #{unit_value}"
+      if machine_name.present? && default_value.present? && unit_value_down.present? && unit_value_up.present?
+        "(#{machine_name} - #{default_value}) * #{unit_value_down}"
       end
     end
 

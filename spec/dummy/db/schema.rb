@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141022050318) do
+ActiveRecord::Schema.define(version: 20150424030658) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,22 +53,23 @@ ActiveRecord::Schema.define(version: 20141022050318) do
 
   create_table "citizen_budget_model_questions", force: true do |t|
     t.integer  "section_id"
-    t.string   "machine_name",  default: "",    null: false
+    t.string   "machine_name",    default: "",    null: false
     t.float    "default_value"
-    t.float    "unit_value"
-    t.string   "account",       default: "",    null: false
-    t.string   "widget",        default: "",    null: false
-    t.float    "options",       default: [],    null: false, array: true
-    t.boolean  "revenue",       default: false
+    t.float    "unit_value_down"
+    t.string   "account",         default: "",    null: false
+    t.string   "widget",          default: "",    null: false
+    t.float    "options",         default: [],    null: false, array: true
+    t.boolean  "revenue",         default: false
     t.integer  "maxlength"
-    t.boolean  "required",      default: false
+    t.boolean  "required",        default: false
     t.integer  "rows"
     t.integer  "cols"
     t.integer  "size"
     t.integer  "position"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "html_class",    default: "",    null: false
+    t.string   "html_class",      default: "",    null: false
+    t.float    "unit_value_up"
   end
 
   add_index "citizen_budget_model_questions", ["section_id"], name: "index_citizen_budget_model_questions_on_section_id", using: :btree
