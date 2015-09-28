@@ -45,6 +45,7 @@ You can then add translations to the Redis backend:
 
 ### Deployment
 
+    heroku apps:create
     heroku config:set SECRET_KEY_BASE=`bundle exec rake secret`
     heroku config:set ACTION_MAILER_HOST=www.example.com
     heroku config:set DEVISE_MAILER_SENDER=noreply@example.com
