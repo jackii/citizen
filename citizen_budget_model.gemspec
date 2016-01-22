@@ -23,7 +23,7 @@ Gem::Specification.new do |s|
   s.add_dependency('paranoia', '~> 2.0.2')
 
   # Authentication
-  s.add_dependency('devise', '~> 3.2.4')
+  s.add_dependency('devise', '~> 3.5.4')
 
   # Internationalization
   s.add_dependency('globalize', '~> 4.0.2')
@@ -45,6 +45,6 @@ Gem::Specification.new do |s|
 
   # Optional
   s.add_development_dependency('rails-i18n', '~> 4.0.0')
-  s.add_development_dependency('devise-i18n', '~> 0.10.4')
+  s.add_development_dependency('devise-i18n', '~> 0.12.0')
   s.add_development_dependency('jquery-rails', '~> 3.1')
 end

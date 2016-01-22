@@ -81,8 +81,8 @@ ActiveRecord::Schema.define(version: 20150424030658) do
     t.datetime "updated_at"
     t.string   "title",                           default: "", null: false
     t.text     "description",                     default: "", null: false
-    t.text     "popover",                         default: "", null: false
     t.text     "modal",                           default: "", null: false
+    t.text     "popover",                         default: "", null: false
   end
 
   add_index "citizen_budget_model_section_translations", ["citizen_budget_model_section_id"], name: "index_2b79c59d2a47f33d3e927dae21105b97719ec5c0", using: :btree
@@ -111,13 +111,13 @@ ActiveRecord::Schema.define(version: 20150424030658) do
 
   create_table "citizen_budget_model_simulators", force: true do |t|
     t.integer  "organization_id"
-    t.string   "equation",        default: "",    null: false
-    t.string   "distribution",    default: "",    null: false
+    t.string   "equation",                  default: "",    null: false
+    t.string   "distribution",              default: "",    null: false
     t.datetime "deleted_at"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "active",          default: false
-    t.integer  "total_revenue"
+    t.boolean  "active",                    default: false
+    t.integer  "total_revenue",   limit: 8
   end
 
   add_index "citizen_budget_model_simulators", ["organization_id"], name: "index_citizen_budget_model_simulators_on_organization_id", using: :btree

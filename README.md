@@ -52,9 +52,9 @@ You can then add translations to the Redis backend:
 
 ## Testing
 
-    bundle exec RAILS_ENV=test rake db:drop
-    bundle exec RAILS_ENV=test rake db:create
-    bundle exec RAILS_ENV=test rake db:migrate
+    bundle exec rake db:drop RAILS_ENV=test
+    bundle exec rake db:create RAILS_ENV=test
+    bundle exec rake db:migrate RAILS_ENV=test
     bundle exec rake
     bundle exec guard
 
