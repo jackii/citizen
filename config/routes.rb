@@ -7,6 +7,21 @@ CitizenBudgetModel::Engine.routes.draw do
     end
   end
 
+  resources :multipliers do
+    member do
+      post :activate
+    end
+
+    resources :policy_sections, except: [:index] do
+      member do
+        post :sort
+      end
+
+      resources :policies, except: [:index]
+    end
+
+  end
+
   resources :organizations
 
   resources :users, except: [:show, :destroy]

@@ -1,0 +1,38 @@
+<% content_for :breadcrumb do %>
+<ol class="breadcrumb">
+  <li><%= link_to _('Multipliers'), multipliers_path %></li>
+  <li><%= link_to @multiplier.name, @multiplier %></li>
+  <li class="active"><%= @policy_section.name %>
+    <%= link_to [:edit, @multiplier, @policy_section], class: 'btn btn-default btn-xs', title: _('Edit') do %>
+      <span class="glyphicon glyphicon-pencil"></span>
+    <% end %>
+  </li>
+</ol>
+<% end %>
+
+<%= render partial: 'citizen_budget_model/shared/translated_field', locals: {record: @policy_section, attribute: :name} %>
+
+<% if @policy_section.policies.any? %>
+<h2><%= _('Policy') %></h2>
+
+<ul class="list-unstyled index sortable">
+<% @policy_section.policies.each do |policy| %>
+  <li id="<%= dom_id(policy) %>">
+    <span class="glyphicon glyphicon-resize-vertical"></span>
+    <%= link_to policy.name, [@multiplier, @policy_section, policy] %>
+    <span class="actions">
+      <%= link_to [:edit, @multiplier, @policy_section, policy] do %>
+        <span class="glyphicon glyphicon-pencil"></span> <%= _('Edit') %>
+      <% end %>
+    </span>
+  </li>
+<% end %>
+</ul>
+<% end %>
+
+<p>
+  <%= link_to(new_multiplier_policy_section_policy_path(@multiplier, @policy_section), class: 'btn btn-primary') do %>
+    <span class="glyphicon glyphicon-plus"></span> <%= _('Add a policy') %>
+  <% end %>
+</p>
+

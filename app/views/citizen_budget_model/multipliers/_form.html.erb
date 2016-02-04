@@ -1,0 +1,17 @@
+<%= form_for(@multiplier, html: {role: 'form'}, builder: CitizenBudgetModel::CitizenBudgetFormBuilder) do |f| %>
+  <%= f.errors %>
+  <%= f.translated_text_field :name %>
+<% if admin? %>
+  <%= f.select :organization_id, CitizenBudgetModel::Organization.all.map{|o| [o.name, o.id]}, include_blank: true %>
+<% end %>
+  <%= f.number_field :growth_forecast, min: 1 %>
+  <%= f.text_field :employment_coeffiecient, min: 0 %>
+  <% f.buttons do %>
+    <% unless @multiplier.new_record? || @multiplier.active? %>
+      <%= link_to([:activate, @multiplier], class: 'btn btn-default', method: :post) do %>
+        <span class="glyphicon glyphicon-off"></span> <%= _('Activate') %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
+

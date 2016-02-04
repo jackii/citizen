@@ -1,0 +1,31 @@
+<%= form_for([@multiplier, @policy_section, @policy], html: {role: 'form'}, builder: CitizenBudgetModel::CitizenBudgetFormBuilder) do |f| %>
+  <%= f.errors %>
+
+  <div class="panel panel-primary">
+    <div class="panel-heading panel-title">
+      <%= _('Policy') %>
+    </div>
+    <div class="panel-body">
+      <%= f.translated_text_field :name %>
+      <%= f.text_field :machine_name %>
+      <%= f.number_field :year_1_value, step: 'any' %>
+      <%= f.number_field :year_2_value, step: 'any' %>
+    </div>
+  </div>
+
+  <div class="panel panel-primary">
+    <div class="panel-heading panel-title">
+      <%= _('Widget') %>
+    </div>
+    <div class="panel-body">
+      <%= f.translated_text_field :unit_name %>
+      <%= f.number_field :default_value, step: 'any' %>
+      <%= f.number_field :minimum, step: 'any' %>
+      <%= f.number_field :maximum, step: 'any' %>
+      <%= f.number_field :step, step: 'any', min: 0 %>
+    </div>
+  </div>
+
+  <% f.buttons(context: [@multiplier, @policy_section, @policy]) %>
+<% end %>
+

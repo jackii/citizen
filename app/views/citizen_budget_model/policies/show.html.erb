@@ -1,0 +1,46 @@
+<% content_for :breadcrumb do %>
+<ol class="breadcrumb">
+  <li><%= link_to _('Multipliers'), multipliers_path %></li>
+  <li><%= link_to @multiplier.name, @multiplier %></li>
+  <li><%= link_to @policy_section.name, [@multiplier, @policy_section] %></li>
+  <li class="active"><%= @policy.name %>
+    <%= link_to [:edit, @multiplier, @policy_section, @policy], class: 'btn btn-default btn-xs', title: _('Edit') do %>
+      <span class="glyphicon glyphicon-pencil"></span>
+    <% end %>
+    <%= link_to new_multiplier_policy_section_policy_path(@multiplier, @policy_section), class: 'btn btn-default btn-xs' do %>
+      <span class="glyphicon glyphicon-plus"></span> <%= _('Add a policy') %>
+    <% end %>
+    <%= link_to new_multiplier_policy_section_path(@multiplier), class: 'btn btn-default btn-xs' do %>
+      <span class="glyphicon glyphicon-plus"></span> <%= _('Add a policy_section') %>
+    <% end %>
+  </li>
+</ol>
+<% end %>
+
+<% if @policy.any_of?(:name, :machine_name, :default_value, :unit_value_down, :unit_value_up, :account) %>
+<div class="panel panel-primary">
+  <div class="panel-heading panel-title">
+    <%= _('Policy') %>
+  </div>
+  <div class="panel-body">
+    <%= render partial: 'citizen_budget_model/shared/translated_field', locals: {record: @policy, attribute: :name} %>
+    <%= render partial: 'citizen_budget_model/shared/field', locals: {record: @policy, attribute: :machine_name} %>
+    <%= render partial: 'citizen_budget_model/shared/field', locals: {record: @policy, attribute: :year_1_value, formatter: currency_formatter} %>
+    <%= render partial: 'citizen_budget_model/shared/field', locals: {record: @policy, attribute: :year_2_value, formatter: currency_formatter} %>
+  </div>
+</div>
+<% end %>
+
+<div class="panel panel-primary">
+  <div class="panel-heading panel-title">
+    <%= _('Widget') %>
+  </div>
+  <div class="panel-body">
+    <%= render partial: 'citizen_budget_model/shared/translated_field', locals: {record: @policy, attribute: :unit_name} %>
+    <%= render partial: 'citizen_budget_model/shared/field', locals: {record: @policy, attribute: :default_value, formatter: value_formatter(@policy)} %>
+    <%= render partial: 'citizen_budget_model/shared/field', locals: {record: @policy, attribute: :minimum, formatter: value_formatter(@policy)} %>
+    <%= render partial: 'citizen_budget_model/shared/field', locals: {record: @policy, attribute: :maximum, formatter: value_formatter(@policy)} %>
+    <%= render partial: 'citizen_budget_model/shared/field', locals: {record: @policy, attribute: :step, formatter: value_formatter(@policy)} %>
+  </div>
+</div>
+

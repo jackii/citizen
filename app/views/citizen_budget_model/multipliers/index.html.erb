@@ -1,0 +1,25 @@
+<% content_for :breadcrumb do %>
+<ol class="breadcrumb">
+  <li class="active"><%= _('Multipliers') %></li>
+</ol>
+<% end %>
+
+<ul class="list-unstyled index">
+<% @multipliers.each do |multiplier| %>
+  <li>
+    <%= link_to multiplier.name, multiplier %>
+    <span class="actions">
+      <%= link_to [:edit, multiplier] do %>
+        <span class="glyphicon glyphicon-pencil"></span> <%= _('Edit') %>
+      <% end %>
+    </span>
+  </li>
+<% end %>
+</ul>
+
+<p>
+  <%= link_to(new_multiplier_path, class: 'btn btn-primary') do %>
+    <span class="glyphicon glyphicon-plus"></span> <%= _('Add a multiplier') %>
+  <% end %>
+</p>
+

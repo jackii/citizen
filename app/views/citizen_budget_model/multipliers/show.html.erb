@@ -1,0 +1,35 @@
+<% content_for :breadcrumb do %>
+<ol class="breadcrumb">
+  <li><%= link_to _('Multipliers'), multipliers_path %></li>
+  <li class="active"><%= @multiplier.name %>
+    <%= link_to [:edit, @multiplier], class: 'btn btn-default btn-xs', title: _('Edit') do %>
+      <span class="glyphicon glyphicon-pencil"></span>
+    <% end %>
+  </li>
+</ol>
+<% end %>
+
+<% if @multiplier.policy_sections.any? %>
+<h2><%= _('Sections') %></h2>
+
+<ul class="list-unstyled index sortable">
+<% @multiplier.policy_sections.each do |section| %>
+  <li id="<%= dom_id(section) %>">
+    <span class="glyphicon glyphicon-resize-vertical"></span>
+    <%= link_to section.name, [@multiplier, section] %>
+    <span class="actions">
+      <%= link_to [:edit, @multiplier, section] do %>
+        <span class="glyphicon glyphicon-pencil"></span> <%= _('Edit') %>
+      <% end %>
+    </span>
+  </li>
+<% end %>
+</ul>
+<% end %>
+
+<p>
+  <%= link_to(new_multiplier_policy_section_path(@multiplier), class: 'btn btn-primary') do %>
+    <span class="glyphicon glyphicon-plus"></span> <%= _('Add a section') %>
+  <% end %>
+</p>
+
