@@ -4,7 +4,7 @@
 <% if admin? %>
   <%= f.select :organization_id, CitizenBudgetModel::Organization.all.map{|o| [o.name, o.id]}, include_blank: true %>
 <% end %>
-  <%= f.number_field :growth_forecast, min: 1 %>
+  <%= f.text_field :growth_forecast, min: 0 %>
   <%= f.text_field :employment_coeffiecient, min: 0 %>
   <% f.buttons do %>
     <% unless @multiplier.new_record? || @multiplier.active? %>
