@@ -1,0 +1,25 @@
+<% content_for :breadcrumb do %>
+<ol class="breadcrumb">
+  <li class="active"><%= _('Policy Tables') %></li>
+</ol>
+<% end %>
+
+<ul class="list-unstyled index">
+<% @policy_tables.each do |policy_table| %>
+  <li>
+    <%= link_to policy_table.name, policy_table %>
+    <span class="actions">
+      <%= link_to [:edit, policy_table] do %>
+        <span class="glyphicon glyphicon-pencil"></span> <%= _('Edit') %>
+      <% end %>
+    </span>
+  </li>
+<% end %>
+</ul>
+
+<p>
+  <%= link_to(new_policy_table_path, class: 'btn btn-primary') do %>
+    <span class="glyphicon glyphicon-plus"></span> <%= _('Add a table') %>
+  <% end %>
+</p>
+

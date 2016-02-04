@@ -1,0 +1,24 @@
+<% content_for :breadcrumb do %>
+<ol class="breadcrumb">
+  <li class="active"><%= _('Sentivitivy Tables') %></li>
+</ol>
+<% end %>
+
+<ul class="list-unstyled index">
+<% @sensitivities.each do |sensitivity| %>
+  <li>
+    <%= link_to sensitivity.name, sensitivity %>
+    <span class="actions">
+      <%= link_to [:edit, sensitivity] do %>
+        <span class="glyphicon glyphicon-pencil"></span> <%= _('Edit') %>
+      <% end %>
+    </span>
+  </li>
+<% end %>
+</ul>
+
+<p>
+  <%= link_to(new_sensitivity_path, class: 'btn btn-primary') do %>
+    <span class="glyphicon glyphicon-plus"></span> <%= _('Add a sensitivity table') %>
+  <% end %>
+</p>

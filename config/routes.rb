@@ -11,6 +11,37 @@ CitizenBudgetModel::Engine.routes.draw do
 
   resources :users, except: [:show, :destroy]
 
+  resources :policy_tables do
+    member do
+      post :sort
+      post :activate
+    end
+
+    resources :policy_sections, except: [:index] do
+      member do
+        post :sort
+      end
+
+      resources :economic_measures, except: [:index]
+    end
+  end
+
+  resources :sensitivities do
+    member do
+      post :sort
+      post :sort_variable
+    end
+
+    resources :variables, except: [:index]
+
+    resources :sensitivity_sections, except: [:index] do
+      member do
+        post :sort
+      end
+      resources :impacts, except: [:index]
+    end
+  end
+
   resources :simulators do
     member do
       post :sort
@@ -25,6 +56,8 @@ CitizenBudgetModel::Engine.routes.draw do
       resources :questions, except: [:index]
     end
   end
+
+  resources :questions
 
   namespace :citizen_budget_model do
     get 'pages/home'

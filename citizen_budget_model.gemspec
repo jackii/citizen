@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
 
   s.add_dependency('rails', '~> 4.1.0')
-  s.add_dependency('i18n', '< 0.7') # 0.7 fallbacks can't reference unavailable locales
+  s.add_dependency('i18n', '<= 0.7') # 0.7 fallbacks can't reference unavailable locales
   s.add_dependency('pg') # uses array column types
 
   # ActiveRecord
@@ -44,7 +44,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency('gettext')
 
   # Optional
-  s.add_development_dependency('rails-i18n', '~> 4.0.0')
+  #s.add_development_dependency('rails-i18n', '~> 4.0.0')
   s.add_development_dependency('devise-i18n', '~> 0.12.0')
   s.add_development_dependency('jquery-rails', '~> 3.1')
 end

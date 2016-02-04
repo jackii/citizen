@@ -1,0 +1,18 @@
+<%= form_for(@policy_table, html: {role: 'form'}, builder: CitizenBudgetModel::CitizenBudgetFormBuilder) do |f| %>
+  <%= f.errors %>
+  <%= f.translated_text_field :name %>
+<% if admin? %>
+  <%= f.select :organization_id, CitizenBudgetModel::Organization.all.map{|s| [s.name, s.id]}, include_blank: true %>
+  <%= f.select :simulator_id, CitizenBudgetModel::Simulator.all.map{|s| [s.name, s.id]}, include_blank: true %>
+<% end %>
+  <%= f.text_field :growth_forecast, min: 0 %>
+  <%= f.text_field :employment_coefficient, min: 0 %>
+  <% f.buttons do %>
+    <% unless @policy_table.new_record? || @policy_table.active? %>
+      <%= link_to([:activate, @policy_table], class: 'btn btn-default', method: :post) do %>
+        <span class="glyphicon glyphicon-off"></span> <%= _('Activate') %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
+

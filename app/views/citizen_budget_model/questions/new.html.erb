@@ -1,11 +1,28 @@
-<% content_for :breadcrumb do %>
-<ol class="breadcrumb">
-  <li><%= link_to _('Simulators'), simulators_path %></li>
-  <li><%= link_to @simulator.name, @simulator %></li>
-  <li><%= link_to @section.display_name, [@simulator, @section] %></li>
-  <li><%= _('Questions') %></li>
-  <li class="active"><%= _('Add') %></li>
-</ol>
-<% end %>
+<% if !@simulator.blank? and !@section.blank? %>
+  <% content_for :breadcrumb do %>
+  <ol class="breadcrumb">
+    <li><%= link_to _('Simulators'), simulators_path %></li>
+    <li><%= link_to @simulator.name, @simulator %></li>
+    <li><%= link_to @section.display_name, [@simulator, @section] %></li>
+    <li><%= _('Questions') %></li>
+    <li class="active"><%= _('Add') %></li>
+  </ol>
+  <% end %>
 
-<%= render 'form' %>
+  <%= form_for([@simulator, @section, @question], html: {role: 'form'}, builder: CitizenBudgetModel::CitizenBudgetFormBuilder) do |f| %>
+    <%= render partial: 'form', locals: {f: f} %>
+    <% f.buttons(context: [@simulator, @section, @question]) %>
+  <% end %>
+<% else %>
+  <% content_for :breadcrumb do %>
+  <ol class="breadcrumb">
+    <li><%= link_to _('Questions'), questions_path %></li>
+    <li class="active"><%= _('Add') %></li>
+  </ol>
+  <% end %>
+  <%= form_for(@question, html: {role: 'form'}, builder: CitizenBudgetModel::CitizenBudgetFormBuilder) do |f| %>
+    <%= render partial: 'form', locals: {f: f} %>
+    <% f.buttons(context: @question) %>
+  <% end %>
+
+<% end %>

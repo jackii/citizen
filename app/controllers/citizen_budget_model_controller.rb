@@ -21,6 +21,14 @@ class CitizenBudgetModelController < CitizenBudgetModel.parent_controller.consta
     end
   end
 
+  def policy_tables
+    @policy_tables_collection ||= admin? ? CitizenBudgetModel::PolicyTable : current_user.organization.policy_tables
+  end
+
+  def sensitivities
+    @sensitivites_collection ||= admin? ? CitizenBudgetModel::Sensitivity : current_user.organization.sensitivities
+  end
+
   def simulators
     @simulators_collection ||= admin? ? CitizenBudgetModel::Simulator : current_user.organization.simulators
   end
@@ -74,7 +82,11 @@ module CitizenBudgetModel
     end
 
     def number_field(method, options = {})
-      wrapper_and_label(method, super(method, default_options(options)))
+      if options[:label]
+        wrapper(method, label(options[:label]) + super(method, default_options(options)))
+      else
+        wrapper_and_label(method, super(method, default_options(options)))
+      end
     end
 
     def password_field(method, options = {})
@@ -88,7 +100,7 @@ module CitizenBudgetModel
     def check_box(method, options = {}, checked_value = '1', unchecked_value = '0')
       return unless @template.visible?(object, method)
 
-      content = @template.content_tag(:label, super(method, options, checked_value, unchecked_value) + ' ' + object.class.human_attribute_name(method))
+      content = @template.content_tag(:label, super(method, options, checked_value, unchecked_value) + ' ' + (options[:label]? label(options[:label]) : _(object.class.human_attribute_name(method))))
 
       @template.content_tag(:div, content, class: 'checkbox')
     end

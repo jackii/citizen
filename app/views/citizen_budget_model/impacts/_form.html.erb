@@ -1,0 +1,32 @@
+<%= form_for([@sensitivity, @sensitivity_section, @impact], html: {role: 'form'}, builder: CitizenBudgetModel::CitizenBudgetFormBuilder) do |f| %>
+  <%= f.errors %>
+
+  <div class="panel panel-primary">
+    <div class="panel-heading panel-title">
+      <%= _('Impact') %>
+    </div>
+    <div class="panel-body">
+      <%= f.translated_text_field :name %>
+      <%= f.text_field :machine_name %>
+      <% year = '' %>
+      <%= f.fields_for :impact_variables do |f2| %>
+        <%= year != f2.object.year ? "<legend>#{f2.object.year}</legend>".html_safe : '' %>
+        <% year = f2.object.year %>
+        <%= f2.hidden_field :year %>
+        <%= f2.hidden_field :variable_id %>
+        <div class="col-lg-12">
+          <div class="col-lg-6">
+            <%= f2.number_field :coefficient, label: (f2.object.variable.name + ' coefficient') %>
+          </div>
+          <div class="col-lg-6">
+            <%= f2.number_field :prepopulated_result, label: (f2.object.variable.name + ' pre-populated result') %>
+          </div>
+        </div>
+      <% end %>
+
+    </div>
+  </div>
+
+  <% f.buttons(context: [@sensitivity, @sensitivity_section, @impact]) %>
+<% end %>
+

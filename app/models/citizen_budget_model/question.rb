@@ -6,7 +6,7 @@ module CitizenBudgetModel
 
     belongs_to :section
 
-    validates_presence_of :section_id
+    #validates_presence_of :section_id
     validates_uniqueness_of :machine_name, scope: :section_id, allow_blank: true
     validates_format_of :machine_name, with: /\A[a-z_][a-z_0-9]*\z/, allow_blank: true
     validates_numericality_of :default_value, :unit_value_down, :unit_value_up, :minimum, :maximum, allow_blank: true
