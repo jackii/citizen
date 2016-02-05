@@ -1,6 +1,6 @@
 <% content_for :breadcrumb do %>
 <ol class="breadcrumb">
-  <li><%= link_to _('Multipliers'), multipliers_path %></li>
+  <li><%= link_to _('Policy Tables'), multipliers_path %></li>
   <li><%= link_to @multiplier.name, @multiplier %></li>
   <li><%= link_to @policy_section.name, [@multiplier, @policy_section] %></li>
   <li class="active"><%= @policy.name %>
@@ -8,10 +8,10 @@
       <span class="glyphicon glyphicon-pencil"></span>
     <% end %>
     <%= link_to new_multiplier_policy_section_policy_path(@multiplier, @policy_section), class: 'btn btn-default btn-xs' do %>
-      <span class="glyphicon glyphicon-plus"></span> <%= _('Add a policy') %>
+      <span class="glyphicon glyphicon-plus"></span> <%= _('Add a measure') %>
     <% end %>
     <%= link_to new_multiplier_policy_section_path(@multiplier), class: 'btn btn-default btn-xs' do %>
-      <span class="glyphicon glyphicon-plus"></span> <%= _('Add a policy_section') %>
+      <span class="glyphicon glyphicon-plus"></span> <%= _('Add a section') %>
     <% end %>
   </li>
 </ol>
@@ -20,7 +20,7 @@
 <% if @policy.any_of?(:name, :machine_name, :default_value, :unit_value_down, :unit_value_up, :account) %>
 <div class="panel panel-primary">
   <div class="panel-heading panel-title">
-    <%= _('Policy') %>
+    <%= _('Economic Measures') %>
   </div>
   <div class="panel-body">
     <%= render partial: 'citizen_budget_model/shared/translated_field', locals: {record: @policy, attribute: :name} %>
