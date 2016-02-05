@@ -57,7 +57,7 @@ module CitizenBudgetModel
     end
 
     def policy_params
-      attribute_names = Policy.globalize_attribute_names + [:machine_name, :default_value, :year_1_value, :year_2_value, :minimum, :maximum, :step]
+      attribute_names = Policy.globalize_attribute_names + [:machine_name, :default_value, :year_1_value, :year_2_value, :minimum, :maximum, :step, :question_id]
       params.require(:policy).permit(*attribute_names)
     end
   end

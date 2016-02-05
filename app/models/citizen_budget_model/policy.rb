@@ -5,6 +5,7 @@ module CitizenBudgetModel
     globalize_accessors
 
     belongs_to :policy_section
+    belongs_to :question
 
     validates_presence_of :policy_section_id
     validates_uniqueness_of :machine_name, scope: :policy_section_id, allow_blank: true

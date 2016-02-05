@@ -19,7 +19,6 @@ CitizenBudgetModel::Engine.routes.draw do
 
       resources :policies, except: [:index]
     end
-
   end
 
   resources :organizations

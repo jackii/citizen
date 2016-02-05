@@ -60,7 +60,7 @@ module CitizenBudgetModel
     end
 
     def multiplier_params
-      attribute_names = Multiplier.globalize_attribute_names + [:growth_forecast, :employment_coeffiecient]
+      attribute_names = Multiplier.globalize_attribute_names + [:growth_forecast, :employment_coeffiecient, :simulator_id]
       if admin?
         attribute_names << :organization_id
       end

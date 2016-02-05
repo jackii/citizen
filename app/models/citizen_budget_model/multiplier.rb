@@ -4,6 +4,7 @@ module CitizenBudgetModel
     globalize_accessors
 
     belongs_to :organization
+    belongs_to :simulator
     has_many :policy_sections
 
     validates_presence_of :organization_id
