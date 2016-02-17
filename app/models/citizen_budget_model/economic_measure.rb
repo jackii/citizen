@@ -1,5 +1,5 @@
 module CitizenBudgetModel
-  class Policy < ActiveRecord::Base
+  class EconomicMeasure < ActiveRecord::Base
     acts_as_list scope: :policy_section_id, top_of_list: 0
     translates :name, :unit_name, fallbacks_for_empty_translations: true
     globalize_accessors

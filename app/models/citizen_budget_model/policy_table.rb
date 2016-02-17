@@ -1,5 +1,5 @@
 module CitizenBudgetModel
-  class Multiplier < ActiveRecord::Base
+  class PolicyTable < ActiveRecord::Base
     translates :name, fallbacks_for_empty_translations: true
     globalize_accessors
 
@@ -33,7 +33,5 @@ module CitizenBudgetModel
       end
       equation.reject(&:empty?).join(' + ')
     end
-
-
   end
 end

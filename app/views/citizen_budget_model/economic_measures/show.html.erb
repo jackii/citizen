@@ -1,0 +1,50 @@
+<% content_for :breadcrumb do %>
+<ol class="breadcrumb">
+  <li><%= link_to _('Policy Tables'), policy_tables_path %></li>
+  <li><%= link_to @policy_table.name, @policy_table %></li>
+  <li><%= link_to @policy_section.name, [@policy_table, @policy_section] %></li>
+  <li class="active"><%= @economic_measure.name %>
+    <%= link_to [:edit, @policy_table, @policy_section, @economic_measure], class: 'btn btn-default btn-xs', title: _('Edit') do %>
+      <span class="glyphicon glyphicon-pencil"></span>
+    <% end %>
+    <%= link_to new_policy_table_policy_section_economic_measure_path(@policy_table, @policy_section), class: 'btn btn-default btn-xs' do %>
+      <span class="glyphicon glyphicon-plus"></span> <%= _('Add a measure') %>
+    <% end %>
+    <%= link_to new_policy_table_policy_section_path(@policy_table), class: 'btn btn-default btn-xs' do %>
+      <span class="glyphicon glyphicon-plus"></span> <%= _('Add a section') %>
+    <% end %>
+  </li>
+</ol>
+<% end %>
+
+<% if @economic_measure.any_of?(:name, :machine_name, :default_value, :unit_value_down, :unit_value_up, :account) %>
+<div class="panel panel-primary">
+  <div class="panel-heading panel-title">
+    <%= _('Economic Measures') %>
+  </div>
+  <div class="panel-body">
+    <%= render partial: 'citizen_budget_model/shared/translated_field', locals: {record: @economic_measure, attribute: :name} %>
+    <%= render partial: 'citizen_budget_model/shared/field', locals: {record: @economic_measure, attribute: :machine_name} %>
+    <%= render partial: 'citizen_budget_model/shared/field', locals: {record: @economic_measure, attribute: :year_1_value} %>
+    <%= render partial: 'citizen_budget_model/shared/field', locals: {record: @economic_measure, attribute: :year_2_value} %>
+    <div class="row">
+      <div class="col-sm-2"><h2>Question</h2></div>
+      <div class="col-sm-10"><%= @economic_measure.question.name unless @economic_measure.question.blank? %></div>
+    </div>
+  </div>
+</div>
+<% end %>
+
+<!--div class="panel panel-primary">
+  <div class="panel-heading panel-title">
+    <%= _('Widget') %>
+  </div>
+  <div class="panel-body">
+    <%= render partial: 'citizen_budget_model/shared/translated_field', locals: {record: @economic_measure, attribute: :unit_name} %>
+    <%= render partial: 'citizen_budget_model/shared/field', locals: {record: @economic_measure, attribute: :default_value, formatter: value_formatter(@economic_measure)} %>
+    <%= render partial: 'citizen_budget_model/shared/field', locals: {record: @economic_measure, attribute: :minimum, formatter: value_formatter(@economic_measure)} %>
+    <%= render partial: 'citizen_budget_model/shared/field', locals: {record: @economic_measure, attribute: :maximum, formatter: value_formatter(@economic_measure)} %>
+    <%= render partial: 'citizen_budget_model/shared/field', locals: {record: @economic_measure, attribute: :step, formatter: value_formatter(@economic_measure)} %>
+  </div>
+</div-->
+

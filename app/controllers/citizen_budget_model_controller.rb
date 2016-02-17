@@ -21,8 +21,8 @@ class CitizenBudgetModelController < CitizenBudgetModel.parent_controller.consta
     end
   end
 
-  def multipliers
-    @multipliers_collection ||= admin? ? CitizenBudgetModel::Multiplier : current_user.organization.multipliers
+  def policy_tables
+    @policy_tables_collection ||= admin? ? CitizenBudgetModel::PolicyTable : current_user.organization.policy_tables
   end
 
   def simulators

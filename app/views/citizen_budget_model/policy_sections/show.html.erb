@@ -1,9 +1,9 @@
 <% content_for :breadcrumb do %>
 <ol class="breadcrumb">
-  <li><%= link_to _('Policy Tables'), multipliers_path %></li>
-  <li><%= link_to @multiplier.name, @multiplier %></li>
+  <li><%= link_to _('Policy Tables'), policy_tables_path %></li>
+  <li><%= link_to @policy_table.name, @policy_table %></li>
   <li class="active"><%= @policy_section.name %>
-    <%= link_to [:edit, @multiplier, @policy_section], class: 'btn btn-default btn-xs', title: _('Edit') do %>
+    <%= link_to [:edit, @policy_table, @policy_section], class: 'btn btn-default btn-xs', title: _('Edit') do %>
       <span class="glyphicon glyphicon-pencil"></span>
     <% end %>
   </li>
@@ -12,16 +12,16 @@
 
 <%= render partial: 'citizen_budget_model/shared/translated_field', locals: {record: @policy_section, attribute: :name} %>
 
-<% if @policy_section.policies.any? %>
+<% if @policy_section.economic_measures.any? %>
 <h2><%= _('Economic Measures') %></h2>
 
 <ul class="list-unstyled index sortable">
-<% @policy_section.policies.each do |policy| %>
-  <li id="<%= dom_id(policy) %>">
+<% @policy_section.economic_measures.each do |measure| %>
+  <li id="<%= dom_id(measure) %>">
     <span class="glyphicon glyphicon-resize-vertical"></span>
-    <%= link_to policy.name, [@multiplier, @policy_section, policy] %>
+    <%= link_to measure.name, [@policy_table, @policy_section, measure] %>
     <span class="actions">
-      <%= link_to [:edit, @multiplier, @policy_section, policy] do %>
+      <%= link_to [:edit, @policy_table, @policy_section, measure] do %>
         <span class="glyphicon glyphicon-pencil"></span> <%= _('Edit') %>
       <% end %>
     </span>
@@ -31,7 +31,7 @@
 <% end %>
 
 <p>
-  <%= link_to(new_multiplier_policy_section_policy_path(@multiplier, @policy_section), class: 'btn btn-primary') do %>
+  <%= link_to(new_policy_table_policy_section_economic_measure_path(@policy_table, @policy_section), class: 'btn btn-primary') do %>
     <span class="glyphicon glyphicon-plus"></span> <%= _('Add a measure') %>
   <% end %>
 </p>

@@ -1,12 +1,12 @@
 module CitizenBudgetModel
   class PolicySection < ActiveRecord::Base
-    acts_as_list scope: :multiplier_id, top_of_list: 0
+    acts_as_list scope: :policy_table_id, top_of_list: 0
     translates :name, fallbacks_for_empty_translations: true
     globalize_accessors
 
-    belongs_to :multiplier
-    has_many :policies
+    belongs_to :policy_table
+    has_many :economic_measures
 
-    validates_presence_of :multiplier_id
+    validates_presence_of :policy_table_id
   end
 end

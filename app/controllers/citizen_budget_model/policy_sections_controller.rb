@@ -1,7 +1,7 @@
 module CitizenBudgetModel
   class PolicySectionsController < CitizenBudgetModelController
     before_action :authenticate_user!
-    before_action :set_multiplier
+    before_action :set_policy_table
     before_action :set_policy_section, only: [:show, :edit, :update, :destroy, :sort]
 
     def show
@@ -18,7 +18,7 @@ module CitizenBudgetModel
       @policy_section = collection.new(policy_section_params)
 
       if @policy_section.save
-        redirect_to [@multiplier, @policy_section], notice: _('PolicySection was created.')
+        redirect_to [@policy_table, @policy_section], notice: _('PolicySection was created.')
       else
         render :new
       end
@@ -26,7 +26,7 @@ module CitizenBudgetModel
 
     def update
       if @policy_section.update(policy_section_params)
-        redirect_to [@multiplier, @policy_section], notice: _('PolicySection was updated.')
+        redirect_to [@policy_table, @policy_section], notice: _('PolicySection was updated.')
       else
         render :edit
       end
@@ -34,7 +34,7 @@ module CitizenBudgetModel
 
     def destroy
       @policy_section.destroy
-      redirect_to @multiplier, notice: _('PolicySection was deleted.')
+      redirect_to @policy_table, notice: _('PolicySection was deleted.')
     end
 
     def sort
@@ -44,11 +44,11 @@ module CitizenBudgetModel
   private
 
     def collection
-      @collection ||= @multiplier.policy_sections
+      @collection ||= @policy_table.policy_sections
     end
 
-    def set_multiplier
-      @multiplier = multipliers.find(params[:multiplier_id])
+    def set_policy_table
+      @policy_table = policy_tables.find(params[:policy_table_id])
     end
 
     def set_policy_section

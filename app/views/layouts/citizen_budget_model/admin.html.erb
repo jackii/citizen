@@ -33,7 +33,7 @@
     <% if user_signed_in? %>
       <ul class="nav navbar-nav">
         <li><%= link_to _('Simulators'), simulators_path %></li>
-        <li><%= link_to _('Policy Tables'), multipliers_path %></li>
+        <li><%= link_to _('Policy Tables'), policy_tables_path %></li>
         <li><%= link_to _('Users'), users_path %></li>
       <% if admin? %>
         <li><%= link_to _('Organizations'), organizations_path %></li>

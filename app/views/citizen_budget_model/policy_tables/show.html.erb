@@ -1,0 +1,47 @@
+<% content_for :breadcrumb do %>
+<ol class="breadcrumb">
+  <li><%= link_to _('Policy Tables'), policy_tables_path %></li>
+  <li class="active"><%= @policy_table.name %>
+    <%= link_to [:edit, @policy_table], class: 'btn btn-default btn-xs', title: _('Edit') do %>
+      <span class="glyphicon glyphicon-pencil"></span>
+    <% end %>
+  </li>
+</ol>
+<% end %>
+
+<div class="panel panel-primary">
+  <div class="panel-heading panel-title">
+    <%= _('Policy Table') %>
+  </div>
+  <div class="panel-body">
+    <%= render partial: 'citizen_budget_model/shared/translated_field', locals: {record: @policy_table, attribute: :name} %>
+    <%= render partial: 'citizen_budget_model/shared/field', locals: {record: @policy_table, attribute: :growth_forecast} %>
+    <%= render partial: 'citizen_budget_model/shared/field', locals: {record: @policy_table, attribute: :employment_coeffiecient} %>
+  </div>
+</div>
+
+
+<% if @policy_table.policy_sections.any? %>
+<h2><%= _('Sections') %></h2>
+
+<ul class="list-unstyled index sortable">
+<% @policy_table.policy_sections.each do |section| %>
+  <li id="<%= dom_id(section) %>">
+    <span class="glyphicon glyphicon-resize-vertical"></span>
+    <%= link_to section.name, [@policy_table, section] %>
+    <span class="actions">
+      <%= link_to [:edit, @policy_table, section] do %>
+        <span class="glyphicon glyphicon-pencil"></span> <%= _('Edit') %>
+      <% end %>
+    </span>
+  </li>
+<% end %>
+</ul>
+<% end %>
+
+<p>
+  <%= link_to(new_policy_table_policy_section_path(@policy_table), class: 'btn btn-primary') do %>
+    <span class="glyphicon glyphicon-plus"></span> <%= _('Add a section') %>
+  <% end %>
+</p>
+

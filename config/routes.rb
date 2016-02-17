@@ -7,7 +7,7 @@ CitizenBudgetModel::Engine.routes.draw do
     end
   end
 
-  resources :multipliers do
+  resources :policy_tables do
     member do
       post :activate
     end
@@ -17,7 +17,7 @@ CitizenBudgetModel::Engine.routes.draw do
         post :sort
       end
 
-      resources :policies, except: [:index]
+      resources :economic_measures, except: [:index]
     end
   end
 
