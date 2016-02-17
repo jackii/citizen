@@ -25,6 +25,10 @@ class CitizenBudgetModelController < CitizenBudgetModel.parent_controller.consta
     @policy_tables_collection ||= admin? ? CitizenBudgetModel::PolicyTable : current_user.organization.policy_tables
   end
 
+  def sensitivities
+    @sensitivites_collection ||= admin? ? CitizenBudgetModel::Sensitivity : current_user.organization.sensitivities
+  end
+
   def simulators
     @simulators_collection ||= admin? ? CitizenBudgetModel::Simulator : current_user.organization.simulators
   end

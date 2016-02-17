@@ -1,0 +1,11 @@
+<% content_for :breadcrumb do %>
+<ol class="breadcrumb">
+  <li><%= link_to _('Sensitivity Tables'), sensitivities_path %></li>
+  <li class="active"><%= @sensitivity.name %>
+    <%= link_to [:edit, @sensitivity], class: 'btn btn-default btn-xs', title: _('Edit') do %>
+      <span class="glyphicon glyphicon-pencil"></span>
+    <% end %>
+  </li>
+</ol>
+<% end %>
+

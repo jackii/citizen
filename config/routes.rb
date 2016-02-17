@@ -7,6 +7,10 @@ CitizenBudgetModel::Engine.routes.draw do
     end
   end
 
+  resources :organizations
+
+  resources :users, except: [:show, :destroy]
+
   resources :policy_tables do
     member do
       post :activate
@@ -21,9 +25,9 @@ CitizenBudgetModel::Engine.routes.draw do
     end
   end
 
-  resources :organizations
+  resources :sensitivities do
 
-  resources :users, except: [:show, :destroy]
+  end
 
   resources :simulators do
     member do
