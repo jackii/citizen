@@ -5,6 +5,7 @@ module CitizenBudgetModel
 
     belongs_to :organization
     has_many :variables, -> { order(:position) }, dependent: :destroy
+    has_many :sensitivity_sections, -> { order(:position) }, dependent: :destroy
 
     validates_presence_of :organization_id
     validates :name, 'citizen_budget_model/locale' => true

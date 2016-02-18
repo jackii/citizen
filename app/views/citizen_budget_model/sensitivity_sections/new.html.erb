@@ -1,0 +1,11 @@
+<% content_for :breadcrumb do %>
+<ol class="breadcrumb">
+  <li><%= link_to _('Sensitivity Tables'), sensitivities_path %></li>
+  <li><%= link_to @sensitivity.name, @sensitivity%></li>
+  <li><%= _('Sections') %></li>
+  <li class="active"><%= _('Add') %></li>
+</ol>
+<% end %>
+
+<%= render 'form' %>
+

@@ -1,0 +1,15 @@
+<% content_for :breadcrumb do %>
+<ol class="breadcrumb">
+  <li><%= link_to _('Sensitivity Tables'), sensitivities_path %></li>
+  <li><%= link_to @sensitivity.name, @sensitivity %></li>
+  <li class="active"><%= @sensitivity_section.name %>
+    <%= link_to [:edit, @sensitivity, @sensitivity_section], class: 'btn btn-default btn-xs', title: _('Edit') do %>
+      <span class="glyphicon glyphicon-pencil"></span>
+    <% end %>
+  </li>
+</ol>
+<% end %>
+
+<%= render partial: 'citizen_budget_model/shared/translated_field', locals: {record: @sensitivity_section, attribute: :name} %>
+
+

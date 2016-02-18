@@ -9,8 +9,8 @@
 </ol>
 <% end %>
 
-<% if @sensitivity.variables.any? %>
 <h2><%= _('Variables') %></h2>
+<% if @sensitivity.variables.any? %>
 
 <ul class="list-unstyled index sortable">
 <% @sensitivity.variables.each do |variable| %>
@@ -32,3 +32,29 @@
     <span class="glyphicon glyphicon-plus"></span> <%= _('Add a variable') %>
   <% end %>
 </p>
+
+
+<h2><%= _('Sections') %></h2>
+<% if @sensitivity.sensitivity_sections.any? %>
+
+<ul class="list-unstyled index sortable">
+<% @sensitivity.sensitivity_sections.each do |section| %>
+  <li id="<%= dom_id(section) %>">
+    <span class="glyphicon glyphicon-resize-vertical"></span>
+    <%= link_to section.name, [@sensitivity, section] %>
+    <span class="actions">
+      <%= link_to [:edit, @sensitivity, section] do %>
+        <span class="glyphicon glyphicon-pencil"></span> <%= _('Edit') %>
+      <% end %>
+    </span>
+  </li>
+<% end %>
+</ul>
+<% end %>
+
+<p>
+  <%= link_to(new_sensitivity_sensitivity_section_path(@sensitivity), class: 'btn btn-primary') do %>
+    <span class="glyphicon glyphicon-plus"></span> <%= _('Add a section') %>
+  <% end %>
+</p>
+

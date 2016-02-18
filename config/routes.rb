@@ -31,6 +31,12 @@ CitizenBudgetModel::Engine.routes.draw do
         post :sort
       end
     end
+
+    resources :sensitivity_sections, except: [:index] do
+      member do
+        post :sort
+      end
+    end
   end
 
   resources :simulators do
