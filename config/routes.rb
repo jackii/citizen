@@ -36,6 +36,7 @@ CitizenBudgetModel::Engine.routes.draw do
       member do
         post :sort
       end
+      resources :impacts, except: [:index]
     end
   end
 

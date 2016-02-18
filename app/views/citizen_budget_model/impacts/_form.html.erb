@@ -1,0 +1,22 @@
+<%= form_for([@sensitivity, @sensitivity_section, @impact], html: {role: 'form'}, builder: CitizenBudgetModel::CitizenBudgetFormBuilder) do |f| %>
+  <%= f.errors %>
+
+  <div class="panel panel-primary">
+    <div class="panel-heading panel-title">
+      <%= _('Economy Measures') %>
+    </div>
+    <div class="panel-body">
+      <%= f.translated_text_field :name %>
+      <%= f.text_field :machine_name %>
+      <%= f.number_field :year_1_coefficient, step: 'any' %>
+      <%= f.number_field :year_1_value, step: 'any' %>
+      <%= f.number_field :year_2_coefficient, step: 'any' %>
+      <%= f.number_field :year_2_value, step: 'any' %>
+      <%= f.number_field :year_5_coefficient, step: 'any' %>
+      <%= f.number_field :year_5_value, step: 'any' %>
+    </div>
+  </div>
+
+  <% f.buttons(context: [@sensitivity, @sensitivity_section, @impact]) %>
+<% end %>
+

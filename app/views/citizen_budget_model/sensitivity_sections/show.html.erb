@@ -12,4 +12,27 @@
 
 <%= render partial: 'citizen_budget_model/shared/translated_field', locals: {record: @sensitivity_section, attribute: :name} %>
 
+<% if @sensitivity_section.impacts.any? %>
+<h2><%= _('Impacts') %></h2>
+
+<ul class="list-unstyled index sortable">
+<% @sensitivity_section.impacts.each do |impact| %>
+  <li id="<%= dom_id(impact) %>">
+    <span class="glyphicon glyphicon-resize-vertical"></span>
+    <%= link_to impact.name, [@sensitivity, @sensitivity_section, impact] %>
+    <span class="actions">
+      <%= link_to [:edit, @sensitivity, @sensitivity_section, impact] do %>
+        <span class="glyphicon glyphicon-pencil"></span> <%= _('Edit') %>
+      <% end %>
+    </span>
+  </li>
+<% end %>
+</ul>
+<% end %>
+
+<p>
+  <%= link_to(new_sensitivity_sensitivity_section_impact_path(@sensitivity, @sensitivity_section), class: 'btn btn-primary') do %>
+    <span class="glyphicon glyphicon-plus"></span> <%= _('Add an impact ') %>
+  <% end %>
+</p>
 

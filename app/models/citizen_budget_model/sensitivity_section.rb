@@ -5,7 +5,7 @@ module CitizenBudgetModel
     globalize_accessors
 
     belongs_to :sensitivity
-    #has_many :economic_measures
+    has_many :impacts
 
     validates_presence_of :sensitivity_id
 
