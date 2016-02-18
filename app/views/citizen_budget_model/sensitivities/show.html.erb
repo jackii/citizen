@@ -9,3 +9,26 @@
 </ol>
 <% end %>
 
+<% if @sensitivity.variables.any? %>
+<h2><%= _('Variables') %></h2>
+
+<ul class="list-unstyled index sortable">
+<% @sensitivity.variables.each do |variable| %>
+  <li id="<%= dom_id(variable) %>">
+    <span class="glyphicon glyphicon-resize-vertical"></span>
+    <%= link_to variable.name, [@sensitivity, variable] %>
+    <span class="actions">
+      <%= link_to [:edit, @sensitivity, variable] do %>
+        <span class="glyphicon glyphicon-pencil"></span> <%= _('Edit') %>
+      <% end %>
+    </span>
+  </li>
+<% end %>
+</ul>
+<% end %>
+
+<p>
+  <%= link_to(new_sensitivity_variable_path(@sensitivity), class: 'btn btn-primary') do %>
+    <span class="glyphicon glyphicon-plus"></span> <%= _('Add a variable') %>
+  <% end %>
+</p>

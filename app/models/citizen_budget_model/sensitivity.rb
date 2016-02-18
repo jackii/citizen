@@ -4,7 +4,7 @@ module CitizenBudgetModel
     globalize_accessors
 
     belongs_to :organization
-    #has_many :sections, -> { order(:position) }, dependent: :destroy
+    has_many :variables, -> { order(:position) }, dependent: :destroy
 
     validates_presence_of :organization_id
     validates :name, 'citizen_budget_model/locale' => true
