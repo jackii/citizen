@@ -5,5 +5,7 @@ module CitizenBudgetModel
     globalize_accessors
 
     belongs_to :sensitivity_section
+    has_many :impact_variables, -> { order(:year) }, dependent: :destroy
+    accepts_nested_attributes_for :impact_variables
   end
 end

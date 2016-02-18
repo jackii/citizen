@@ -26,12 +26,23 @@
   <div class="panel-body">
     <%= render partial: 'citizen_budget_model/shared/translated_field', locals: {record: @impact, attribute: :name} %>
     <%= render partial: 'citizen_budget_model/shared/field', locals: {record: @impact, attribute: :machine_name} %>
-    <%= render partial: 'citizen_budget_model/shared/field', locals: {record: @impact, attribute: :year_1_coefficient} %>
-    <%= render partial: 'citizen_budget_model/shared/field', locals: {record: @impact, attribute: :year_1_value, formatter: currency_formatter} %>
-    <%= render partial: 'citizen_budget_model/shared/field', locals: {record: @impact, attribute: :year_2_coefficient} %>
-    <%= render partial: 'citizen_budget_model/shared/field', locals: {record: @impact, attribute: :year_2_value, formatter: currency_formatter} %>
-    <%= render partial: 'citizen_budget_model/shared/field', locals: {record: @impact, attribute: :year_5_coefficient} %>
-    <%= render partial: 'citizen_budget_model/shared/field', locals: {record: @impact, attribute: :year_5_value, formatter: currency_formatter} %>
+  </div>
+  <div class="panel-body">
+    <% year = '' %>
+    <% @impact.impact_variables.each do |variable| %>
+      <%= year != variable.year ? "<legend>#{variable.year}</legend>".html_safe : '' %>
+      <% year = variable.year %>
+
+      <i><%= variable.variable.name %></i>
+      <div class="row">
+        <div class="col-lg-4">
+          <%= render partial: 'citizen_budget_model/shared/field', locals: {record: variable, attribute: :coefficient} %>
+        </div>
+        <div class="col-lg-8">
+        <%= render partial: 'citizen_budget_model/shared/field', locals: {record: variable, attribute: :prepopulated_result} %>
+        </div>
+      </div>
+    <% end %>
   </div>
 </div>
 <% end %>

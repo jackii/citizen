@@ -3,17 +3,28 @@
 
   <div class="panel panel-primary">
     <div class="panel-heading panel-title">
-      <%= _('Economy Measures') %>
+      <%= _('Impact') %>
     </div>
     <div class="panel-body">
       <%= f.translated_text_field :name %>
       <%= f.text_field :machine_name %>
-      <%= f.number_field :year_1_coefficient, step: 'any' %>
-      <%= f.number_field :year_1_value, step: 'any' %>
-      <%= f.number_field :year_2_coefficient, step: 'any' %>
-      <%= f.number_field :year_2_value, step: 'any' %>
-      <%= f.number_field :year_5_coefficient, step: 'any' %>
-      <%= f.number_field :year_5_value, step: 'any' %>
+      <% year = '' %>
+      <%= f.fields_for :impact_variables do |f2| %>
+        <%= year != f2.object.year ? "<legend>#{f2.object.year}</legend>".html_safe : '' %>
+        <% year = f2.object.year %>
+        <%= f2.hidden_field :year %>
+        <%= f2.hidden_field :variable_id %>
+        <i><%= f2.object.variable.name unless f2.object.variable.blank?%></i>
+        <div class="row">
+          <div class="col-lg-6">
+            <%= f2.number_field :coefficient, step: 'any' %>
+          </div>
+          <div class="col-lg-6">
+            <%= f2.number_field :prepopulated_result, step: 'any' %>
+          </div>
+        </div>
+      <% end %>
+
     </div>
   </div>
 

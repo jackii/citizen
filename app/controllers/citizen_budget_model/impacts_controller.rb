@@ -10,6 +10,12 @@ module CitizenBudgetModel
 
     def new
       @impact = collection.new
+      @variables = @sensitivity.variables
+      ['Year 1', 'Year 2', 'Year 5'].each do |year|
+        @variables.each do |variable|
+          @impact.impact_variables.build(variable: variable, year: year)
+        end
+      end
     end
 
     def edit
@@ -57,7 +63,7 @@ module CitizenBudgetModel
     end
 
     def impact_params
-      attribute_names = EconomicMeasure.globalize_attribute_names + [:machine_name, :year_1_value, :year_2_value, :year_5_value, :year_1_coefficient, :year_2_coefficient, :year_5_coefficient]
+      attribute_names = EconomicMeasure.globalize_attribute_names + [:machine_name, :impact_variables_attributes => [ :id, :year, :variable_id, :impact_id, :coefficient, :prepopulated_result ]]
       params.require(:impact).permit(*attribute_names)
     end
   end
