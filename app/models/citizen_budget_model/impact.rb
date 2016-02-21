@@ -7,5 +7,17 @@ module CitizenBudgetModel
     belongs_to :sensitivity_section
     has_many :impact_variables, -> { order(:year) }, dependent: :destroy
     accepts_nested_attributes_for :impact_variables
+
+    def year_1
+      impact_variables.where(:year => 'Year 1')
+    end
+
+    def year_2
+      impact_variables.where(:year => 'Year 2')
+    end
+
+    def year_5
+      impact_variables.where(:year => 'Year 5')
+    end
   end
 end
