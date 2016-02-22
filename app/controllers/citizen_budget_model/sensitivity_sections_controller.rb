@@ -56,7 +56,7 @@ module CitizenBudgetModel
     end
 
     def sensitivity_section_params
-      attribute_names = SensitivitySection.globalize_attribute_names + [:html_class]
+      attribute_names = SensitivitySection.globalize_attribute_names + [:is_expenses]
       params.require(:sensitivity_section).permit(*attribute_names)
     end
   end
