@@ -60,7 +60,7 @@ module CitizenBudgetModel
     end
 
     def policy_table_params
-      attribute_names = PolicyTable.globalize_attribute_names + [:growth_forecast, :employment_coeffiecient, :simulator_id]
+      attribute_names = PolicyTable.globalize_attribute_names + [:growth_forecast, :employment_coefficient, :simulator_id]
       if admin?
         attribute_names << :organization_id
       end
