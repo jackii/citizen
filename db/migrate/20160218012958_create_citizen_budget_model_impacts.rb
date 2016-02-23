@@ -4,12 +4,6 @@ class CreateCitizenBudgetModelImpacts < ActiveRecord::Migration
       t.references :sensitivity_section, index: true
       t.string :machine_name
       t.integer :position
-      #t.decimal :year_1_coefficient
-      #t.integer :year_1_value
-      #t.decimal :year_2_coefficient
-      #t.integer :year_2_value
-      #t.decimal :year_5_coefficient
-      #t.integer :year_5_value
 
       t.timestamps
     end
