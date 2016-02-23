@@ -96,7 +96,7 @@ module CitizenBudgetModel
     def check_box(method, options = {}, checked_value = '1', unchecked_value = '0')
       return unless @template.visible?(object, method)
 
-      content = @template.content_tag(:label, super(method, options, checked_value, unchecked_value) + ' ' + object.class.human_attribute_name(method))
+      content = @template.content_tag(:label, super(method, options, checked_value, unchecked_value) + '  ' + (options[:label] || object.class.human_attribute_name(method)))
 
       @template.content_tag(:div, content, class: 'checkbox')
     end

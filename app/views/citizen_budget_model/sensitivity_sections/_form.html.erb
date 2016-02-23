@@ -1,7 +1,7 @@
 <%= form_for([@sensitivity, @sensitivity_section], html: {role: 'form'}, builder: CitizenBudgetModel::CitizenBudgetFormBuilder) do |f| %>
   <%= f.errors %>
   <%= f.translated_text_field :name %>
-  <%= f.check_box :is_expenses %>
+  <%= f.check_box :is_expenses, label: "This is an expense section" %>
   <br/>
   <% f.buttons(context: [@sensitivity, @sensitivity_section]) %>
 <% end %>
