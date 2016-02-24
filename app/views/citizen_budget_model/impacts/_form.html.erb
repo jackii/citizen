@@ -14,13 +14,12 @@
         <% year = f2.object.year %>
         <%= f2.hidden_field :year %>
         <%= f2.hidden_field :variable_id %>
-        <i><%= f2.object.variable.name unless f2.object.variable.blank?%></i>
-        <div class="row">
+        <div class="col-lg-12">
           <div class="col-lg-6">
-            <%= f2.number_field :coefficient, step: 'any' %>
+            <%= f2.number_field :coefficient, label: (f2.object.variable.name + ' coefficient') %>
           </div>
           <div class="col-lg-6">
-            <%= f2.number_field :prepopulated_result, step: 'any' %>
+            <%= f2.number_field :prepopulated_result, label: (f2.object.variable.name + ' pre-populated result') %>
           </div>
         </div>
       <% end %>
