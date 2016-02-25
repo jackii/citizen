@@ -13,6 +13,7 @@ CitizenBudgetModel::Engine.routes.draw do
 
   resources :policy_tables do
     member do
+      post :sort
       post :activate
     end
 

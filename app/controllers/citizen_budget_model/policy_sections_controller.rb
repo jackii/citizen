@@ -38,7 +38,7 @@ module CitizenBudgetModel
     end
 
     def sort
-      super(@policy_section.questions)
+      super(@policy_section.economic_measures)
     end
 
   private

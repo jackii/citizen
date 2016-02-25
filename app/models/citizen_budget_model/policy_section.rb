@@ -5,7 +5,7 @@ module CitizenBudgetModel
     globalize_accessors
 
     belongs_to :policy_table
-    has_many :economic_measures
+    has_many :economic_measures, -> { order(:position) }, dependent: :destroy
 
     validates_presence_of :policy_table_id
   end

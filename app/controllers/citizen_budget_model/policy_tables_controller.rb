@@ -46,7 +46,7 @@ module CitizenBudgetModel
     end
 
     def sort
-      super(@policy_table.sections)
+      super(@policy_table.policy_sections)
     end
 
   private
