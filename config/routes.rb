@@ -26,11 +26,12 @@ CitizenBudgetModel::Engine.routes.draw do
   end
 
   resources :sensitivities do
-    resources :variables, except: [:index] do
-      member do
-        post :sort
-      end
+    member do
+      post :sort
+      post :sort_variable
     end
+
+    resources :variables, except: [:index]
 
     resources :sensitivity_sections, except: [:index] do
       member do

@@ -38,7 +38,7 @@ module CitizenBudgetModel
     end
 
     def sort
-      super(@sensitivity_section.questions)
+      super(@sensitivity_section.impacts)
     end
 
   private

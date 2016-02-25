@@ -12,7 +12,7 @@
 <h2><%= _('Variables') %></h2>
 <% if @sensitivity.variables.any? %>
 
-<ul class="list-unstyled index sortable">
+<ul class="list-unstyled index sortable" data-sort-url="<%= sort_variable_sensitivity_path%>">
 <% @sensitivity.variables.each do |variable| %>
   <li id="<%= dom_id(variable) %>">
     <span class="glyphicon glyphicon-resize-vertical"></span>
@@ -37,7 +37,7 @@
 <h2><%= _('Sections') %></h2>
 <% if @sensitivity.sensitivity_sections.any? %>
 
-<ul class="list-unstyled index sortable">
+  <ul class="list-unstyled index sortable">
 <% @sensitivity.sensitivity_sections.each do |section| %>
   <li id="<%= dom_id(section) %>">
     <span class="glyphicon glyphicon-resize-vertical"></span>

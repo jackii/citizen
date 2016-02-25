@@ -5,7 +5,7 @@ module CitizenBudgetModel
     globalize_accessors
 
     belongs_to :sensitivity
-    has_many :impacts
+    has_many :impacts, -> { order(:position) }, dependent: :destroy
 
     validates_presence_of :sensitivity_id
 

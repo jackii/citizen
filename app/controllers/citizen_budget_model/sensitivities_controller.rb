@@ -40,6 +40,14 @@ module CitizenBudgetModel
       redirect_to sensitivities_path, notice: _('Sensitivity was deleted.')
     end
 
+    def sort
+      super(@sensitivity.sensitivity_sections)
+    end
+
+    def sort_variable
+      super(@sensitivity.variables)
+    end
+
   private
 
     def collection
