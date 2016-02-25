@@ -8,5 +8,6 @@ module CitizenBudgetModel
     has_many :economic_measures, -> { order(:position) }, dependent: :destroy
 
     validates_presence_of :policy_table_id
+    validates :name, 'citizen_budget_model/locale' => true
   end
 end

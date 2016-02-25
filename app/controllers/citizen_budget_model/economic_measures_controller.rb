@@ -57,7 +57,7 @@ module CitizenBudgetModel
     end
 
     def economic_measure_params
-      attribute_names = EconomicMeasure.globalize_attribute_names + [:machine_name, :default_value, :year_1_value, :year_2_value, :minimum, :maximum, :step, :question_id]
+      attribute_names = EconomicMeasure.globalize_attribute_names + [:machine_name, :year_1_value, :year_2_value :question_id]
       params.require(:economic_measure).permit(*attribute_names)
     end
   end
