@@ -1,4 +1,3 @@
-<%= form_for([@simulator, @section, @question], html: {role: 'form'}, builder: CitizenBudgetModel::CitizenBudgetFormBuilder) do |f| %>
   <%= f.errors %>
 
   <div class="panel panel-primary">
@@ -74,5 +73,3 @@
   <% end %>
   </div>
 
-  <% f.buttons(context: [@simulator, @section, @question]) %>
-<% end %>

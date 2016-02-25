@@ -1,18 +1,22 @@
 <% content_for :breadcrumb do %>
 <ol class="breadcrumb">
-  <li><%= link_to _('Simulators'), simulators_path %></li>
-  <li><%= link_to @simulator.name, @simulator %></li>
-  <li><%= link_to @section.display_name, [@simulator, @section] %></li>
+  <% unless @simulator.blank? or @section.blank? %>
+    <li><%= link_to _('Simulators'), simulators_path %></li>
+    <li><%= link_to @simulator.name, @simulator unless @simulator.blank? %></li>
+    <li><%= link_to @section.display_name, [@simulator, @section] unless @section.blank? %></li>
+  <% else %>
+    <li><%= link_to _('Questions'), questions_path %></li>
+  <% end %>
   <li class="active"><%= @question.display_name %>
     <%= link_to [:edit, @simulator, @section, @question], class: 'btn btn-default btn-xs', title: _('Edit') do %>
       <span class="glyphicon glyphicon-pencil"></span>
     <% end %>
     <%= link_to new_simulator_section_question_path(@simulator, @section), class: 'btn btn-default btn-xs' do %>
       <span class="glyphicon glyphicon-plus"></span> <%= _('Add a question') %>
-    <% end %>
+    <% end unless @section.blank? %>
     <%= link_to new_simulator_section_path(@simulator), class: 'btn btn-default btn-xs' do %>
       <span class="glyphicon glyphicon-plus"></span> <%= _('Add a section') %>
-    <% end %>
+    <% end unless @simulator.blank? %>
   </li>
 </ol>
 <% end %>

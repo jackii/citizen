@@ -10,7 +10,7 @@
       <%= f.text_field :machine_name %>
       <%= f.number_field :year_1_value, step: 'any' %>
       <%= f.number_field :year_2_value, step: 'any' %>
-      <%= f.select :question_id, CitizenBudgetModel::Question.order("section_id ASC").collect {|q| [ "#{q.section.title} - #{q.name}", q.id ] } %>
+      <%= f.select :question_id, CitizenBudgetModel::Question.order("section_id ASC").collect {|q| [ "#{q.section.title unless q.section.blank?} - #{q.name}", q.id ] } %>
     </div>
   </div>
 

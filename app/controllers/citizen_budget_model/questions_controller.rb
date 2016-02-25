@@ -5,21 +5,37 @@ module CitizenBudgetModel
     before_action :set_section
     before_action :set_question, only: [:show, :edit, :update, :destroy]
 
+    def index
+      @questions = Question.where("section_id IS NULL")
+    end
+
     def show
     end
 
     def new
-      @question = collection.new
+      if params[:section_id].present?
+        @question = collection.new
+      else
+        @question = Question.new
+      end
     end
 
     def edit
     end
 
     def create
-      @question = collection.new(question_params)
+      if params[:section_id].present?
+        @question = collection.new(question_params)
+      else
+        @question = Question.new(question_params)
+      end
 
       if @question.save
-        redirect_to [@simulator, @section, @question], notice: _('Question was created.')
+        if params[:section_id].present?
+          redirect_to [@simulator, @section, @question], notice: _('Question was created.')
+        else
+          redirect_to @question, notice: _('Question was created.')
+        end
       else
         render :new
       end
@@ -27,7 +43,11 @@ module CitizenBudgetModel
 
     def update
       if @question.update(question_params)
-        redirect_to [@simulator, @section, @question], notice: _('Question was updated.')
+        if params[:section_id].present?
+          redirect_to [@simulator, @section, @question], notice: _('Question was updated.')
+        else
+          redirect_to @question, notice: _('Question was updated.')
+        end
       else
         render :edit
       end
@@ -35,7 +55,11 @@ module CitizenBudgetModel
 
     def destroy
       @question.destroy
-      redirect_to [@simulator, @section], notice: _('Question was deleted.')
+      if params[:section_id].present?
+        redirect_to [@simulator, @section], notice: _('Question was deleted.')
+      else
+        redirect_to questions_path
+      end
     end
 
   private
@@ -45,15 +69,19 @@ module CitizenBudgetModel
     end
 
     def set_simulator
-      @simulator = simulators.find(params[:simulator_id])
+      @simulator = simulators.find(params[:simulator_id]) unless params[:simulator_id].blank?
     end
 
     def set_section
-      @section = @simulator.sections.find(params[:section_id])
+      @section = @simulator.sections.find(params[:section_id]) unless params[:section_id].blank?
     end
 
     def set_question
-      @question = collection.find(params[:id])
+      if params[:section_id].present?
+        @question = collection.find(params[:id]) 
+      else
+        @question = Question.find(params[:id]) 
+      end
     end
 
     def question_params

@@ -56,6 +56,8 @@ CitizenBudgetModel::Engine.routes.draw do
     end
   end
 
+  resources :questions
+
   namespace :citizen_budget_model do
     get 'pages/home'
   end
