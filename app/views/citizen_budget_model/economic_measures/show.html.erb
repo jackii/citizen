@@ -17,7 +17,7 @@
 </ol>
 <% end %>
 
-<% if @economic_measure.any_of?(:name, :machine_name, :default_value, :unit_value_down, :unit_value_up, :account) %>
+<% if @economic_measure.any_of?(:name, :machine_name, :unit_value_down, :unit_value_up, :account) %>
 <div class="panel panel-primary">
   <div class="panel-heading panel-title">
     <%= _('Economic Measures') %>
@@ -41,10 +41,6 @@
   </div>
   <div class="panel-body">
     <%= render partial: 'citizen_budget_model/shared/translated_field', locals: {record: @economic_measure, attribute: :unit_name} %>
-    <%= render partial: 'citizen_budget_model/shared/field', locals: {record: @economic_measure, attribute: :default_value, formatter: value_formatter(@economic_measure)} %>
-    <%= render partial: 'citizen_budget_model/shared/field', locals: {record: @economic_measure, attribute: :minimum, formatter: value_formatter(@economic_measure)} %>
-    <%= render partial: 'citizen_budget_model/shared/field', locals: {record: @economic_measure, attribute: :maximum, formatter: value_formatter(@economic_measure)} %>
-    <%= render partial: 'citizen_budget_model/shared/field', locals: {record: @economic_measure, attribute: :step, formatter: value_formatter(@economic_measure)} %>
   </div>
 </div-->
 
