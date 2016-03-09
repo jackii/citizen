@@ -33,15 +33,10 @@
       <%= year != variable.year ? "<legend>#{variable.year}</legend>".html_safe : '' %>
       <% year = variable.year %>
 
-      <i><%= variable.variable.name %></i>
-      <div class="row">
-        <div class="col-lg-4">
-          <%= render partial: 'citizen_budget_model/shared/field', locals: {record: variable, attribute: :coefficient} %>
-        </div>
-        <div class="col-lg-8">
+      <div style="padding-bottom: 6px"><u><%= variable.variable.name %></u></div>
+      
+        <%= render partial: 'citizen_budget_model/shared/field', locals: {record: variable, attribute: :coefficient} %>
         <%= render partial: 'citizen_budget_model/shared/field', locals: {record: variable, attribute: :prepopulated_result} %>
-        </div>
-      </div>
     <% end %>
   </div>
 </div>
