@@ -56,7 +56,7 @@ module CitizenBudgetModel
     end
 
     def policy_section_params
-      attribute_names = PolicySection.globalize_attribute_names + [:html_class]
+      attribute_names = PolicySection.globalize_attribute_names
       params.require(:policy_section).permit(*attribute_names)
     end
   end

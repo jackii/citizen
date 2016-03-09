@@ -11,6 +11,7 @@
 <% end %>
 
 <%= render partial: 'citizen_budget_model/shared/translated_field', locals: {record: @policy_section, attribute: :name} %>
+<%= render partial: 'citizen_budget_model/shared/translated_field', locals: {record: @policy_section, attribute: :popover} %>
 
 <% if @policy_section.economic_measures.any? %>
 <h2><%= _('Economic Measures') %></h2>
