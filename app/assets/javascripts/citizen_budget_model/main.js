@@ -6,9 +6,15 @@ jQuery(function ($) {
   , handle: 'span.glyphicon-resize-vertical'
   , update: function (event) {
       var $target = $(event.target);
+      var url;
+      if($(this).data('sort_url') !== undefined) {
+        url = $(this).data('sort_url');
+      } else {
+        url = location.href.split('?')[0].split('#')[0] + '/sort'
+      }
       $.ajax({
         type: 'POST'
-      , url: location.href.split('?')[0].split('#')[0] + '/sort'
+      , url: url
       , data: $target.sortable('serialize')
       }).done(function () {
         $target.effect('highlight');

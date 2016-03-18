@@ -1,0 +1,8 @@
+<%= form_for(@sensitivity, html: {role: 'form'}, builder: CitizenBudgetModel::CitizenBudgetFormBuilder) do |f| %>
+  <%= f.errors %>
+  <%= f.translated_text_field :name %>
+<% if admin? %>
+  <%= f.select :organization_id, CitizenBudgetModel::Organization.all.map{|o| [o.name, o.id]}, include_blank: true %>
+<% end %>
+  <% f.buttons %>
+<% end %>

@@ -8,7 +8,7 @@ module CitizenBudgetModel
       elsif question.unit_name == '$'
         currency_formatter(options)
       else
-        precision_formatter(options)
+        precision_formatter(options.merge(:unit => question.unit_name))
       end
     end
 
@@ -26,7 +26,7 @@ module CitizenBudgetModel
 
     def precision_formatter(options = {})
       lambda{|v|
-        number_with_precision(v, {strip_insignificant_zeros: true}.merge(options))
+        number_with_precision(v, {strip_insignificant_zeros: true}.merge(options)) + options[:unit] + ' '
       }
     end
 

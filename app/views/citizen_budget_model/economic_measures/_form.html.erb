@@ -1,0 +1,28 @@
+<%= form_for([@policy_table, @policy_section, @economic_measure], html: {role: 'form'}, builder: CitizenBudgetModel::CitizenBudgetFormBuilder) do |f| %>
+  <%= f.errors %>
+
+  <div class="panel panel-primary">
+    <div class="panel-heading panel-title">
+      <%= _('Economy Measures') %>
+    </div>
+    <div class="panel-body">
+      <%= f.translated_text_field :name %>
+      <%= f.text_field :machine_name %>
+      <%= f.number_field :year_1_value, step: 'any' %>
+      <%= f.number_field :year_2_value, step: 'any' %>
+      <%= f.select :question_id, CitizenBudgetModel::Question.order("section_id ASC").collect {|q| [ "#{q.section.title unless q.section.blank?} - #{q.name}", q.id ] } %>
+    </div>
+  </div>
+
+  <!--div class="panel panel-primary">
+    <div class="panel-heading panel-title">
+      <%= _('Widget') %>
+    </div>
+    <div class="panel-body">
+      <%= f.translated_text_field :unit_name %>
+    </div>
+  </div-->
+
+  <% f.buttons(context: [@policy_table, @policy_section, @economic_measure]) %>
+<% end %>
+

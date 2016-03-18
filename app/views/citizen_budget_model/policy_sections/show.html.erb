@@ -1,0 +1,39 @@
+<% content_for :breadcrumb do %>
+<ol class="breadcrumb">
+  <li><%= link_to _('Policy Tables'), policy_tables_path %></li>
+  <li><%= link_to @policy_table.name, @policy_table %></li>
+  <li class="active"><%= @policy_section.name %>
+    <%= link_to [:edit, @policy_table, @policy_section], class: 'btn btn-default btn-xs', title: _('Edit') do %>
+      <span class="glyphicon glyphicon-pencil"></span>
+    <% end %>
+  </li>
+</ol>
+<% end %>
+
+<%= render partial: 'citizen_budget_model/shared/translated_field', locals: {record: @policy_section, attribute: :name} %>
+<%= render partial: 'citizen_budget_model/shared/translated_field', locals: {record: @policy_section, attribute: :popover} %>
+
+<% if @policy_section.economic_measures.any? %>
+<h2><%= _('Economic Measures') %></h2>
+
+<ul class="list-unstyled index sortable">
+<% @policy_section.economic_measures.each do |measure| %>
+  <li id="<%= dom_id(measure) %>">
+    <span class="glyphicon glyphicon-resize-vertical"></span>
+    <%= link_to measure.name, [@policy_table, @policy_section, measure] %>
+    <span class="actions">
+      <%= link_to [:edit, @policy_table, @policy_section, measure] do %>
+        <span class="glyphicon glyphicon-pencil"></span> <%= _('Edit') %>
+      <% end %>
+    </span>
+  </li>
+<% end %>
+</ul>
+<% end %>
+
+<p>
+  <%= link_to(new_policy_table_policy_section_economic_measure_path(@policy_table, @policy_section), class: 'btn btn-primary') do %>
+    <span class="glyphicon glyphicon-plus"></span> <%= _('Add a measure') %>
+  <% end %>
+</p>
+

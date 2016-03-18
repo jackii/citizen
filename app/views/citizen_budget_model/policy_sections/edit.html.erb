@@ -1,0 +1,11 @@
+<% content_for :breadcrumb do %>
+<ol class="breadcrumb">
+  <li><%= link_to _('Policy Tables'), policy_tables_path %></li>
+  <li><%= link_to @policy_table.name, @policy_table %></li>
+  <li><%= link_to @policy_section.name, [@policy_table, @policy_section] %></li>
+  <li class="active"><%= _('Edit') %></li>
+</ol>
+<% end %>
+
+<%= render 'form' %>
+

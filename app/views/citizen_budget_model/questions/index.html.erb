@@ -1,0 +1,26 @@
+<% content_for :breadcrumb do %>
+<ol class="breadcrumb">
+  <li class="active"><%= link_to _('Questions'), questions_path %></li>
+</ol>
+<% end %>
+
+<ul class="list-unstyled index">
+<% @questions.each do |question| %>
+  <li id="<%= dom_id(question) %>">
+    <%= link_to question.display_name, [@simulator, @section, question] %>
+    <span class="actions">
+      <%= link_to [:edit, @simulator, @section, question] do %>
+        <span class="glyphicon glyphicon-pencil"></span> <%= _('Edit') %>
+      <% end %>
+    </span>
+  </li>
+<% end %>
+</ul>
+
+<p>
+  <%= link_to(new_question_path, class: 'btn btn-primary') do %>
+    <span class="glyphicon glyphicon-plus"></span> <%= _('Add a question') %>
+  <% end %>
+</p>
+
+

@@ -1,0 +1,60 @@
+<% content_for :breadcrumb do %>
+<ol class="breadcrumb">
+  <li><%= link_to _('Sensitivity Tables'), sensitivities_path %></li>
+  <li class="active"><%= @sensitivity.name %>
+    <%= link_to [:edit, @sensitivity], class: 'btn btn-default btn-xs', title: _('Edit') do %>
+      <span class="glyphicon glyphicon-pencil"></span>
+    <% end %>
+  </li>
+</ol>
+<% end %>
+
+<h2><%= _('Variables') %></h2>
+<% if @sensitivity.variables.any? %>
+
+<ul class="list-unstyled index sortable" data-sort-url="<%= sort_variable_sensitivity_path%>">
+<% @sensitivity.variables.each do |variable| %>
+  <li id="<%= dom_id(variable) %>">
+    <span class="glyphicon glyphicon-resize-vertical"></span>
+    <%= link_to variable.name, [@sensitivity, variable] %>
+    <span class="actions">
+      <%= link_to [:edit, @sensitivity, variable] do %>
+        <span class="glyphicon glyphicon-pencil"></span> <%= _('Edit') %>
+      <% end %>
+    </span>
+  </li>
+<% end %>
+</ul>
+<% end %>
+
+<p>
+  <%= link_to(new_sensitivity_variable_path(@sensitivity), class: 'btn btn-primary') do %>
+    <span class="glyphicon glyphicon-plus"></span> <%= _('Add a variable') %>
+  <% end %>
+</p>
+
+
+<h2><%= _('Sections') %></h2>
+<% if @sensitivity.sensitivity_sections.any? %>
+
+  <ul class="list-unstyled index sortable">
+<% @sensitivity.sensitivity_sections.each do |section| %>
+  <li id="<%= dom_id(section) %>">
+    <span class="glyphicon glyphicon-resize-vertical"></span>
+    <%= link_to section.name, [@sensitivity, section] %>
+    <span class="actions">
+      <%= link_to [:edit, @sensitivity, section] do %>
+        <span class="glyphicon glyphicon-pencil"></span> <%= _('Edit') %>
+      <% end %>
+    </span>
+  </li>
+<% end %>
+</ul>
+<% end %>
+
+<p>
+  <%= link_to(new_sensitivity_sensitivity_section_path(@sensitivity), class: 'btn btn-primary') do %>
+    <span class="glyphicon glyphicon-plus"></span> <%= _('Add a section') %>
+  <% end %>
+</p>
+

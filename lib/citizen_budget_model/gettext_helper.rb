@@ -23,11 +23,11 @@ module CitizenBudgetModel
       end
 
       # Add other model names and attribute names.
-      %w(Organization Simulator Section Question).each do |constant|
+      %w(Organization Simulator Section Question PolicyTable PolicySection EconomicMeasure Sensitivity Variable SensitivitySection Impact ImpactVariable).each do |constant|
         klass = CitizenBudgetModel.const_get(constant)
 
         keys << klass.model_name.human
-        (klass.attribute_names + klass.translated_attribute_names - %w(id position deleted_at created_at updated_at)).each do |attribute_name|
+        (klass.attribute_names + ((defined? klass.translated_attribute_names)? klass.translated_attribute_names : []) - %w(id position deleted_at created_at updated_at)).each do |attribute_name|
           keys << klass.human_attribute_name(attribute_name)
         end
       end

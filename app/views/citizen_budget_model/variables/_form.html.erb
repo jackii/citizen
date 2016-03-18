@@ -1,0 +1,30 @@
+<%= form_for([@sensitivity, @variable], html: {role: 'form'}, builder: CitizenBudgetModel::CitizenBudgetFormBuilder) do |f| %>
+  <%= f.errors %>
+
+  <div class="panel panel-primary">
+    <div class="panel-heading panel-title">
+      <%= _('Economy Measures') %>
+    </div>
+    <div class="panel-body">
+      <%= f.translated_text_field :name %>
+      <%= f.text_field :machine_name %>
+    </div>
+  </div>
+
+  <div class="panel panel-primary">
+    <div class="panel-heading panel-title">
+      <%= _('Widget') %>
+    </div>
+    <div class="panel-body">
+      <%= f.translated_text_field :unit_name, readonly: true, value: '%' %>
+      <%= f.number_field :default_value, step: 'any' %>
+      <%= f.number_field :minimum, step: 'any' %>
+      <%= f.number_field :maximum, step: 'any' %>
+      <%= f.number_field :step, step: 'any', min: 0 %>
+      <%= f.number_field :pbo_assumption, step: 'any', label:"PBO Assumption" %>
+    </div>
+  </div>
+
+  <% f.buttons(context: [@sensitivity, @variable]) %>
+<% end %>
+
