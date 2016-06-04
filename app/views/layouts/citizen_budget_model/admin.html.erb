@@ -13,6 +13,30 @@
 <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
 <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.1/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
+<%= javascript_include_tag 'citizen_budget_model/application' %>
+<!-- ruleJS -->
+<link rel="stylesheet" media="screen" href="https://handsontable.github.io/handsontable-ruleJS/lib/handsontable/handsontable.formula.css">
+
+<script data-jsfiddle="common" src="https://handsontable.github.io/handsontable-ruleJS/lib/RuleJS/lib/lodash/lodash.js"></script>
+<script data-jsfiddle="common" src="https://handsontable.github.io/handsontable-ruleJS/lib/RuleJS/lib/underscore.string/underscore.string.js"></script>
+<script data-jsfiddle="common" src="https://handsontable.github.io/handsontable-ruleJS/lib/RuleJS/lib/moment/moment.js"></script>
+<script data-jsfiddle="common" src="https://handsontable.github.io/handsontable-ruleJS/lib/RuleJS/lib/numeral/numeral.js"></script>
+<script data-jsfiddle="common" src="https://handsontable.github.io/handsontable-ruleJS/lib/RuleJS/lib/numericjs/numeric.js"></script>
+<script data-jsfiddle="common" src="https://handsontable.github.io/handsontable-ruleJS/lib/RuleJS/lib/js-md5/md5.js"></script>
+<script data-jsfiddle="common" src="https://handsontable.github.io/handsontable-ruleJS/lib/RuleJS/lib/jstat/jstat.js"></script>
+<script data-jsfiddle="common" src="https://handsontable.github.io/handsontable-ruleJS/lib/RuleJS/lib/formulajs/formula.js"></script>
+
+<script data-jsfiddle="common" src="https://handsontable.github.io/handsontable-ruleJS/lib/RuleJS/js/parser.js"></script>
+<script data-jsfiddle="common" src="https://handsontable.github.io/handsontable-ruleJS/lib/RuleJS/js/ruleJS.js"></script>
+
+<script data-jsfiddle="common" src="https://handsontable.github.io/handsontable-ruleJS/lib/handsontable/handsontable.formula.js"></script>
+
+
 </head>
 <body>
 
@@ -74,12 +98,5 @@
 
 <%= yield %>
 </div>
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.1/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
-<%= javascript_include_tag 'citizen_budget_model/application' %>
-
 </body>
 </html>

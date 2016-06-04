@@ -51,10 +51,59 @@
 <% end %>
 </ul>
 <% end %>
-
 <p>
   <%= link_to(new_sensitivity_sensitivity_section_path(@sensitivity), class: 'btn btn-primary') do %>
     <span class="glyphicon glyphicon-plus"></span> <%= _('Add a section') %>
   <% end %>
-</p>
+  </p>
+  <% @sections = Array.new %>
+  <% @sensitivity.sensitivity_sections.each do |s| %>
+    <% @sections << s.name %>
+    <% s.impacts.each do |impact| %>
+      <% @sections << impact.name %>
+    <% end %>
+    <% @sections << '' %>
+<% end %>
 
+
+<div id="hot"></div>
+<script>
+  var variables = <%= @sensitivity.variables.collect {|v| [v.name, v.pbo_assumption, v.default_value]}.to_json.html_safe ;%>
+  var sections = <%= @sections.to_json.html_safe ;%>
+  var sensitivity_data = [
+    ['PBO Economic Assumptions','','','','','Sensitivity Table','','','',''],
+    [],
+    ['Variables',	'PBO Assumption',	'User Input',	'',	'', 'Year 1',	'Year 2','Year 5']
+    ];
+  var table = document.getElementById('hot');
+  var hot = new Handsontable(table, {
+    data: sensitivity_data,
+    formulas: true,
+    rowHeaders: true,
+    colHeaders: true,
+    columns: [
+      { readOnly: true},
+      {},{},{},
+      { readOnly: true},
+      {},{},{},
+    ],
+    mergeCells: [
+      {row:0, col:0, colspan:5, rowspan: 1},
+      {row:0, col:5, colspan:5, rowspan: 1},
+    ]
+    });
+  $.each(variables, function(i,v){
+    if (v[0] != undefined) {
+      hot.setDataAtCell(i+4,0,v[0]);
+    }
+    if (v[1] != undefined) {
+      hot.setDataAtCell(i+4,1,v[1]);
+    }
+    if (v[2] != undefined) {
+      hot.setDataAtCell(i+4,2,v[2]);
+    }
+  });
+  $.each(sections, function(i,s){
+    hot.setDataAtCell(i+4,4,s);
+  });
+</script>

@@ -52,7 +52,7 @@ module CitizenBudgetModel
     end
 
     def variable_params
-      attribute_names = Variable.globalize_attribute_names + [:machine_name, :default_value, :pbo_assumption, :minimum, :maximum, :step, :question_id]
+      attribute_names = Variable.globalize_attribute_names + [:machine_name, :default_value, :pbo_assumption, :minimum, :maximum, :step, :question_id, :public_editable]
       params.require(:variable).permit(*attribute_names)
     end
   end

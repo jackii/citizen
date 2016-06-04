@@ -7,7 +7,7 @@ module CitizenBudgetModel
     belongs_to :sensitivity
 
     validates_presence_of :sensitivity_id
-    validates_uniqueness_of :machine_name, scope: :section_id, allow_blank: true
+    validates_uniqueness_of :machine_name, scope: :sensitivity_id, allow_blank: true
     validates_format_of :machine_name, with: /\A[a-z_][a-z_0-9]*\z/, allow_blank: true
     validates_numericality_of :default_value, :pbo_assumption, :minimum, :maximum, allow_blank: true
     validates_numericality_of :step, greater_than: 0, allow_blank: true
@@ -26,7 +26,6 @@ module CitizenBudgetModel
 
     validate :all_or_none_of_minimum_and_maximum_and_step_should_be_present
     validate :minimum_must_be_less_than_maximum
-    validate :default_value_must_be_an_option
 
     def all_or_none_of_minimum_and_maximum_and_step_should_be_present
       unless minimum.present? && maximum.present? && step.present? || minimum.blank? && maximum.blank? && step.blank?
@@ -43,15 +42,5 @@ module CitizenBudgetModel
         errors.add(:minimum, _('must be less than maximum'))
       end
     end
-
-    def default_value_must_be_an_option
-      if options.present? && default_value.present?
-        unless options.include?(default_value) || options.include?(default_value.to_f)
-          errors.add(:default_value, _('must be a valid option'))
-        end
-      end
-    end
-
-
   end
 end
