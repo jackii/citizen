@@ -74,11 +74,11 @@
   </p>
   <% @sections = Array.new %>
   <% @sensitivity.sensitivity_sections.each do |s| %>
-    <% @sections << s.name %>
+    <% @sections << {name: s.name, is_title: true} %>
     <% s.impacts.each do |impact| %>
-      <% @sections << impact.name %>
+      <% @sections << {name: impact.name, is_title: false} %>
     <% end %>
-    <% @sections << '' %>
+    <% @sections << {name:'', is_title: false} %>
 <% end %>
 
 
@@ -99,7 +99,7 @@
     rowHeaders: true,
     colHeaders: true,
     readOnly: true,
-
+    autoColumnSize: true,
     mergeCells: [
       {row:0, col:0, colspan:5, rowspan: 1},
       {row:0, col:5, colspan:5, rowspan: 1},
@@ -136,10 +136,45 @@
   });
 
   $.each(sections, function(i,s){
-    hot.setDataAtCell(i+4, 4, s);
-    hot.setCellMeta(i+4, 5, 'readOnly', false);
-    hot.setCellMeta(i+4, 6, 'readOnly', false);
-    hot.setCellMeta(i+4, 7, 'readOnly', false);
+    if(s != undefined) {
+    hot.setDataAtCell(i+4, 4, s.name);
+      if(!s.is_title) {
+        hot.setCellMeta(i+4, 5, 'readOnly', false);
+        hot.setCellMeta(i+4, 6, 'readOnly', false);
+        hot.setCellMeta(i+4, 7, 'readOnly', false);
+      } else {
+        hot.setDataAtRowProp(i+4, 'title', s.name);
+        hot.getCell(i+4, 4).style.fontWeight = 'bold';
+        hot.getCell(i+4, 4).style.color = 'black';
+      }
+    }
   });
 
+  function boldRenderer(instance, td, row, col, prop, value, cellProperties) {
+    Handsontable.renderers.TextRenderer.apply(this, arguments);
+    td.style.fontWeight = 'bold';
+    td.style.color = 'black';
+  }
+
+  function italicRenderer(instance, td, row, col, prop, value, cellProperties) {
+    Handsontable.renderers.TextRenderer.apply(this, arguments);
+    td.style.fontStyle = 'oblique';
+    td.style.color = 'black';
+  }
+  hot.updateSettings({
+    cells: function(row, col, prop) {
+      var cellProperties = {};
+      if (row === 0) {
+        cellProperties.renderer = boldRenderer; // uses function directly
+      }
+
+      if (row == 2) {
+        cellProperties.renderer = italicRenderer; // uses function directly
+      }
+      if(prop == 'title') {
+        console.log(prop);
+      }
+      return cellProperties;
+    }
+  });
 </script>
