@@ -9,11 +9,11 @@
 </ol>
 <% end %>
 
-<h2><%= _('Variables') %></h2>
+<h2><%= _('Publicly Editable Variables') %></h2>
 <% if @sensitivity.variables.any? %>
 
 <ul class="list-unstyled index sortable" data-sort-url="<%= sort_variable_sensitivity_path%>">
-<% @sensitivity.variables.each do |variable| %>
+<% @sensitivity.variables.where(public_editable: true).each do |variable| %>
   <li id="<%= dom_id(variable) %>">
     <span class="glyphicon glyphicon-resize-vertical"></span>
     <%= link_to variable.name, [@sensitivity, variable] %>
@@ -25,6 +25,22 @@
   </li>
 <% end %>
 </ul>
+
+<h2><%= _('Not Public Editable Variables') %></h2>
+<ul class="list-unstyled index sortable" data-sort-url="<%= sort_variable_sensitivity_path%>">
+<% @sensitivity.variables.where(public_editable: false).each do |variable| %>
+  <li id="<%= dom_id(variable) %>">
+    <span class="glyphicon glyphicon-resize-vertical"></span>
+    <%= link_to variable.name, [@sensitivity, variable] %>
+    <span class="actions">
+      <%= link_to [:edit, @sensitivity, variable] do %>
+        <span class="glyphicon glyphicon-pencil"></span> <%= _('Edit') %>
+      <% end %>
+    </span>
+  </li>
+<% end %>
+</ul>
+
 <% end %>
 
 <p>
@@ -68,7 +84,8 @@
 
 <div id="hot"></div>
 <script>
-  var variables = <%= @sensitivity.variables.collect {|v| [v.name, v.pbo_assumption, v.default_value]}.to_json.html_safe ;%>
+  var public_variables = <%= @sensitivity.variables.where(public_editable: true).collect {|v| [v.name, v.pbo_assumption, v.default_value]}.to_json.html_safe ;%>
+  var variables = <%= @sensitivity.variables.where(public_editable: false).collect {|v| [v.name, v.pbo_assumption, v.default_value]}.to_json.html_safe ;%>
   var sections = <%= @sections.to_json.html_safe ;%>
   var sensitivity_data = [
     ['PBO Economic Assumptions','','','','','Sensitivity Table','','','',''],
@@ -81,29 +98,48 @@
     formulas: true,
     rowHeaders: true,
     colHeaders: true,
-    columns: [
-      { readOnly: true},
-      {},{},{},
-      { readOnly: true},
-      {},{},{},
-    ],
+    readOnly: true,
+
     mergeCells: [
       {row:0, col:0, colspan:5, rowspan: 1},
       {row:0, col:5, colspan:5, rowspan: 1},
     ]
     });
-  $.each(variables, function(i,v){
+  var row;
+  $.each(public_variables, function(i,v){
     if (v[0] != undefined) {
-      hot.setDataAtCell(i+4,0,v[0]);
+      hot.setDataAtCell(i+4, 0, v[0]);
     }
     if (v[1] != undefined) {
-      hot.setDataAtCell(i+4,1,v[1]);
+      hot.setDataAtCell(i+4, 1, v[1]);
+      hot.setCellMeta(i+4, 1, 'readOnly', false);
     }
     if (v[2] != undefined) {
-      hot.setDataAtCell(i+4,2,v[2]);
+      hot.setDataAtCell(i+4, 2, v[2]);
+      hot.setCellMeta(i+4, 2, 'readOnly', false);
     }
+    row = i;
   });
+
+  hot.setDataAtCell(row + 6, 0, 'Not Publicly Editable');
+  row = row + 3;
+
+  $.each(variables, function(i,v){
+    if (v[0] != undefined) {
+      hot.setDataAtCell(row+4, 0, v[0]);
+    }
+    if (v[1] != undefined) {
+      hot.setDataAtCell(row+4, 1, v[1]);
+      hot.setCellMeta(row+4, 1, 'readOnly', false);
+    }
+    row = row + 1;
+  });
+
   $.each(sections, function(i,s){
-    hot.setDataAtCell(i+4,4,s);
+    hot.setDataAtCell(i+4, 4, s);
+    hot.setCellMeta(i+4, 5, 'readOnly', false);
+    hot.setCellMeta(i+4, 6, 'readOnly', false);
+    hot.setCellMeta(i+4, 7, 'readOnly', false);
   });
+
 </script>
