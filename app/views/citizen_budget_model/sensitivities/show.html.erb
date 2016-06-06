@@ -90,7 +90,7 @@
   var sensitivity_data = [
     ['PBO Economic Assumptions','','','','','Sensitivity Table','','','',''],
     [],
-    ['Variables',	'PBO Assumption',	'User Input',	'',	'', 'Year 1',	'Year 2','Year 5']
+    ['Variables',	'PBO Assumption  ',	'User Input  ',	'',	'', 'Year 1  ',	'Year 2  ','Year 5  ']
     ];
   var table = document.getElementById('hot');
   var hot = new Handsontable(table, {
@@ -121,9 +121,15 @@
     row = i;
   });
 
-  hot.setDataAtCell(row + 6, 0, 'Not Publicly Editable');
-  row = row + 3;
+  var bolds = [];
+  var italics = [];
 
+  hot.setDataAtCell(row + 6, 0, 'Not Publicly Editable');
+  hot.setDataAtCell(row + 6, 1, 'PBO Assumption');
+  italics.push({row: row+6, col: 0});
+  italics.push({row: row+6, col: 1});
+
+  row = row + 3;
   $.each(variables, function(i,v){
     if (v[0] != undefined) {
       hot.setDataAtCell(row+4, 0, v[0]);
@@ -135,21 +141,38 @@
     row = row + 1;
   });
 
+
   $.each(sections, function(i,s){
     if(s != undefined) {
-    hot.setDataAtCell(i+4, 4, s.name);
+      hot.setDataAtCell(i+4, 4, s.name);
       if(!s.is_title) {
         hot.setCellMeta(i+4, 5, 'readOnly', false);
         hot.setCellMeta(i+4, 6, 'readOnly', false);
         hot.setCellMeta(i+4, 7, 'readOnly', false);
       } else {
-        hot.setDataAtRowProp(i+4, 'title', s.name);
-        hot.getCell(i+4, 4).style.fontWeight = 'bold';
-        hot.getCell(i+4, 4).style.color = 'black';
+        bolds.push({row:i+4, col: 4});
       }
     }
   });
 
+  $.each(sensitivity_data[0], function(i,d) {
+    hot.getCell(0, i).style.fontWeight = 'bold';
+    hot.getCell(0, i).style.color = 'black';
+
+    hot.getCell(2, i).style.fontStyle = 'oblique';
+    hot.getCell(2, i).style.color = 'black';
+  });
+
+  $.each(bolds, function(i,d) {
+    hot.getCell(d.row, d.col).style.fontWeight = 'bold';
+    hot.getCell(d.row, d.col ).style.color = 'black';
+  });
+
+  $.each(italics, function(i,d) {
+    hot.getCell(d.row, d.col).style.fontStyle = 'oblique';
+    hot.getCell(d.row, d.col).style.color = 'black';
+  });
+/*
   function boldRenderer(instance, td, row, col, prop, value, cellProperties) {
     Handsontable.renderers.TextRenderer.apply(this, arguments);
     td.style.fontWeight = 'bold';
@@ -161,20 +184,5 @@
     td.style.fontStyle = 'oblique';
     td.style.color = 'black';
   }
-  hot.updateSettings({
-    cells: function(row, col, prop) {
-      var cellProperties = {};
-      if (row === 0) {
-        cellProperties.renderer = boldRenderer; // uses function directly
-      }
-
-      if (row == 2) {
-        cellProperties.renderer = italicRenderer; // uses function directly
-      }
-      if(prop == 'title') {
-        console.log(prop);
-      }
-      return cellProperties;
-    }
-  });
+*/
 </script>
