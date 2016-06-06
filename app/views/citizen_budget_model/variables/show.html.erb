@@ -35,17 +35,17 @@
   </div>
 </div>
 <% end %>
-
-<div class="panel panel-primary">
-  <div class="panel-heading panel-title">
-    <%= _('Widget') %>
+<% if @variable.public_editable %>
+  <div class="panel panel-primary">
+    <div class="panel-heading panel-title">
+      <%= _('Widget') %>
+    </div>
+    <div class="panel-body">
+      <%= render partial: 'citizen_budget_model/shared/translated_field', locals: {record: @variable, attribute: :unit_name} %>
+      <%= render partial: 'citizen_budget_model/shared/field', locals: {record: @variable, attribute: :default_value, formatter: value_formatter(@variable)} %>
+      <%= render partial: 'citizen_budget_model/shared/field', locals: {record: @variable, attribute: :minimum, formatter: value_formatter(@variable)} %>
+      <%= render partial: 'citizen_budget_model/shared/field', locals: {record: @variable, attribute: :maximum, formatter: value_formatter(@variable)} %>
+      <%= render partial: 'citizen_budget_model/shared/field', locals: {record: @variable, attribute: :step, formatter: value_formatter(@variable)} %>
+    </div>
   </div>
-  <div class="panel-body">
-    <%= render partial: 'citizen_budget_model/shared/translated_field', locals: {record: @variable, attribute: :unit_name} %>
-    <%= render partial: 'citizen_budget_model/shared/field', locals: {record: @variable, attribute: :default_value, formatter: value_formatter(@variable)} %>
-    <%= render partial: 'citizen_budget_model/shared/field', locals: {record: @variable, attribute: :minimum, formatter: value_formatter(@variable)} %>
-    <%= render partial: 'citizen_budget_model/shared/field', locals: {record: @variable, attribute: :maximum, formatter: value_formatter(@variable)} %>
-    <%= render partial: 'citizen_budget_model/shared/field', locals: {record: @variable, attribute: :step, formatter: value_formatter(@variable)} %>
-  </div>
-</div>
-
+<% end %>

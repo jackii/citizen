@@ -23,4 +23,13 @@ jQuery(function ($) {
   });
 
   $('.editable').editable({type: 'text'});
+
+  $("#variable_public_editable").on('change', function(e) {
+    if($(this).is(':checked')) {
+      $(".only-for-public-editable").show();
+    } else {
+      $(".only-for-public-editable").hide();
+    
+    }
+  });
 });

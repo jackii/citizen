@@ -17,11 +17,13 @@
       <%= _('Widget') %>
     </div>
     <div class="panel-body">
-      <%= f.translated_text_field :unit_name, readonly: true, value: '%' %>
-      <%= f.number_field :default_value, step: 'any' %>
-      <%= f.number_field :minimum, step: 'any' %>
-      <%= f.number_field :maximum, step: 'any' %>
-      <%= f.number_field :step, step: 'any', min: 0 %>
+      <div class="only-for-public-editable" style="<%= 'display:none' unless @variable.public_editable%>">
+        <%= f.translated_text_field :unit_name, readonly: true, value: '%' %>
+        <%= f.number_field :default_value, step: 'any' %>
+        <%= f.number_field :minimum, step: 'any' %>
+        <%= f.number_field :maximum, step: 'any' %>
+        <%= f.number_field :step, step: 'any', min: 0 %>
+      </div>
       <%= f.number_field :pbo_assumption, step: 'any', label:"PBO Assumption" %>
     </div>
   </div>
