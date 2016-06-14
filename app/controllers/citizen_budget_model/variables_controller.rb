@@ -26,7 +26,14 @@ module CitizenBudgetModel
 
     def update
       if @variable.update(variable_params)
-        redirect_to [@sensitivity, @variable], notice: _('Variable was updated.')
+        respond_to do |format|
+          format.html {
+            redirect_to [@sensitivity, @variable], notice: _('Variable was updated.')
+          }
+          format.json {
+            render json: @variable.to_json
+          }
+        end
       else
         render :edit
       end

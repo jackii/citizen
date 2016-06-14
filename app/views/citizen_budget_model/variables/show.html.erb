@@ -23,7 +23,6 @@
     <%= render partial: 'citizen_budget_model/shared/translated_field', locals: {record: @variable, attribute: :name} %>
     <%= render partial: 'citizen_budget_model/shared/field', locals: {record: @variable, attribute: :machine_name} %>
     <%= render partial: 'citizen_budget_model/shared/field', locals: {record: @variable, attribute: :pbo_assumption, formatter: value_formatter(@variable)} %>
-    <%= "" %>
     <div class="row">
       <div class="col-sm-2">
         <h2>Public Editable?</h2>

@@ -33,8 +33,18 @@ module CitizenBudgetModel
 
     def update
       if @impact.update(impact_params)
-        redirect_to [@sensitivity, @sensitivity_section, @impact], notice: _('Impact was updated.')
+
+        respond_to do |format|
+          format.html {
+            redirect_to [@sensitivity, @sensitivity_section, @impact], notice: _('Impact was updated.')
+          }
+          format.json {
+            render json: @impact.to_json
+          }
+        end
       else
+        logger.info @impact.to_json
+        logger.info @impact.errors.to_json
         render :edit
       end
     end
@@ -63,7 +73,7 @@ module CitizenBudgetModel
     end
 
     def impact_params
-      attribute_names = EconomicMeasure.globalize_attribute_names + [:machine_name, :impact_variables_attributes => [ :id, :year, :variable_id, :impact_id, :coefficient, :prepopulated_result ]]
+      attribute_names = EconomicMeasure.globalize_attribute_names + [:machine_name, :is_public, :year_1_formula, :year_1_excel_formula, :year_2_formula, :year_2_excel_formula, :year_5_formula, :year_5_excel_formula, :impact_variables_attributes => [ :id, :year, :variable_id, :impact_id, :coefficient, :prepopulated_result ]]
       params.require(:impact).permit(*attribute_names)
     end
   end

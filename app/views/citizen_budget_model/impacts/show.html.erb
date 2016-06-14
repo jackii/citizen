@@ -26,8 +26,20 @@
   <div class="panel-body">
     <%= render partial: 'citizen_budget_model/shared/translated_field', locals: {record: @impact, attribute: :name} %>
     <%= render partial: 'citizen_budget_model/shared/field', locals: {record: @impact, attribute: :machine_name} %>
+    <div class="row">
+      <div class="col-sm-2">
+        <h2>Public</h2>
+      </div>
+      <div class="col-sm-10">
+        <%= @impact.is_public? ? "Yes" : "No" %>
+      </div>
+    </div>
+
+    <%= render partial: 'citizen_budget_model/shared/field', locals: {record: @impact, attribute: :year_1_formula} %>
+
   </div>
   <div class="panel-body">
+    <% if false %>
     <% year = '' %>
     <% @impact.impact_variables.each do |variable| %>
       <%= year != variable.year ? "<legend>#{variable.year}</legend>".html_safe : '' %>
@@ -37,6 +49,7 @@
       
         <%= render partial: 'citizen_budget_model/shared/field', locals: {record: variable, attribute: :coefficient} %>
         <%= render partial: 'citizen_budget_model/shared/field', locals: {record: variable, attribute: :prepopulated_result} %>
+    <% end %>
     <% end %>
   </div>
 </div>

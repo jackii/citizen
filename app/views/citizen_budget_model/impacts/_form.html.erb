@@ -8,7 +8,10 @@
     <div class="panel-body">
       <%= f.translated_text_field :name %>
       <%= f.text_field :machine_name %>
+      <%= f.check_box :is_public %>
+      <%= f.text_field :year_2_formula %>
       <% year = '' %>
+      <% if false %>
       <%= f.fields_for :impact_variables do |f2| %>
         <%= year != f2.object.year ? "<legend>#{f2.object.year}</legend>".html_safe : '' %>
         <% year = f2.object.year %>
@@ -22,6 +25,7 @@
             <%= f2.number_field :prepopulated_result, label: (f2.object.variable.name + ' pre-populated result') %>
           </div>
         </div>
+      <% end %>
       <% end %>
 
     </div>

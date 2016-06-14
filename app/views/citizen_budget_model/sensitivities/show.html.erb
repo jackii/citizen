@@ -78,12 +78,69 @@
     <% s.impacts.each do |impact| %>
       <% @sections << {name: impact.name, is_title: false} %>
     <% end %>
-    <% @sections << {name:'', is_title: false} %>
-<% end %>
+  <% end %>
+  <% @sections << {name:'', is_title: false} %>
 
 
-<div id="hot"></div>
-<script>
+  <% @data = Array.new %>
+  <% @sensitivities = Array.new %>
+  <% @variables = Array.new %>
+  <% @sensitivity.sensitivity_sections.each do |s| %>
+    <% #@sensitivities << {sname: s.name} %>
+    <% s.impacts.each do |impact| %>
+      <% @sensitivities << {sid: impact.id,
+                            sname: impact.name,
+                            E: impact.machine_name.camelize(:lower) ,
+                            F: "#{impact.machine_name}_year_1".camelize(:lower) ,
+                            G: "#{impact.machine_name}_year_2".camelize(:lower) ,
+                            H: "#{impact.machine_name}_year_5".camelize(:lower) ,
+                            year_1_excel_formula: impact.year_1_excel_formula,
+                            year_1_formula: impact.year_1_formula,
+                            year_2_excel_formula: impact.year_2_excel_formula,
+                            year_2_formula: impact.year_2_formula,
+                            year_5_excel_formula: impact.year_5_excel_formula,
+                            year_5_formula: impact.year_5_formula,
+                            impact_url: sensitivity_sensitivity_section_impact_path(@sensitivity, s, impact)
+                          } %>
+    <% end %>
+  <% end %>
+  <% @sensitivity.variables.where(public_editable: true).each do |v|
+    @variables << {id: v.id,
+                   variable_name:v.name,
+                   B:"#{v.machine_name}_pbo_assumption".camelize(:lower) ,
+                   pbo_assumption:v.pbo_assumption,
+                   user_input:v.default_value,
+                   C:"#{v.machine_name}_user_input".camelize(:lower) ,
+                   variable_url: sensitivity_variable_path(@sensitivity, v)
+                  }
+    end
+  %>
+
+  <% @sensitivity.variables.where(public_editable: false).each do |v|
+      @variables << {id: v.id, variable_name:v.name, B:v.machine_name, pbo_assumption:v.pbo_assumption, user_input:'', variable_url: sensitivity_variable_path(@sensitivity, v)}
+    end
+  %>
+
+  <% if @sensitivities.size > @variables.size %>
+    <% @sensitivities.each_with_index do |s, index| %>
+      <% @data << @variables[index].merge(s) %>
+    <% end %>
+
+  <% else %>
+    <% @variables.each_with_index do |v, index| %>
+      <% @data << @sensitivities[index].merge(v) %>
+    <% end %>
+
+  <% end %>
+
+  <pre>
+  <%= @data.to_json %>
+  </pre>
+  <div id="hot"></div>
+  <div class="formula2"></div>
+
+  <script>
+/*
   var public_variables = <%= @sensitivity.variables.where(public_editable: true).collect {|v| [v.name, v.pbo_assumption, v.default_value]}.to_json.html_safe ;%>
   var variables = <%= @sensitivity.variables.where(public_editable: false).collect {|v| [v.name, v.pbo_assumption, v.default_value]}.to_json.html_safe ;%>
   var sections = <%= @sections.to_json.html_safe ;%>
@@ -92,18 +149,97 @@
     [],
     ['Variables',	'PBO Assumption  ',	'User Input  ',	'',	'', 'Year 1  ',	'Year 2  ','Year 5  ']
     ];
+*/
   var table = document.getElementById('hot');
+  var data = <%= @data.to_json.html_safe %>;
+
+  var hot2 = new Handsontable(table, {
+    data: data,
+    formulas: true,
+    rowHeaders: true,
+    colHeaders: true,
+    columns: [
+      {data: 'variable_name'},
+      {data: 'pbo_assumption'},
+      {data: 'user_input'},
+      {data: ''},
+      {data: 'sname'},
+      {data: 'year_1_excel_formula'},
+      {data: 'year_2_excel_formula'},
+      {data: 'year_5_excel_formula'}
+    ],
+    afterChange: function (change, source) {
+      if(change != undefined) {
+        var re = /([A-Z]+\d+)+/g;
+        var str = change[0][3];
+        var data_row = change[0][0];
+        var data_attr = change[0][1];
+        var m, m2;
+        var formula = str;
+
+        if (data_attr == 'year_1_excel_formula' || data_attr == 'year_2_excel_formula' || data_attr == 'year_5_excel_formula') {
+          while ((m = re.exec(str)) !== null) {
+            if (m.index === re.lastIndex) {
+                re.lastIndex++;
+            }
+            m2 = /([A-Z]+)(\d+)+/g.exec(m[0]);
+            if (m2) {
+              var row = parseInt(m2[2])-1;
+              var col = m2[1];
+
+              var impact_id = data[data_row]['id'];
+              var impact_url = data[data_row]['impact_url'];
+              formula = formula.replace(m[0], data[row][col]);
+            }
+          }
+          var year_formula = data_attr.replace("_excel", "");
+          var impact = {};
+          impact[year_formula] = formula.replace("=", "");
+          impact[data_attr] = str;
+          $.ajax({
+            url: impact_url,
+            dataType: 'json',
+            method: 'PUT',
+            data: {
+              impact: impact
+            }
+          });
+
+          $(".formula2").html(formula);
+        } else if(data_attr == 'pbo_assumption') {
+          var variable_url = data[data_row]['variable_url'];
+          $.ajax({
+            url: variable_url,
+            dataType: 'json',
+            method: 'PUT',
+            data: {
+              variable: {
+                pbo_assumption: change[0][3]
+              }
+            }
+          });
+        }
+      }
+    }
+  });
+
+/*
   var hot = new Handsontable(table, {
     data: sensitivity_data,
     formulas: true,
     rowHeaders: true,
     colHeaders: true,
-    readOnly: true,
-    autoColumnSize: true,
+    //readOnly: true,
     mergeCells: [
       {row:0, col:0, colspan:5, rowspan: 1},
       {row:0, col:5, colspan:5, rowspan: 1},
-    ]
+      ],
+      columns: [
+        {data: 'id'},
+        {data: 'name'},
+        {data: 'name.last'},
+        {data: 'address'}
+      ]
     });
   var row;
   $.each(public_variables, function(i,v){
@@ -159,7 +295,7 @@
     hot.getCell(0, i).style.fontWeight = 'bold';
     hot.getCell(0, i).style.color = 'black';
 
-    hot.getCell(2, i).style.fontStyle = 'oblique';
+    hot.getCell(2, i).style.fontStyle = 'bold';
     hot.getCell(2, i).style.color = 'black';
   });
 
@@ -171,7 +307,8 @@
   $.each(italics, function(i,d) {
     hot.getCell(d.row, d.col).style.fontStyle = 'oblique';
     hot.getCell(d.row, d.col).style.color = 'black';
-  });
+    });
+*/
 /*
   function boldRenderer(instance, td, row, col, prop, value, cellProperties) {
     Handsontable.renderers.TextRenderer.apply(this, arguments);
@@ -183,6 +320,8 @@
     Handsontable.renderers.TextRenderer.apply(this, arguments);
     td.style.fontStyle = 'oblique';
     td.style.color = 'black';
-  }
-*/
+    }
+
+ */
+
 </script>
