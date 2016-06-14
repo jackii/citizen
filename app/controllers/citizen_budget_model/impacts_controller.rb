@@ -43,8 +43,6 @@ module CitizenBudgetModel
           }
         end
       else
-        logger.info @impact.to_json
-        logger.info @impact.errors.to_json
         render :edit
       end
     end
