@@ -1394,4 +1394,6 @@ http://nicolasgallagher.com/micro-clearfix-hack/
     border-bottom: none;
     cursor: help;
 }
-
+.handsontable .formula, .handsontable td.htInvalid {
+  background-color:#90EE90 !important;
+}

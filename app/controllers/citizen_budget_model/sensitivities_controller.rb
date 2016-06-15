@@ -29,7 +29,14 @@ module CitizenBudgetModel
 
     def update
       if @sensitivity.update(sensitivity_params)
-        redirect_to @sensitivity, notice: _('Sensitivity was updated.')
+        respond_to do |format|
+          format.html {
+            redirect_to @sensitivity, notice: _('Sensitivity was updated.')
+          }
+          format.json {
+            render json: @sensitivity.to_json
+          }
+        end
       else
         render :edit
       end
@@ -59,7 +66,7 @@ module CitizenBudgetModel
     end
 
     def sensitivity_params
-      attribute_names = Sensitivity.globalize_attribute_names
+      attribute_names = Sensitivity.globalize_attribute_names + [:default_formula, :default_excel_formula]
       if admin?
         attribute_names << :organization_id
       end

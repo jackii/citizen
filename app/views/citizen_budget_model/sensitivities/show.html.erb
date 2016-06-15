@@ -85,6 +85,8 @@
   <% @data = Array.new %>
   <% @sensitivities = Array.new %>
   <% @variables = Array.new %>
+  <% @data << {variable_name:"Default Formula", pbo_assumption:@sensitivity.default_excel_formula, url:sensitivity_path(@sensitivity),B:"default_formula", bold:[0]} %>
+  <% @data << {} %>
   <% @sensitivity.sensitivity_sections.each do |s| %>
 
     <% @sensitivities << {sname: s.name,
@@ -98,7 +100,8 @@
                           year_2_formula: '',
                           year_5_excel_formula: 'Year 5',
                           year_5_formula: '',
-                          impact_url: ''
+                          impact_url: '',
+                          bold:[5,6,7,8]
                         } %>
     <% s.impacts.each do |impact| %>
       <% @sensitivities << {sid: impact.id,
@@ -113,7 +116,8 @@
                             year_2_formula: impact.year_2_formula,
                             year_5_excel_formula: impact.year_5_excel_formula,
                             year_5_formula: impact.year_5_formula,
-                            impact_url: sensitivity_sensitivity_section_impact_path(@sensitivity, s, impact)
+                            impact_url: sensitivity_sensitivity_section_impact_path(@sensitivity, s, impact),
+                            bold:[5,6,7,8]
                           } %>
     <% end %>
   <% end %>
@@ -169,6 +173,7 @@
   var table = document.getElementById('hot');
   var data = <%= @data.to_json.html_safe %>;
 
+
   var hot2 = new Handsontable(table, {
     data: data,
     formulas: true,
@@ -176,17 +181,17 @@
     colHeaders: true,
     columns: [
       {data: 'variable_name'},
-      {data: 'pbo_assumption'},
-      {data: 'user_input'},
+      {data: 'pbo_assumption', type:'numeric', format:'0.00'},
+      {data: 'user_input', type:'numeric', format:'0.00'},
       {data: ''},
       {data: 'sname'},
-      {data: 'year_1_excel_formula'},
-      {data: 'year_2_excel_formula'},
-      {data: 'year_5_excel_formula'}
+      {data: 'year_1_excel_formula', type:'numeric', format:'0.00'},
+      {data: 'year_2_excel_formula', type:'numeric', format:'0.00'},
+      {data: 'year_5_excel_formula', type:'numeric', format:'0.00'}
     ],
     afterChange: function (change, source) {
       if(change != undefined) {
-        var re = /([A-Z]+\d+)+/g;
+        var re = /([A-Za-z]+\d+)+/g;
         var str = change[0][3];
         var data_row = change[0][0];
         var data_attr = change[0][1];
@@ -198,12 +203,11 @@
             if (m.index === re.lastIndex) {
                 re.lastIndex++;
             }
-            m2 = /([A-Z]+)(\d+)+/g.exec(m[0]);
+            m2 = /([A-Za-z]+)(\d+)+/g.exec(m[0]);
             if (m2) {
               var row = parseInt(m2[2])-1;
               var col = m2[1];
 
-              var impact_id = data[data_row]['id'];
               var impact_url = data[data_row]['impact_url'];
               formula = formula.replace(m[0], data[row][col]);
             }
@@ -231,25 +235,65 @@
 
           $(".formula2").html(formula);
         } else if(data_attr == 'pbo_assumption') {
-          var variable_url = data[data_row]['variable_url'];
-          $.ajax({
-            url: variable_url,
-            dataType: 'json',
-            method: 'PUT',
-            data: {
-              variable: {
-                pbo_assumption: change[0][3]
+          if (data_row > 0) {
+
+            var variable_url = data[data_row]['variable_url'];
+            $.ajax({
+              url: variable_url,
+              dataType: 'json',
+              method: 'PUT',
+              data: {
+                variable: {
+                  pbo_assumption: change[0][3]
+                }
+              }
+            }).fail(function() {
+              $(".status").show().html("Error!");
+            }).done(function() {
+              $(".status").show().html("Saved");
+            }).complete(function(){
+              setTimeout(function(){
+                $(".status").fadeOut(1000);
+              }, 2000);
+            });
+
+          } else {
+            while ((m = re.exec(str)) !== null) {
+              if (m.index === re.lastIndex) {
+                  re.lastIndex++;
+              }
+              m2 = /([A-Za-z]+)(\d+)+/g.exec(m[0]);
+              if (m2) {
+                var row = parseInt(m2[2])-1;
+                var col = m2[1];
+
+                var url = data[data_row]['url'];
+                formula = formula.replace(m[0], data[row][col]);
               }
             }
-          }).fail(function() {
-            $(".status").show().html("Error!");
-          }).done(function() {
-            $(".status").show().html("Saved");
-          }).complete(function(){
-            setTimeout(function(){
-              $(".status").fadeOut(1000);
-            }, 2000);
-          });
+
+            var sensitivity = {};
+            sensitivity['default_formula'] = formula.replace("=", "");
+            sensitivity['default_excel_formula'] = str;
+            $.ajax({
+              url: url,
+              dataType: 'json',
+              method: 'PUT',
+              data: {
+                sensitivity: sensitivity
+              }
+            }).fail(function() {
+              $(".status").show().html("Error!");
+            }).done(function() {
+              $(".status").show().html("Saved");
+            }).complete(function(){
+              setTimeout(function(){
+                $(".status").fadeOut(1000);
+              }, 2000);
+            });
+
+            $(".formula2").html(formula);
+          }
         }
       }
     }
