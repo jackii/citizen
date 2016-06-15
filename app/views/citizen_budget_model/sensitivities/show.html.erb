@@ -120,6 +120,7 @@
                             bold:[5,6,7,8]
                           } %>
     <% end %>
+    <% @sensitivities << {} %>
   <% end %>
 
   <% @variables << {variable_name: "Public Editable Variables", pbo_assumption:"PBO Assumption", user_input: "User Input"} %>
@@ -134,7 +135,7 @@
                   }
     end
   %>
-
+  <% @variables << {} %>
   <% @variables << {variable_name: "Non Public Editable Variables", pbo_assumption:"PBO Assumption", user_input: ""} %>
   <% @sensitivity.variables.where(public_editable: false).each do |v|
       @variables << {id: v.id, variable_name:v.name, B:v.machine_name, pbo_assumption:v.pbo_assumption, user_input:'', variable_url: sensitivity_variable_path(@sensitivity, v)}
@@ -148,10 +149,13 @@
         <% @data << @variables[index].merge(s) %>
       <% end %>
     <% end %>
-
   <% else %>
     <% @variables.each_with_index do |v, index| %>
-      <% @data << @sensitivities[index].merge(v) %>
+      <% if @sensitivities[index].blank? %>
+        <% @data << v %>
+      <% else %>
+        <% @data << @sensitivities[index].merge(v) %>
+      <% end %>
     <% end %>
 
   <% end %>
