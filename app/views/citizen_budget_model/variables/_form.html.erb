@@ -17,8 +17,8 @@
       <%= _('Widget') %>
     </div>
     <div class="panel-body">
+      <%= f.translated_text_field :unit_name  %>
       <div class="only-for-public-editable" style="<%= 'display:none' unless @variable.public_editable%>">
-        <%= f.translated_text_field :unit_name, readonly: true, value: '%' %>
         <%= f.number_field :default_value, step: 'any' %>
         <%= f.number_field :minimum, step: 'any' %>
         <%= f.number_field :maximum, step: 'any' %>
