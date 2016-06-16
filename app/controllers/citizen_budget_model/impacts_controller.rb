@@ -33,7 +33,6 @@ module CitizenBudgetModel
 
     def update
       if @impact.update(impact_params)
-
         respond_to do |format|
           format.html {
             redirect_to [@sensitivity, @sensitivity_section, @impact], notice: _('Impact was updated.')

@@ -36,6 +36,8 @@
     </div>
 
     <%= render partial: 'citizen_budget_model/shared/field', locals: {record: @impact, attribute: :year_1_formula} %>
+    <%= render partial: 'citizen_budget_model/shared/field', locals: {record: @impact, attribute: :year_2_formula} %>
+    <%= render partial: 'citizen_budget_model/shared/field', locals: {record: @impact, attribute: :year_5_formula} %>
 
   </div>
   <div class="panel-body">
@@ -44,9 +46,7 @@
     <% @impact.impact_variables.each do |variable| %>
       <%= year != variable.year ? "<legend>#{variable.year}</legend>".html_safe : '' %>
       <% year = variable.year %>
-
       <div style="padding-bottom: 6px"><u><%= variable.variable.name %></u></div>
-      
         <%= render partial: 'citizen_budget_model/shared/field', locals: {record: variable, attribute: :coefficient} %>
         <%= render partial: 'citizen_budget_model/shared/field', locals: {record: variable, attribute: :prepopulated_result} %>
     <% end %>
