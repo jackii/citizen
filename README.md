@@ -1,3 +1,29 @@
+We are adding a few new features to the ready reckoner application under the
+sensitivity analysis tab
+
+Formula editor
+
+1) Admin will be able to edit the formula using hands on table for a specific impact
+2) Admin will be be able to use the mathematical formulas built in to hands on table
+3) Admin will be able to reference the variables set in the Variables model
+4) Admin will be able to edit the formula used for Year 1, Year 2, Year 5
+4b) Admin will be able to refernce the previous year's formula in a cell.  Basically we are building a Microsoft Excel like interface.
+
+The formula that is set will be used by the front end sliders
+
+Formula test field
+
+1) Admin will be able to supply values for the variables in a given formula and see what the numeric result will be
+  If a formula was 'ax+b', a user could enter a = 5, x = 5, b=5 and get the answer 30
+
+Global formula for sensitivity analysis table
+
+1) Admin will be able to set a default formula that will be used for all impacts in a sensistivity analysis table
+
+Custom formula for specific impact
+
+1) Admin will be able to set a formula for an impact that will be able to override the global formula for that impact
+
 # Citizen Budget: Model
 
 [![Gem Version](https://badge.fury.io/rb/citizen_budget_model.svg)](http://badge.fury.io/rb/citizen_budget_model)
