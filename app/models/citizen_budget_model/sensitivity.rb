@@ -35,7 +35,7 @@ module CitizenBudgetModel
                               year_5_excel_formula: 'Year 5',
                               year_5_formula: '',
                               impact_url: '',
-                              bold:[5,6,7,8]
+                              bold:[4,5,6,7]
                             }
         s.impacts.each do |impact|
           @sensitivities << {sid: impact.id,
@@ -49,15 +49,13 @@ module CitizenBudgetModel
                                 year_2_excel_formula: impact.year_2_excel_formula,
                                 year_2_formula: impact.year_2_formula,
                                 year_5_excel_formula: impact.year_5_excel_formula,
-                                year_5_formula: impact.year_5_formula,
-                                #impact_url: sensitivity_sensitivity_section_impact_path(@sensitivity, s, impact),
-                                bold:[5,6,7,8]
+                                year_5_formula: impact.year_5_formula
                               }
         end
         @sensitivities << {}
       end
 
-      @variables << {variable_name: "Public Editable Variables", pbo_assumption:"PBO Assumption", user_input: "User Input"}
+      @variables << {variable_name: "Public Editable Variables", pbo_assumption:"PBO Assumption", user_input: "User Input", bold:[0,1,2]}
       @sensitivity.variables.where(public_editable: true).each do |v|
         @variables << {id: v.id,
                       variable_name:v.name,
@@ -70,7 +68,7 @@ module CitizenBudgetModel
         end
 
       @variables << {}
-      @variables << {variable_name: "Non Public Editable Variables", pbo_assumption:"PBO Assumption", user_input: ""}
+      @variables << {variable_name: "Non Public Editable Variables", pbo_assumption:"PBO Assumption", user_input: "", bold: [0,1,2]}
       @sensitivity.variables.where(public_editable: false).each do |v|
         @variables << {id: v.id,
                        variable_name:v.name,

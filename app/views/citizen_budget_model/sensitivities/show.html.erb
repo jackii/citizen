@@ -88,6 +88,11 @@
   var table = document.getElementById('hot');
   var data = <%= @sensitivity.to_handsontable.to_json.html_safe %>;
 
+  function firstRowRenderer(instance, td, row, col, prop, value, cellProperties) {
+    Handsontable.renderers.TextRenderer.apply(this, arguments);
+    td.style.fontWeight = 'bold';
+  }
+
   var hot2 = new Handsontable(table, {
     data: data,
     formulas: true,
@@ -103,6 +108,19 @@
       {data: 'year_2_excel_formula', type:'numeric', format:'0.00'},
       {data: 'year_5_excel_formula', type:'numeric', format:'0.00'}
     ],
+    cells: function (row, col, prop) {
+      var cellProperties = {};
+
+      if (row === 2 || (row==0 && col == 0)) {
+        cellProperties.renderer = firstRowRenderer;
+      }
+
+      if ((data[row]['bold'] !== undefined && $.inArray(col, data[row]['bold']) > -1)) {
+        cellProperties.renderer = firstRowRenderer;
+      }
+
+      return cellProperties;
+    },
     afterChange: function (change, source) {
       if(change != undefined) {
         var re = /([A-Za-z]+\d+)+/g;
