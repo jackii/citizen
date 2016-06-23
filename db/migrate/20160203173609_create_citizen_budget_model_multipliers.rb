@@ -1,3 +1,10 @@
+module CitizenBudgetModel
+  class Multiplier < ActiveRecord::Base
+    translates :name, :popover, fallbacks_for_empty_translations: true
+    globalize_accessors
+  end
+end
+
 class CreateCitizenBudgetModelMultipliers < ActiveRecord::Migration
   def up
     create_table :citizen_budget_model_multipliers do |t|

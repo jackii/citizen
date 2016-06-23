@@ -1,3 +1,10 @@
+module CitizenBudgetModel
+  class Policy < ActiveRecord::Base
+    translates :name, :unit_name, fallbacks_for_empty_translations: true
+    globalize_accessors
+  end
+end
+
 class CreateCitizenBudgetModelPolicies < ActiveRecord::Migration
   def up
     create_table :citizen_budget_model_policies do |t|
