@@ -15,12 +15,12 @@ module CitizenBudgetModel
 
       it 'should return a number with precision' do
         question = Question.new
-        expect(helper.value_formatter(question).call('2.10')).to eq('2.1')
+        expect(helper.value_formatter(question).call('2.10')).to eq('2.1 ')
       end
 
       it 'should accept options' do
         question = Question.new
-        expect(helper.value_formatter(question, strip_insignificant_zeros: false).call('2.10')).to eq('2.100')
+        expect(helper.value_formatter(question, strip_insignificant_zeros: false).call('2.10')).to eq('2.100 ')
       end
     end
 
@@ -48,12 +48,12 @@ module CitizenBudgetModel
 
     describe '#precision_formatter' do
       it 'should return a number with precision' do
-        expect(helper.precision_formatter.call('2.10')).to eq('2.1')
+        expect(helper.precision_formatter.call('2.10')).to eq('2.1 ')
       end
 
       it 'should accept options' do
         question = Question.new
-        expect(helper.precision_formatter(strip_insignificant_zeros: false).call('2.10')).to eq('2.100')
+        expect(helper.precision_formatter(strip_insignificant_zeros: false).call('2.10')).to eq('2.100 ')
       end
     end
 
