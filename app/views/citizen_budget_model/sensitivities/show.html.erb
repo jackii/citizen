@@ -141,7 +141,11 @@
               var col = m2[1];
 
               var impact_url = data[data_row]['impact_url'];
-              formula = formula.replace(m[0], data[row][col]);
+              if (data[row] !== undefined && data[row][col] !== undefined) {
+                formula = formula.replace(m[0], data[row][col]);
+              } else {
+                $(".status").show().html("Error!");
+              }
             }
           }
           var year_formula = data_attr.replace("_excel", "");
@@ -200,7 +204,11 @@
                 var col = m2[1];
 
                 var url = data[data_row]['url'];
-                formula = formula.replace(m[0], data[row][col]);
+                if (data[row] !== undefined && data[row][col] !== undefined) {
+                  formula = formula.replace(m[0], data[row][col]);
+                } else {
+                  $(".status").show().html("Error!");
+                }
               }
             }
 
