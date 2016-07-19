@@ -76,103 +76,105 @@
 <div class="row">
   <div class="col-lg-8 col-md-10 col-sm-12">
     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-      <div class="panel panel-default">
-        <div class="panel-heading" role="tab" id="headingOne">
-          <h4 class="panel-title">
-            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-              Instructions for using the sensitivity excel interface
-            </a>
-          </h4>
-        </div>
-        <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-          <div class="panel-body">
-            <h4>The excel interface can be used for 3 things: </h4>
-            <ol>
-              <li>Setting a formula for an economic impact in a given year</li>
+      <% if I18n.locale.to_s == 'en-CA' %>
+        <div class="panel panel-default">
+          <div class="panel-heading" role="tab" id="headingOne">
+            <h4 class="panel-title">
+              <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                Instructions for using the sensitivity excel interface
+              </a>
+            </h4>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+            <div class="panel-body">
+              <h4>The excel interface can be used for 3 things: </h4>
+              <ol>
+                <li>Setting a formula for an economic impact in a given year</li>
 
-              <li>Testing the values that will be produced by the system on the front end</li>
+                <li>Testing the values that will be produced by the system on the front end</li>
 
-              <li>Updating the values of the variables.</li>
-            </ol>
+                <li>Updating the values of the variables.</li>
+              </ol>
 
-            <p>To create a variable, a section, or an impact, one must use the blue buttons with the respective designation.</p>
+              <p>To create a variable, a section, or an impact, one must use the blue buttons with the respective designation.</p>
 
-            <p>The system currently supports 2 types of variables.  A Publicly Editable Variable that will be editable by users via
-              sliders on the sensitivity table page and a Non-publicly Editable Variable that is only for use in the excel-like
-              editing system.</p>
+              <p>The system currently supports 2 types of variables.  A Publicly Editable Variable that will be editable by users via
+                sliders on the sensitivity table page and a Non-publicly Editable Variable that is only for use in the excel-like
+                editing system.</p>
 
-            <p>If you wish to use a Publicly Editable Variable in a formula, you must reference the respective User Input value
-              (C column) in your formula.</p>
+              <p>If you wish to use a Publicly Editable Variable in a formula, you must reference the respective User Input value
+                (C column) in your formula.</p>
 
-            <p>If you wish to use a Non-publicly Editable Variable you simply reference the respective cell in the B column.</p>
+              <p>If you wish to use a Non-publicly Editable Variable you simply reference the respective cell in the B column.</p>
 
-            <h4>Rules for using the excel-like interface:</h4>
+              <h4>Rules for using the excel-like interface:</h4>
 
-            <ol>
-              <li>You must reference cells with a capital letter. Lower case letters cannot be used</li>
+              <ol>
+                <li>You must reference cells with a capital letter. Lower case letters cannot be used</li>
 
-              <li>You cannot use underscores (_) in your variable names</li>
+                <li>You cannot use underscores (_) in your variable names</li>
 
-              <li>You must only reference cells that have a numerical or formula value. The system will not parse text values</li>
+                <li>You must only reference cells that have a numerical or formula value. The system will not parse text values</li>
 
-              <li>Pre-calculated values are done top down, left to right.  So do not reference cells that are to the left of the
-              cell you are editing</li>
+                <li>Pre-calculated values are done top down, left to right.  So do not reference cells that are to the left of the
+                cell you are editing</li>
 
-              <li>Do not reference empty cells</li>
+                <li>Do not reference empty cells</li>
 
-              <li>Do not use circular referencing in your formulas</li>
+                <li>Do not use circular referencing in your formulas</li>
 
-              <li>If you remove any variable, section, or impact, you must verify that your formulas still work as expected. If
-              you have referenced something that no longer exists, the application will not be able to calculate the formula correctly</li>
-            </ol>
+                <li>If you remove any variable, section, or impact, you must verify that your formulas still work as expected. If
+                you have referenced something that no longer exists, the application will not be able to calculate the formula correctly</li>
+              </ol>
 
+            </div>
           </div>
         </div>
-      </div>
+      <% end %>
+      <% if I18n.locale.to_s == 'fr-CA' %>
+        <div class="panel panel-default">
+          <div class="panel-heading" role="tab" id="headingOne">
+            <h4 class="panel-title">
+              <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="collapseOne">
+                Consignes pour l’utilisation de l’interface de sensibilité Excel
+              </a>
+            </h4>
+          </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+            <div class="panel-body">
+              <h4>L’interface d’Excel sert à trois fonctions :</h4>
+              <ol>
+                <li>créer une formule qui calcule les incidences économiques au cours d’une année donnée;</li>
+                <li>mettre à l’essai les valeurs produites en amont par le système;</li>
+                <li>actualiser les valeurs des variables.</li>
+              </ol>
+              <p>Pour créer une variable, une section ou encore une incidence, il faut utiliser les boutons bleus aux désignations respectives.</p>
+              <p>Le système supporte en ce moment deux types de variables. En effet, il y a la variable que le public peut modifier à l’aide des
+              curseurs de défilement sur la page de table sensible ainsi que la variable non modifiable par le public, qui est utilisée seulement
+              dans le système modifiable similaire à Excel.</p>
+              <p>Pour employer une variable modifiable par le public dans une formule, il vous faut créer la référence à la valeur d’entrée
+              respective de l’utilisateur (colonne C) dans votre formule.</p>
+              <p>Pour employer une variable non modifiable par le public, il vous faut simplement créer la référence à la cellule respective
+              de la colonne B.</p>
 
-      <div class="panel panel-default">
-        <div class="panel-heading" role="tab" id="headingOne">
-          <h4 class="panel-title">
-            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="collapseOne">
-              Consignes pour l’utilisation de l’interface de sensibilité Excel
-            </a>
-          </h4>
-        </div>
-        <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-          <div class="panel-body">
-            <h4>L’interface d’Excel sert à trois fonctions :</h4>
-            <ol>
-              <li>créer une formule qui calcule les incidences économiques au cours d’une année donnée;</li>
-              <li>mettre à l’essai les valeurs produites en amont par le système;</li>
-              <li>actualiser les valeurs des variables.</li>
-            </ol>
-            <p>Pour créer une variable, une section ou encore une incidence, il faut utiliser les boutons bleus aux désignations respectives.</p>
-            <p>Le système supporte en ce moment deux types de variables. En effet, il y a la variable que le public peut modifier à l’aide des
-            curseurs de défilement sur la page de table sensible ainsi que la variable non modifiable par le public, qui est utilisée seulement
-            dans le système modifiable similaire à Excel.</p>
-            <p>Pour employer une variable modifiable par le public dans une formule, il vous faut créer la référence à la valeur d’entrée
-            respective de l’utilisateur (colonne C) dans votre formule.</p>
-            <p>Pour employer une variable non modifiable par le public, il vous faut simplement créer la référence à la cellule respective
-            de la colonne B.</p>
+              <h4>Règles d’utilisation de l’interface similaire à Excel</h4>
+              <ol>
+                <li>Il vous faut toujours utiliser la majuscule pour créer une référence à des cellules. Les minuscules ne peuvent être utilisées.</li>
+                <li>Il faut éviter d’utiliser le caractère de soulignement (_) dans le nom des variables.</li>
+                <li>Il faut créer la référence seulement à des cellules à valeur numérique ou à valeur d’une formule. Le système n’analysera pas
+                les valeurs textuelles.</li>
+                <li>Les valeurs précalculées sont exécutées de haut en bas et de gauche à droite. Il ne faut donc pas créer de référence à des
+                cellules à gauche de celle que vous êtes en train de modifier.</li>
+                <li>Il faut éviter les références à des cellules vides.</li>
+                <li>Il faut éviter les références circulaires dans vos formules.</li>
+                <li>Si une variable, une section ou une incidence est supprimée, il vous faut vérifier que vos formules fonctionnent comme prévu.
+                Si vous avez créé une référence à une valeur qui n’existe plus, l’application ne pourra pas calculer correctement la formule.</li>
+              </ol>
 
-            <h4>Règles d’utilisation de l’interface similaire à Excel</h4>
-            <ol>
-              <li>Il vous faut toujours utiliser la majuscule pour créer une référence à des cellules. Les minuscules ne peuvent être utilisées.</li>
-              <li>Il faut éviter d’utiliser le caractère de soulignement (_) dans le nom des variables.</li>
-              <li>Il faut créer la référence seulement à des cellules à valeur numérique ou à valeur d’une formule. Le système n’analysera pas
-              les valeurs textuelles.</li>
-              <li>Les valeurs précalculées sont exécutées de haut en bas et de gauche à droite. Il ne faut donc pas créer de référence à des
-              cellules à gauche de celle que vous êtes en train de modifier.</li>
-              <li>Il faut éviter les références à des cellules vides.</li>
-              <li>Il faut éviter les références circulaires dans vos formules.</li>
-              <li>Si une variable, une section ou une incidence est supprimée, il vous faut vérifier que vos formules fonctionnent comme prévu.
-              Si vous avez créé une référence à une valeur qui n’existe plus, l’application ne pourra pas calculer correctement la formule.</li>
-            </ol>
-
+            </div>
           </div>
         </div>
-      </div>
-
+      <% end %>
     </div>
   </div>
 </div>
