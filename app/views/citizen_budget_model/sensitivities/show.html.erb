@@ -186,7 +186,7 @@
   <script>
 
   var table = document.getElementById('hot');
-  var data = <%= @sensitivity.to_handsontable.to_json.html_safe %>;
+  var data = <%= to_handsontable(@sensitivity).to_json.html_safe %>;
 
   function firstRowRenderer(instance, td, row, col, prop, value, cellProperties) {
     Handsontable.renderers.TextRenderer.apply(this, arguments);
@@ -240,7 +240,6 @@
               var row = parseInt(m2[2])-1;
               var col = m2[1];
 
-              var impact_url = data[data_row]['impact_url'];
               if (data[row] !== undefined && data[row][col] !== undefined) {
                 formula = formula.replace(m[0], data[row][col]);
               } else {
@@ -248,6 +247,7 @@
               }
             }
           }
+          var impact_url = data[data_row]['impact_url'];
           var year_formula = data_attr.replace("_excel", "");
           var impact = {};
           impact[year_formula] = formula.replace("=", "");
